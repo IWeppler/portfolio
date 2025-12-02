@@ -1,0 +1,254 @@
+{
+  "navbar": {
+  "home": "Home",
+  "projects": "Projects",
+  "contact": "Contact"
+},
+  "hero": {
+    "part1": "Hello!",
+    "part2": " I'm Ignacio, full-stack developer working from",
+    "part3": " Argentina, creating digital solutions for businesses that want to grow seriously.",
+    "cta_write": "Get in touch",
+    "cta_works": "See Works"
+  },
+  "works": {
+    "section_subtitle": "Portfolio",
+    "title": "Featured Works",
+    "view_project": "View Project",
+    "view_all": "View All Projects",
+    "default_tag": "Development • Design"
+  },
+  "aboutme": {
+    "title": "About Me",
+    "p1_part1": "I'm Ignacio, a ",
+    "p1_span1": "full-stack developer ",
+    "p1_part2": "working from Argentina. I collaborate with businesses and entrepreneurs who need a clear, modern digital presence, along with the ",
+    "p1_span2": "right tools to grow",
+    "p1_part3": ".",
+    "p2_part1": "My approach blends development, functional design, and strategy. ",
+    "p2_span1": "I don’t build websites just to build them",
+    "p2_part2": ": I solve real problems, optimize processes, and create ",
+    "p2_span2": "experiences that convert better",
+    "p2_part3": ".",
+    "question": "Got a project, an idea, or want to improve what you already have? ",
+    "cta": "Let's talk.",
+    "metrics": {
+      "projects": "Projects completed",
+      "tech": "Technologies mastered",
+      "exp": "Year of experience",
+      "desire": "Drive to build"
+    }
+  },
+
+  "features": {
+    "subtitle": "• Services",
+    "title": "How I Make a Difference",
+    "blocks": [
+      {
+        "title": "Design & Experience",
+        "itemsLeft": [
+          "Clear visual architecture",
+          "Human-centered experience",
+          "Simple and intuitive navigation"
+        ],
+        "itemsRight": [
+          "Clean and modern interfaces",
+          "Professional responsive design",
+          "Micro-adjustments that boost conversion"
+        ]
+      },
+      {
+        "title": "Web Development & Performance",
+        "itemsLeft": [
+          "Fast, optimized websites",
+          "Modern development (Next.js / Astro)",
+          "Clean, scalable code"
+        ],
+        "itemsRight": [
+          "High-converting landing pages",
+          "Speed improvements",
+          "Direct integrations (APIs / SaaS)"
+        ]
+      },
+      {
+        "title": "Internal Systems & Dashboards",
+        "itemsLeft": [
+          "Internal applications",
+          "Management systems",
+          "Admin dashboards"
+        ],
+        "itemsRight": [
+          "Custom MVPs & SaaS",
+          "Process automation",
+          "Real-data integrations"
+        ]
+      },
+      {
+        "title": "Technical Implementation & SEO",
+        "itemsLeft": [
+          "DNS & hosting fixes",
+          "Technical SEO for 2025",
+          "Analytics implementation"
+        ],
+        "itemsRight": [
+          "Optimization for Google & AI",
+          "External service integrations",
+          "Indexing improvements"
+        ]
+      },
+      {
+        "title": "Digital Branding",
+        "itemsLeft": [
+          "Professional typography selection",
+          "Modern, consistent palettes",
+          "Visual re-organization"
+        ],
+        "itemsRight": [
+          "Fixing inconsistent styles",
+          "Aesthetic refinement",
+          "Brand improvement without redesign"
+        ]
+      },
+      {
+        "title": "Consulting & Audits",
+        "itemsLeft": [
+          "Site diagnosis",
+          "Usability review",
+          "Detection of real issues"
+        ],
+        "itemsRight": [
+          "Performance audits",
+          "Actionable recommendations",
+          "Professional guidance"
+        ]
+      }
+    ]
+  },
+  "cta": {
+    "subtitle": "Do you have a project in mind?",
+    "title": "Let's work together",
+    "cta": "Let's talk"
+  },
+  
+  "footer": {
+    "title": "Contact",
+    "email_label": "Email",
+    "phone_label": "Phone",
+    "rights": "Ignacio Weppler. All rights reserved.",
+    "links": {
+      "projects": "Projects",
+      "services": "Services",
+      "about": "About Me",
+      "contact": "Contact"
+    }
+  },
+  "projectspage": {
+    "title": "Last Projects",
+    "subtitle": "& Case Studies"
+  },
+  "proyectos": {
+    "proyecto1": {
+      "etiqueta": "Institutional Website",
+      "name": "Club Atlético Tostado",
+      "subtitulo": "Digitalizing the region's sporting heart",
+      "p1": "My goal was to create a digital home for Club Atlético Tostado, the region's most important sports institution, which until then lacked a professional online presence. The project aimed to establish a modern, official communication channel to connect with members and the community.",
+      "p2": "I developed a modern and visually appealing institutional website focused on providing a smooth user experience. Using technologies like Astro and Framer Motion, I created a fast platform with subtle animations that reinforce the club's identity. Currently, the site serves as a central hub of information, presenting news, schedules, and the institution's history.",
+      "p3": "This website established the club's first official digital presence, significantly improving communication and access to information. It provides a solid, scalable foundation for future expansions and has positioned the club as an entity that values modernity and connection with its people.",
+      "caracteristicas": "Current Features",
+      "li1": "Attractive, modern design with fluid animations (Framer Motion).",
+      "li2": "News and updates section to keep the community informed.",
+      "li3": "Centralized information on schedules and sports activities.",
+      "li4": "Fully responsive site optimized for fast performance (Astro).",
+      "img": "/src/assets/tres.webp",
+      "imgAlt": "Preview of the Club Atlético Tostado project",
+      "github": "https://github.com/IWeppler/AtleticoTostado",
+      "deploy": "https://atleticotostado.vercel.app/"
+    },
+    "proyecto2": {
+      "etiqueta": "Order & Management System",
+      "name": "El Nuevo Manantial",
+      "subtitulo": "Transforming a Family Business",
+      "p1": "To boost a growing family business, I identified the critical need to digitize its operations. The manual ordering system via social media and paper was causing disorganization, limiting growth, and consuming valuable time. The challenge was to create a technological solution that was as robust as it was easy to use for both the family and their customers.",
+      "p2": "I developed a custom full-stack web application that centralizes the entire sales cycle. The platform allows customers (both registered and guests) to place orders intuitively, while administrators manage everything from an operational dashboard designed for quick and efficient decision-making.",
+      "p3": "The result is a tool that not only dramatically optimized management time but also improved the customer experience and laid the groundwork for scalable growth. This project demonstrates my ability to understand a business need, design a complete solution, and execute it with modern technologies, delivering a final product that generates a direct and measurable impact.",
+      "li1": "Intelligent Ordering Platform: Allows new and registered customers to buy quickly, with real-time price calculation and a frictionless purchasing flow.",
+      "li2": "Centralized Operations Dashboard: A control panel for administrators with sales metrics, advanced filters by date and status, order management, and stock control.",
+      "li3": "Authentication and Roles System: Secure user management with customer and administrator roles (NextAuth.js), protecting sensitive data and functionalities.",
+      "li4": "Modern and Scalable Full-Stack Architecture: Built with Next.js, Prisma, and Supabase for optimal performance and easy maintenance.",
+      "img": "/src/assets/el-manantial.webp",
+      "imgAlt": "Preview of the El Nuevo Manantial project",
+      "caracteristicas": "Main Features",
+      "github": "https://github.com/IWeppler/el-manantial",
+      "deploy": "https://el-manantial-two.vercel.app/"
+    },
+    "proyecto3": {
+      "etiqueta": "E-commerce",
+      "name": "Technology E-commerce",
+      "subtitulo": "Online tech store",
+      "p1": "I developed an e-commerce platform for a tech store that needed a robust and scalable site. The goal was to create a site that not only sold products but also offered a smooth and secure shopping experience.",
+      "p2": "The store features a large product catalog, an advanced search system, and filters to simplify navigation. I also implemented an inventory management system and a secure payment process.",
+      "p3": "The design focuses on simplicity and functionality, ensuring users can find what they need quickly and complete purchases without hassle.",
+      "li1": "Extensive catalog: Easy browsing through categories and products.",
+      "li2": "Advanced search system: Filters by brand, price, and features.",
+      "li3": "Secure payment process: Integration with reliable payment gateways.",
+      "li4": "Inventory management: Automatic stock updates.",
+      "img": "/src/assets/ecommerce.webp",
+      "imgAlt": "Preview of the Technology E-commerce project",
+      "caracteristicas": "Main Features",
+      "github": "https://github.com/IWeppler/PM4FE",
+      "deploy": "https://pm-4-fe-pi.vercel.app/"
+    },
+    "proyecto4": {
+      "etiqueta": "Real Estate Platform & CRM",
+      "name": "Inmobiliaria TerraNova",
+      "subtitulo": "Comprehensive solution for property management and sales",
+      "p1": "I developed a high-performance web platform designed to modernize the operations of a rural and urban real estate agency. The goal was to overcome the limitations of traditional websites, creating a digital ecosystem that functions not just as a showcase, but as an active sales closing tool.",
+      "p2": "The application merges an SEO-optimized public portal with a powerful Administrative Dashboard (CRM). Built on Next.js 15 and Supabase, I implemented an advanced security system (Row Level Security) that manages granular permissions between Administrators and Agents, ensuring business data integrity and privacy.",
+      "p3": "The system transforms the workflow: it automatically captures leads from the web, assigns them to the responsible agent, and allows detailed tracking through internal notes and statuses. Additionally, it incorporates sector-specific tools such as interactive satellite maps and dynamic metadata generation for social sharing.",
+      "caracteristicas": "Main Features",
+      "li1": "Integrated Sales CRM: Lead pipeline with statuses, internal notes chat for tracking, and agent reassignment system.",
+      "li2": "Role Architecture & Security: Admin panel with Role-Based Access Control (RBAC) and team management.",
+      "li3": "High-Performance Tech: Advanced technical SEO (JSON-LD, OpenGraph), image optimization, and instant loading.",
+      "li4": "Conversion Tools: Direct WhatsApp integration, interactive maps for lots/fields, and real-time visit counter.",
+      "img": "/src/assets/inmobiliaria1.png",
+      "imgAlt": "Preview of TerraNova Real Estate project",
+      "github": "https://github.com/IWeppler/TerraNova",
+      "deploy": "https://inmobiliaria-pi.vercel.app/"
+    },
+    "proyecto5": {
+      "etiqueta": "Commercial management SaaS",
+      "name": "Nivo POS",
+      "subtitulo": "Web tool for business management",
+      "p1": "Nivo is a web tool I developed for a commercial services company. The goal was to create a platform that streamlined client, sales, and report management.",
+      "p2": "The tool includes client management, sales tracking, report generation, and data analysis. I also implemented an authentication and authorization system to ensure data security.",
+      "p3": "The design focuses on efficiency and functionality, ensuring users can quickly access the information they need.",
+      "li1": "Client management: Database to store client information.",
+      "li2": "Sales tracking: Transaction records and performance analysis.",
+      "li3": "Report generation: Customizable reports on sales and clients.",
+      "li4": "Data analysis: Tools to visualize and analyze business information.",
+      "img": "/src/assets/nivo.webp",
+      "imgAlt": "Preview of the Nivo project",
+      "caracteristicas": "Main Features",
+      "github": "https://github.com/DreamTeeam/front",
+      "deploy": "https://nivoapp.vercel.app/"
+    },
+    "proyecto6": {
+      "etiqueta": "SaaS Platform for Sports Complex Management",
+      "name": "CheCancha",
+      "subtitulo": "The SaaS solution that professionalizes court bookings.",
+      "p1": "CheCancha originated as 'Courtify', my capstone project for the Soy Henry Full Stack development bootcamp. The challenge was to build a complete application from scratch, individually, that solved a real and tangible market problem, demonstrating the ability to take an idea from concept to a functional product.",
+      "p2": "I noticed that most local sports complexes relied on informal and chaotic methods to manage their reservations (notebooks, WhatsApp, etc.). My goal was clear: to create a robust digital platform that offered a modern and organized experience, laying the groundwork for what is now the vision of CheCancha.",
+      "p3": "From its inception, the project focused on usability for both the administrator and the end customer. The platform not only optimizes daily management but also opens the door to a scalable business model (SaaS) that can transform the operations of hundreds of sports complexes.",
+      "caracteristicas": "Key Features",
+      "li1": "Intuitive Admin Dashboard: A central control panel with an interactive calendar to manage schedules, confirm bookings, and view real-time court occupancy.",
+      "li2": "Player Self-Management Portal: User profiles with traditional and social sign-in (Google Auth), booking history, and personal data management.",
+      "li3": "Automated Notification System: Transactional emails for booking confirmations, reminders, and changes, reducing no-shows and improving communication.",
+      "li4": "Mercado Pago Payment Integration: A secure payment gateway allowing players to make a deposit or pay the full reservation online, ensuring collection for the complex.",
+      "img": "/src/assets/checancha.webp",
+      "imgAlt": "Preview of the CheCancha project",
+      "github": "https://github.com/IWeppler/Checancha",
+      "deploy": "https://checancha.com"
+    }
+  },
+  "projects": { "visitProject": "Visit Project" }
+}

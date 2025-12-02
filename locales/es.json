@@ -1,0 +1,253 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "part1": "Hola!",
+    "part2": " Soy Ignacio, desarrollador full-stack trabajando desde",
+    "part3": " Argentina, creando soluciones digitales para negocios que quieren crecer en serio.",
+    "cta_write": "Escribime",
+    "cta_works": "Ver Trabajos"
+  },
+  "works": {
+    "section_subtitle": "Portfolio",
+    "title": "Proyectos Destacados",
+    "view_project": "Ver Proyecto",
+    "view_all": "Ver Todos los Proyectos",
+    "default_tag": "Desarrollo • Diseño"
+  },
+  "aboutme": {
+    "title": "Sobre mí",
+    "p1_part1": "Soy Ignacio, ",
+    "p1_span1": "desarrollador full stack ",
+    "p1_part2": "trabajando desde Argentina. Colaboro con negocios y emprendedores que necesitan una presencia digital clara y moderna, junto con las ",
+    "p1_span2": "herramientas correctas para crecer",
+    "p1_part3": ".",
+    "p2_part1": "Mi enfoque combina desarrollo, diseño funcional y estrategia. ",
+    "p2_span1": "No hago webs por hacer",
+    "p2_part2": ": resuelvo problemas reales, optimizo procesos y creo ",
+    "p2_span2": "experiencias que convierten mejor",
+    "p2_part3": ".",
+    "question": "¿Tenés un proyecto, una idea o querés mejorar lo que ya tenés? ",
+    "cta": "Hablemos.",
+    "metrics": {
+      "projects": "Proyectos realizados",
+      "tech": "Tecnologías dominadas",
+      "exp": "Año de experiencia",
+      "desire": "Ganas de construir"
+    }
+  },
+
+  "features": {
+    "subtitle": "• Servicios",
+    "title": "Cómo hago la diferencia",
+    "blocks": [
+      {
+        "title": "Diseño & Experiencia",
+        "itemsLeft": [
+          "Arquitectura visual clara",
+          "Experiencia pensada para personas",
+          "Navegación simple e intuitiva"
+        ],
+        "itemsRight": [
+          "Interfaces limpias y modernas",
+          "Responsive profesional",
+          "Microajustes que mejoran conversión"
+        ]
+      },
+      {
+        "title": "Desarrollo Web & Performance",
+        "itemsLeft": [
+          "Webs rápidas y optimizadas",
+          "Desarrollo moderno (Next.js / Astro)",
+          "Código limpio y escalable"
+        ],
+        "itemsRight": [
+          "Landing pages de alta conversión",
+          "Mejoras de velocidad",
+          "Integraciones directas (APIs / SaaS)"
+        ]
+      },
+      {
+        "title": "Sistemas Internos & Dashboards",
+        "itemsLeft": [
+          "Aplicaciones internas",
+          "Sistemas de gestión",
+          "Paneles administrativos"
+        ],
+        "itemsRight": [
+          "MVPs y SaaS a medida",
+          "Automatización de procesos",
+          "Integración con datos reales"
+        ]
+      },
+      {
+        "title": "Implementación Técnica & SEO",
+        "itemsLeft": [
+          "Corrección de DNS y hosting",
+          "SEO técnico para 2025",
+          "Implementación de analytics"
+        ],
+        "itemsRight": [
+          "Optimización para Google & IA",
+          "Integración de servicios externos",
+          "Mejoras de indexación"
+        ]
+      },
+      {
+        "title": "Branding Digital",
+        "itemsLeft": [
+          "Selección tipográfica profesional",
+          "Paletas modernas y consistentes",
+          "Re-ordenamiento visual"
+        ],
+        "itemsRight": [
+          "Corrección de estilos incoherentes",
+          "Refinación estética de sitios",
+          "Mejora de marca sin rediseño"
+        ]
+      },
+      {
+        "title": "Consultoría & Auditorías",
+        "itemsLeft": [
+          "Diagnóstico de sitios",
+          "Revisión de usabilidad",
+          "Detección de problemas reales"
+        ],
+        "itemsRight": [
+          "Auditorías de performance",
+          "Recomendaciones accionables",
+          "Acompañamiento profesional"
+        ]
+      }
+    ]
+  },
+  "cta": {
+    "subtitle": "¿Tenés un proyecto en mente?",
+    "title": "Trabajemos juntos",
+    "cta": "Hablemos"
+  },
+  "footer": {
+    "title": "Contacto",
+    "email_label": "Email",
+    "phone_label": "Teléfono",
+    "rights": "Ignacio Weppler. Todos los derechos reservados.",
+    "links": {
+      "projects": "Proyectos",
+      "services": "Servicios",
+      "about": "Sobre mí",
+      "contact": "Contacto"
+    }
+  },
+  "projectspage": {
+    "title": "Ultimos Proyectos",
+    "subtitle": "& Casos de Estudio"
+  },
+  "proyectos": {
+    "proyecto1": {
+      "etiqueta": "Web Institucional",
+      "name": "Club Atlético Tostado",
+      "subtitulo": "Digitalizando el corazón deportivo de la región",
+      "p1": "Mi objetivo fue crear un hogar digital para el Club Atlético Tostado, la institución deportiva más importante de la región, que hasta entonces no contaba con una presencia online profesional. El proyecto buscó establecer un canal de comunicación oficial y moderno para conectar con socios y la comunidad.",
+      "p2": "Desarrollé una web institucional moderna y visualmente atractiva, enfocada en ofrecer una experiencia de usuario fluida. Utilizando tecnologías como Astro y Framer Motion, creé una plataforma rápida y con animaciones sutiles que refuerzan la identidad del club. Actualmente, el sitio sirve como un punto central de información, presentando noticias, horarios y la historia de la institución.",
+      "p3": "Este sitio web estableció la primera presencia digital oficial del club, mejorando significativamente la comunicación y el acceso a la información. Proporciona una base sólida y escalable para futuras expansiones y ha posicionado al club como una entidad que valora la modernidad y la conexión con su gente.",
+      "caracteristicas": "Características Actuales",
+      "li1": "Diseño atractivo y moderno con animaciones fluidas (Framer Motion).",
+      "li2": "Sección de noticias y novedades para mantener informada a la comunidad.",
+      "li3": "Información centralizada de horarios y actividades deportivas.",
+      "li4": "Página totalmente responsive y optimizada para un rendimiento veloz (Astro).",
+      "img": "/src/assets/tres.webp",
+      "imgAlt": "Vista previa del proyecto Club Atlético Tostado",
+      "github": "https://github.com/IWeppler/AtleticoTostado",
+      "deploy": "https://atleticotostado.vercel.app/"
+    },
+    "proyecto2": {
+      "etiqueta": "Sistema de Gestión y Pedidos",
+      "name": "El Nuevo Manantial",
+      "subtitulo": "Impulsando un Emprendimiento Familiar",
+      "p1": "Para potenciar un emprendimiento familiar en crecimiento, detecté la necesidad crítica de digitalizar su operatoria. El sistema manual de pedidos a través de redes sociales y papel generaba desorganización, limitaba el crecimiento y consumía tiempo valioso. El desafío era crear una solución tecnológica que fuera tan robusta como fácil de usar para la familia y sus clientes.",
+      "p2": "Desarrollé una aplicación web full-stack a medida que centraliza todo el ciclo de ventas. La plataforma permite a los clientes (tanto registrados como invitados) realizar pedidos de forma intuitiva, mientras que los administradores gestionan todo desde un panel de control operativo diseñado para la toma de decisiones rápidas y eficientes.",
+      "p3": "El resultado es una herramienta que no solo optimizó drásticamente el tiempo de gestión, sino que también mejoró la experiencia del cliente y sentó las bases para un crecimiento escalable. Este proyecto demuestra mi capacidad para entender una necesidad de negocio, diseñar una solución completa y ejecutarla con tecnologías modernas, entregando un producto final que genera un impacto directo y medible.",
+      "li1": "Plataforma de Pedidos Inteligente: Permite a clientes nuevos y registrados comprar de forma rápida, con cálculo de precios en tiempo real y un flujo de compra sin fricción.",
+      "li2": "Dashboard de Operaciones Centralizado: Un panel de control para administradores con métricas de ventas, filtros avanzados por fecha y estado, gestión de órdenes y control de stock.",
+      "li3": "Sistema de Autenticación y Roles: Gestión segura de usuarios con roles de cliente y administrador (NextAuth.js), protegiendo datos y funcionalidades sensibles.",
+      "li4": "Arquitectura Full-Stack Moderna y Escalable: Construido con Next.js, Prisma y Supabase para un rendimiento óptimo y un mantenimiento sencillo.",
+      "img": "/src/assets/el-manantial.webp",
+      "imgAlt": "Vista previa del proyecto El Nuevo Manantial",
+      "caracteristicas": "Características Principales",
+      "github": "https://github.com/IWeppler/el-manantial",
+      "deploy": "https://el-manantial-two.vercel.app/"
+    },
+    "proyecto3": {
+      "etiqueta": "E-commerce",
+      "name": "E-commerce de Tecnología",
+      "subtitulo": "Tienda online de tecnología",
+      "p1": "Desarrollé un e-commerce para una tienda de tecnología que necesitaba una plataforma robusta y escalable. El objetivo era crear un sitio que no solo vendiera productos, sino que también ofreciera una experiencia de compra fluida y segura.",
+      "p2": "La tienda cuenta con un catálogo extenso de productos, un sistema de búsqueda avanzada y filtros para facilitar la navegación. Además, implementé un sistema de gestión de inventario y un proceso de pago seguro.",
+      "p3": "El diseño se centra en la simplicidad y la funcionalidad, asegurando que los usuarios puedan encontrar lo que buscan rápidamente y realizar sus compras sin complicaciones.",
+      "li1": "Catálogo extenso: Navegación fácil por categorías y productos.",
+      "li2": "Sistema de búsqueda avanzada: Filtros por marca, precio y características.",
+      "li3": "Proceso de pago seguro: Integración con pasarelas de pago confiables.",
+      "li4": "Gestión de inventario: Actualización automática del stock.",
+      "img": "/src/assets/ecommerce.webp",
+      "imgAlt": "Vista previa del proyecto E-commerce de Tecnología",
+      "caracteristicas": "Características Principales",
+      "github": "https://github.com/IWeppler/PM4FE",
+      "deploy": "https://pm-4-fe-pi.vercel.app/"
+    },
+    "proyecto4": {
+      "etiqueta": "Plataforma Real Estate & CRM",
+      "name": "Inmobiliaria TerraNova",
+      "subtitulo": "Solución integral para la gestión y venta de propiedades",
+      "p1": "Desarrollé una plataforma web de alto rendimiento diseñada para modernizar la operatoria de una inmobiliaria rural y urbana. El objetivo fue superar las limitaciones de los sitios web tradicionales, creando un ecosistema digital que no solo funciona como vidriera, sino como una herramienta activa de cierre de ventas.",
+      "p2": "La aplicación fusiona un portal público optimizado para SEO con un potente Dashboard administrativo (CRM). Construida sobre Next.js 15 y Supabase, implementé un sistema de seguridad avanzado (Row Level Security) que gestiona permisos granulares entre Administradores y Agentes, asegurando la integridad y privacidad de los datos del negocio.",
+      "p3": "El sistema transforma el flujo de trabajo: captura leads automáticamente desde la web, los asigna al agente responsable y permite un seguimiento detallado mediante notas internas y estados. Además, incorpora herramientas específicas para el sector como mapas satelitales interactivos y generación de metadatos dinámicos para compartir en redes.",
+      "caracteristicas": "Características Principales",
+      "li1": "CRM de Ventas Integrado: Pipeline de leads con estados, chat de notas internas para seguimiento y sistema de reasignación de agentes.",
+      "li2": "Arquitectura de Roles y Seguridad: Panel de administración con control de acceso basado en roles (RBAC) y gestión de equipo.",
+      "li3": "Tecnología de Alto Rendimiento: SEO técnico avanzado (JSON-LD, OpenGraph), optimización de imágenes y carga instantánea.",
+      "li4": "Herramientas de Conversión: Integración directa con WhatsApp, mapas interactivos para lotes/campos y contador de visitas en tiempo real.",
+      "img": "/src/assets/inmobiliaria1.png",
+      "imgAlt": "Vista previa del proyecto Inmobiliaria TerraNova",
+      "github": "https://github.com/IWeppler/TerraNova",
+      "deploy": "https://inmobiliaria-pi.vercel.app/"
+    },
+    "proyecto5": {
+      "etiqueta": "SaaS de Gestión Comercial",
+      "name": "Nivo POS",
+      "subtitulo": "Herramienta web para gestión comercial",
+      "p1": "Nivo es una herramienta web que desarrollé para una empresa de servicios comerciales. El objetivo era crear una plataforma que facilitara la gestión de clientes, ventas y reportes.",
+      "p2": "La herramienta incluye funcionalidades como gestión de clientes, seguimiento de ventas, generación de reportes y análisis de datos. Además, implementé un sistema de autenticación y autorización para garantizar la seguridad de la información.",
+      "p3": "El diseño se centra en la eficiencia y la funcionalidad, asegurando que los usuarios puedan acceder a la información que necesitan rápidamente.",
+      "li1": "Gestión de clientes: Base de datos para almacenar información de clientes.",
+      "li2": "Seguimiento de ventas: Registro de transacciones y análisis de rendimiento.",
+      "li3": "Generación de reportes: Informes personalizables sobre ventas y clientes.",
+      "li4": "Análisis de datos: Herramientas para visualizar y analizar información comercial.",
+      "img": "/src/assets/nivo.webp",
+      "imgAlt": "Vista previa del proyecto Nivo",
+      "caracteristicas": "Características Principales",
+      "github": "https://github.com/DreamTeeam/front",
+      "deploy": "https://nivoapp.vercel.app/"
+    },
+    "proyecto6": {
+      "etiqueta": "Plataforma SaaS para la Gestión de Complejos Deportivos",
+      "name": "CheCancha",
+      "subtitulo": "La solución SaaS que profesionaliza la reserva de canchas.",
+      "p1": "CheCancha nació como 'Courtify', un proyecto para el bootcamp de desarrollo Full Stack en Soy Henry. El desafío fue construir, de forma individual y desde cero, una aplicación completa que resolviera un problema real y tangible del mercado, demostrando la capacidad de llevar una idea del concepto al producto funcional.",
+      "p2": "Detecté que la mayoría de los complejos deportivos locales dependían de métodos informales y caóticos para gestionar sus reservas (cuadernos, WhatsApp, etc.). Mi objetivo fue claro: crear una plataforma digital robusta que ofreciera una experiencia moderna y ordenada, sentando las bases para lo que hoy es la visión de CheCancha.",
+      "p3": "Desde su concepción, el proyecto se centró en la usabilidad tanto para el administrador como para el cliente final. La plataforma no solo optimiza la gestión diaria, sino que abre la puerta a un modelo de negocio escalable (SaaS) que puede transformar la operación de cientos de complejos deportivos en el país.",
+      "caracteristicas": "Características Principales",
+      "li1": "Dashboard Administrativo Intuitivo: Un panel de control central con calendario interactivo para gestionar horarios, confirmar reservas y visualizar la ocupación en tiempo real.",
+      "li2": "Portal de Autogestión para Jugadores: Perfiles de usuario con registro tradicional y social (Google Auth), historial de reservas y gestión de datos personales.",
+      "li3": "Sistema de Notificaciones Automatizadas: Mails transaccionales para confirmaciones de reserva, recordatorios y cambios, reduciendo ausencias y mejorando la comunicación.",
+      "li4": "Integración de Pagos con Mercado Pago: Una pasarela segura para que los jugadores puedan señar o pagar el total de la reserva en línea, asegurando el cobro para el complejo.",
+      "img": "/src/assets/checancha.webp",
+      "imgAlt": "Vista previa del proyecto CheCancha",
+      "github": "https://github.com/IWeppler/Checancha",
+      "deploy": "https://checancha.com"
+    }
+  },
+  "projects": { "visitProject": "Visitar Proyecto" }
+}
