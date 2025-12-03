@@ -4,6 +4,10 @@ import Navbar from "@/components/Navbar";
 import Cursor from "@/components/ui/skiper-ui/skiper61";
 import { getDictionary } from "@/lib/get-dictionary";
 import StructuredData from "@/components/StructuredData";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
+import { GoogleAnalytics } from '@next/third-parties/google'
+
 
 export const metadata = {
   title: "Ignacio Weppler",
@@ -15,7 +19,7 @@ export default async function LangLayout({
   params,
 }: {
   children: React.ReactNode;
-   params: Promise<{ lang: string }>;
+  params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
   const t = getDictionary(lang);
@@ -25,16 +29,11 @@ export default async function LangLayout({
   return (
     <html lang={lang}>
       <head>
-        {/* Fuente */}
         <link
           href="https://api.fontshare.com/v2/css?f[]=general-sans@400,401,500,501,600,700&display=swap"
           rel="stylesheet"
         />
-
-        {/* Canonical general para cada idioma */}
         <link rel="canonical" href={`${base}/${lang}`} />
-
-        {/* HREFLANG (muy importante!) */}
         <link rel="alternate" href={`${base}/es`} hrefLang="es" />
         <link rel="alternate" href={`${base}/en`} hrefLang="en" />
         <link rel="alternate" href={`${base}/pt`} hrefLang="pt" />
@@ -43,6 +42,9 @@ export default async function LangLayout({
 
       <body className="font-general bg-background text-foreground">
         <StructuredData />
+        <Analytics />
+        <SpeedInsights />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""} />
         <Navbar lang={lang} labels={t.navbar} />
         <Cursor />
         {children}
