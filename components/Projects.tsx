@@ -35,22 +35,32 @@ export default function Projects({ lang }: { lang: string }) {
     .filter(([key]) => key.startsWith("proyecto"))
     .map(([slug, data]) => ({ slug, ...(data as ProyectoData) }));
 
-  // Tomar los primeros 5
   const projectsArray = proyectosList.slice(0, 5);
 
   return (
     <section
       id="projects"
-      className="w-full flex flex-col items-center py-20 bg-background"
+      className="w-full flex flex-col items-center py-12 md:py-20 bg-background"
     >
       <div className="w-full mb-12">
         <p className="font-medium tracking-widest text-paragraph mb-2 uppercase">
           • {t.works.section_subtitle}
         </p>
+
+        <h2 className="block md:hidden text-4xl font-medium text-foreground uppercase tracking-tight pb-4 text-balance wrap-break-word">
+          {t.works.title}
+        </h2>
+
+        <div className="hidden md:block">
         <AnimatedTitle
           text={t.works.title}
           className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight text-balance wrap-break-word"
-        />
+          />
+          </div>
+
+        
+
+        
       </div>
 
       {/* Grid Layout */}
@@ -86,7 +96,7 @@ export default function Projects({ lang }: { lang: string }) {
               <div className="flex flex-col border-t border-white/10 pt-4">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-medium text-foreground group-hover:text-orange transition-colors">
+                    <h3 className="text-2xl font-medium text-foreground group-hover:text-orange transition-colors">
                       {proyecto.name}
                     </h3>
                     <p className="text-sm text-paragraph uppercase tracking-wider">

@@ -72,7 +72,7 @@ export default function HeroSection({ lang }: { lang: string }) {
         animate="visible"
         variants={containerVariants}
       >
-        <p className="text-2xl md:text-4xl font-general text-foreground font-medium leading-snug tracking-tight">
+        <h1 className="text-2xl md:text-4xl font-general text-foreground font-medium leading-snug tracking-tight">
           {/* Parte 1 del texto */}
           <motion.span variants={textVariants}>{t.hero.part1}</motion.span>
 
@@ -107,7 +107,7 @@ export default function HeroSection({ lang }: { lang: string }) {
 
           {/* Parte 3 del texto */}
           <motion.span variants={textVariants}>{t.hero.part3}</motion.span>
-        </p>
+        </h1>
 
         {/* Botones  */}
         <motion.div variants={buttonVariants} className="flex gap-4 mt-8">

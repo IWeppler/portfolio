@@ -8,31 +8,29 @@ interface AnimatedTitleProps {
 }
 
 export const AnimatedTitle = ({ text, className = "" }: AnimatedTitleProps) => {
-  // Configuración del contenedor principal
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05, // Menor tiempo entre letras para que sea más fluido
+        staggerChildren: 0.05,
         delayChildren: 0.1,
       },
     },
   };
 
-  // Variantes de cada letra (EFECTO ESCALERA / SLIDE UP)
   const letterVariants: Variants = {
     hidden: {
       opacity: 0,
-      y: "50%", // Empieza desplazada hacia abajo (efecto escalera)
+      y: "50%",
     },
     visible: {
       opacity: 1,
-      y: 0, // Sube a su posición original
+      y: 0, 
       transition: {
         type: "spring",
-        damping: 12, // Menos rebote para que sea más serio
-        stiffness: 100, // Rigidez suave
+        damping: 12,
+        stiffness: 100,
       },
     },
   };

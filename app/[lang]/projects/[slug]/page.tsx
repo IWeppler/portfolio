@@ -74,10 +74,9 @@ export default async function ProjectPage({ params }: Props) {
           {proyecto.etiqueta}
         </small>
 
-        <AnimatedTitle
-          text={proyecto.name}
-          className="text-5xl md:text-7xl font-medium uppercase tracking-tight mb-6"
-        />
+        <h2 className="text-4xl md:text-7xl font-medium uppercase tracking-tight mb-6 text-balance">
+          {proyecto.name}
+        </h2>
 
         <p
           className="text-xl max-w-3xl leading-relaxed mb-12"
@@ -150,7 +149,7 @@ export default async function ProjectPage({ params }: Props) {
 
           {/* FEATURES EN GRID SWISS */}
           <div
-            className="p-10 rounded-xl border"
+            className="p-4 md:p-10 rounded-xl border"
             style={{
               backgroundColor: colors.surface,
               borderColor: colors.assets,

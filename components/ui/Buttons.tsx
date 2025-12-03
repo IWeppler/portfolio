@@ -21,8 +21,9 @@ export function ButtonPrimary({
       href={href}
       className={`
         inline-flex items-center justify-center
-        border border-white/25 px-10 py-3.5 rounded-full
-        text-base md:text-lg font-light text-foreground
+        whitespace-nowrap
+        border border-white/25 px-6 py-3.5 md:px-10 rounded-full
+        text-base md:text-lg font-medium text-foreground
         hover:border-foreground hover:bg-white/5 transition-all
         ${className}
       `}
@@ -33,7 +34,7 @@ export function ButtonPrimary({
   );
 }
 
-// --- 2. Botón Secundario  ---
+// --- 2. Botón Secundario ---
 export function ButtonSecondary({
   href,
   children,
@@ -45,8 +46,9 @@ export function ButtonSecondary({
       href={href}
       className={`
         inline-flex items-center
-        text-cream font-medium text-xl
-        py-3 px-1
+        whitespace-nowrap
+        text-cream font-medium text-base md:text-lg
+        py-3 px-4 md:px-1
         transition-colors duration-300
         hover:text-foreground 
         ${className}

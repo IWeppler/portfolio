@@ -99,7 +99,7 @@ export const ProjectsGrid = ({ projects = [], lang }: Props) => {
 
                   {/* Textos */}
                   <div className="flex flex-col items-start">
-                    <h3 className="text-xl md:text-2xl font-medium tracking-tight group-hover:text-orange transition-colors">
+                    <h3 className="text-2xl font-medium tracking-tight group-hover:text-orange transition-colors">
                       {project.name}
                     </h3>
 

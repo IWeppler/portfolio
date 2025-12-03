@@ -18,10 +18,16 @@ export const Cta = ({ lang }: { lang: string }) => {
           {cta.subtitle}
         </p>
 
-        <AnimatedTitle
-          text={cta.title}
-          className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight pb-4 text-balance wrap-break-word"
-        />
+        <h2 className="block md:hidden text-4xl font-medium text-foreground uppercase tracking-tight pb-4 text-balance wrap-break-word">
+          {cta.title}
+        </h2>
+
+        <div className="hidden md:block">
+          <AnimatedTitle
+            text={cta.title}
+            className="text-6xl font-medium text-foreground uppercase tracking-tight pb-4"
+          />
+        </div>
 
         <ButtonPrimary href={whatsappUrl} target="_blank">
           {cta.cta}
