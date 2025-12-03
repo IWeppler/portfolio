@@ -145,6 +145,12 @@
     "subtitle": "& Casos de Estudio"
   },
   "proyectos": {
+    "projects": {
+      "challenge": "O Desafio",
+      "solution": "A Solução",
+      "outcome": "Resultados",
+      "visitProject": "Visitar Projeto"
+    },
     "proyecto1": {
       "etiqueta": "Sistema de Gestão e Pedidos",
       "name": "El Nuevo Manantial",
@@ -219,7 +225,7 @@
 
     "proyecto5": {
       "etiqueta": "E-commerce",
-      "name": "E-commerce de Tecnologia",
+      "name": "E-commerce Tech",
       "subtitulo": "Loja virtual de eletrônicos",
       "p1": "Desenvolvi uma plataforma de e-commerce escalável para uma loja de tecnologia que precisava de uma presença online moderna e robusta.",
       "p2": "A loja inclui catálogo amplo, busca avançada, filtros, gestão de estoque e pagamentos seguros.",
@@ -270,7 +276,24 @@
       "img": "/src/assets/reddito.webp",
       "imgAlt": "Prévia do projeto RedditoBooks",
       "github": "https://github.com/IWeppler/redditobooks",
-      "deploy": "https://reddito.vercel.app/"
+      "deploy": "https://redditobooks.com/en"
+    },
+    "proyecto8": {
+      "etiqueta": "Site Institucional",
+      "name": "Iñaqui Techos",
+      "subtitulo": "Uma presença digital renovada para uma empresa líder em materiais para telhados.",
+      "p1": "A Iñaqui Techos é uma empresa argentina com mais de 25 anos de experiência na venda de telhas metálicas, ardósias asfálticas e materiais premium para telhados. Cheguei ao projeto através da Ontide Marketing, que precisava de uma reconstrução completa do site: a versão anterior em WordPress estava quebrada, insegura e praticamente impossível de navegar devido a um loader permanente causado por erros de atualização e falhas na instalação.",
+      "p2": "Meu desafio foi transformar um site ultrapassado e sem identidade em uma plataforma moderna, clara e confiável. Para isso, analisei concorrentes, estudei fornecedores internacionais e trabalhei em uma identidade visual baseada em tipografia forte, estrutura sólida e uso estratégico das cores da marca. O novo site prioriza a experiência do usuário, navegação direta e apresentação profissional de cada linha de produtos.",
+      "p3": "O resultado foi um site institucional rápido, sólido e totalmente renovado, que representa fielmente o nível e a trajetória da empresa. A Iñaqui Techos recuperou sua presença digital, melhorou sua comunicação comercial e agora possui uma ferramenta que acompanha seu crescimento e profissionalismo. O cliente ficou extremamente satisfeito com a transformação.",
+      "caracteristicas": "Características Principais",
+      "li1": "Redesign completo da identidade visual: títulos de alto impacto, uso estratégico de cores e estilo moderno com toque industrial.",
+      "li2": "Otimização total do site: remoção de erros críticos, melhoria de segurança e navegação fluida.",
+      "li3": "Apresentação profissional de linhas de produtos: Tilcor, Verona e IKO com imagens de alta qualidade.",
+      "li4": "Estrutura orientada à conversão: CTAs claros, contato prioritário e foco comercial.",
+      "img": "/src/assets/inaki.webp",
+      "imgAlt": "Pré-visualização do projeto Iñaqui Techos",
+      "github": "",
+      "deploy": "https://inaqui.com.ar/"
     }
   },
   "projects": { "visitProject": "Visitar Projeto" }

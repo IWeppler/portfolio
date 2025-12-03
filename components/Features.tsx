@@ -1,4 +1,5 @@
 import { getDictionary } from "@/lib/get-dictionary";
+import { AnimatedTitle } from "./ui/AnimatedTitle";
 
 interface FeatureBlock {
   title: string;
@@ -13,23 +14,21 @@ export default function Features({ lang }: { lang: string }) {
   const blocks = features.blocks as FeatureBlock[];
 
   return (
-    <section className="w-full py-16 md:py-32 text-white">
+    <section className="w-full py-16 md:py-32 text-foreground">
       {/* Subtítulo dinámico */}
       <p className="font-medium tracking-widest text-paragraph mb-2 uppercase">
         {features.subtitle}
       </p>
 
       {/* Título dinámico */}
-      <h2 className="text-4xl md:text-6xl font-medium text-white uppercase tracking-tight mb-12">
-        {features.title}
-      </h2>
+      <AnimatedTitle text={features.title} className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight pb-4" />
 
       {blocks.map((block, i) => (
         <div
           key={i}
           className="
             group border-t border-assets 
-            hover:border-white 
+            hover:border-foreground 
             transition-colors duration-300
             py-16 grid grid-cols-1 md:grid-cols-3 gap-10
           "
@@ -38,8 +37,8 @@ export default function Features({ lang }: { lang: string }) {
           <h3
             className="
               text-3xl md:text-4xl font-medium 
-              text-white transition-colors duration-300
-              group-hover:text-white
+              text-foreground transition-colors duration-300
+              group-hover:text-foreground
             "
           >
             {block.title}
@@ -50,7 +49,7 @@ export default function Features({ lang }: { lang: string }) {
             className="
               space-y-3 text-paragraph text-lg 
               transition-colors duration-300
-              group-hover:text-white
+              group-hover:text-foreground
             "
           >
             {block.itemsLeft.map((item, idx) => (
@@ -63,7 +62,7 @@ export default function Features({ lang }: { lang: string }) {
             className="
               space-y-3 text-paragraph text-lg 
               transition-colors duration-300
-              group-hover:text-white
+              group-hover:text-foreground
             "
           >
             {block.itemsRight.map((item, idx) => (

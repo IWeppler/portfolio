@@ -146,6 +146,12 @@
     "subtitle": "& Casos de Estudio"
   },
   "proyectos": {
+    "projects": {
+      "challenge": "El Desafío",
+      "solution": "La Solución",
+      "outcome": "Resultados",
+      "visitProject": "Visitar Proyecto"
+    },
     "proyecto1": {
       "etiqueta": "Sistema de Gestión y Pedidos",
       "name": "El Nuevo Manantial",
@@ -216,7 +222,7 @@
     },
     "proyecto5": {
       "etiqueta": "E-commerce",
-      "name": "E-commerce de Tecnología",
+      "name": "E-commerce Tech",
       "subtitulo": "Tienda online de tecnología",
       "p1": "Desarrollé un e-commerce para una tienda de tecnología que necesitaba una plataforma robusta y escalable. El objetivo era crear un sitio que no solo vendiera productos, sino que también ofreciera una experiencia de compra fluida y segura.",
       "p2": "La tienda cuenta con un catálogo extenso de productos, un sistema de búsqueda avanzada y filtros para facilitar la navegación. Además, implementé un sistema de gestión de inventario y un proceso de pago seguro.",
@@ -255,18 +261,32 @@
       "p1": "RedditoBooks es una firma contable con sede en Miami que necesitaba una landing page profesional, moderna y confiable para respaldar su posicionamiento en el mercado estadounidense. El desafío era crear un sitio elegante y de alto impacto visual, capaz de comunicar seriedad, experiencia y claridad a clientes potenciales tanto locales como internacionales.",
       "p2": "Trabajé en un diseño oscuro minimalista enfocado en tipografía precisa, testimonios verificados y secciones claras orientadas a conversión. Migré el proyecto a la arquitectura moderna de Next.js con server components, optimización de imágenes, OpenGraph avanzado, y un esquema JSON-LD con datos estructurados para mejorar el SEO local en EE.UU.",
       "p3": "El resultado fue una landing sólida, rápida y con una narrativa visual que transmite confianza. La web está optimizada para adquisición de leads y preparada para escalar tanto hacia contenido educativo como hacia futuras integraciones con CRM.",
-
       "caracteristicas": "Características Principales",
-
       "li1": "Diseño moderno y elegante: Estilo dark, tipografía Switzer, jerarquía visual limpia y foco en conversiones.",
       "li2": "Arquitectura Next.js de última generación: Server components, optimización de rendimiento y estructura sólida para SEO técnico.",
       "li3": "SEO corporativo avanzado: Metadatos refinados, OpenGraph personalizado, datos estructurados JSON-LD y sitemap multilenguaje.",
       "li4": "Testimonios y social proof: Sección de reseñas reales con formato profesional orientado a credibilidad.",
-
       "img": "/src/assets/reddito.webp",
       "imgAlt": "Vista previa del proyecto RedditoBooks",
       "github": "https://github.com/IWeppler/redditobooks",
-      "deploy": "https://reddito.vercel.app/"
+      "deploy": "https://redditobooks.com/en"
+    },
+    "proyecto8": {
+      "etiqueta": "Web Institucional",
+      "name": "Iñaqui Techos",
+      "subtitulo": "Renovando la presencia digital de una empresa líder en tejas y materiales para techos.",
+      "p1": "Iñaqui Techos es una empresa argentina con más de 25 años de trayectoria en la comercialización de tejas metálicas, pizarras asfálticas y materiales premium para techos. Llegué al proyecto a través de Ontide Marketing, quienes necesitaban una renovación completa del sitio web: la versión anterior en WordPress estaba rota, insegura y era prácticamente innavegable debido a un loader permanente causado por errores de actualización y fallas en la instalación.",
+      "p2": "Mi desafío fue transformar un sitio obsoleto y sin identidad en una plataforma moderna, clara y confiable. Para lograrlo analicé la comunicación de la competencia, estudié a sus proveedores internacionales y trabajé en una identidad visual basada en trazos fuertes, tipografías con carácter y una paleta que aprovechara los colores intensos de la marca. La nueva web prioriza la experiencia del usuario, la navegación directa y la presentación profesional de cada línea de productos.",
+      "p3": "El resultado fue un sitio institucional sólido, rápido y totalmente renovado que hoy representa fielmente el nivel de la empresa. Iñaqui Techos recuperó su presencia digital, mejoró su comunicación comercial y obtuvo una herramienta que acompaña su crecimiento y profesionalismo. El cliente quedó plenamente satisfecho con el cambio radical respecto a la versión anterior.",
+      "caracteristicas": "Características Principales",
+      "li1": "Rediseño completo de identidad visual: títulos de alto impacto, colores estratégicos y estilo moderno con esencia industrial.",
+      "li2": "Optimización total del sitio: eliminación de errores críticos, mejora de seguridad y estructura estable para navegación fluida.",
+      "li3": "Presentación profesional de líneas de productos: Tilcor, Verona e IKO con imágenes de alta calidad y secciones diferenciadas.",
+      "li4": "Enfoque comercial: llamados a la acción claros, contacto prioritario y estructura orientada a conversión.",
+      "img": "/src/assets/inaki.webp",
+      "imgAlt": "Vista previa del proyecto Iñaqui Techos",
+      "github": "",
+      "deploy": "https://inaqui.com.ar"
     }
   },
   "projects": { "visitProject": "Visitar Proyecto" }

@@ -145,6 +145,12 @@
     "subtitle": "& Case Studies"
   },
   "proyectos": {
+    "projects": {
+      "challenge": "The Challenge",
+      "solution": "The Solution",
+      "outcome": "Outcome",
+      "visitProject": "Visit Project"
+    },
     "proyecto1": {
       "etiqueta": "Order & Management System",
       "name": "El Nuevo Manantial",
@@ -254,25 +260,42 @@
     },
 
     "proyecto7": {
-    "etiqueta": "Corporate Landing Page",
-    "name": "RedditoBooks",
-    "subtitulo": "A modern digital identity for a growing accounting firm",
-    "p1": "RedditoBooks is a Miami-based accounting firm that needed a professional, modern and trustworthy landing page to strengthen its presence in the U.S. market. The goal was to create an elegant, high-impact site that clearly communicated expertise, reliability and value to potential clients.",
-    "p2": "I designed a dark, minimalist interface with precise typography, verified testimonials and clear conversion-focused sections. The project was built with the latest Next.js architecture, including server components, image optimization, dynamic OpenGraph rendering and JSON-LD structured data for improved SEO performance.",
-    "p3": "The final result is a fast, polished landing page with a strong visual narrative that builds trust. The website is optimized for lead acquisition and prepared to scale into educational content or future CRM integrations.",
+      "etiqueta": "Corporate Landing Page",
+      "name": "RedditoBooks",
+      "subtitulo": "A modern digital identity for a growing accounting firm",
+      "p1": "RedditoBooks is a Miami-based accounting firm that needed a professional, modern and trustworthy landing page to strengthen its presence in the U.S. market. The goal was to create an elegant, high-impact site that clearly communicated expertise, reliability and value to potential clients.",
+      "p2": "I designed a dark, minimalist interface with precise typography, verified testimonials and clear conversion-focused sections. The project was built with the latest Next.js architecture, including server components, image optimization, dynamic OpenGraph rendering and JSON-LD structured data for improved SEO performance.",
+      "p3": "The final result is a fast, polished landing page with a strong visual narrative that builds trust. The website is optimized for lead acquisition and prepared to scale into educational content or future CRM integrations.",
 
-    "caracteristicas": "Key Features",
+      "caracteristicas": "Key Features",
 
-    "li1": "Modern and elegant design: Dark theme, clean hierarchy, and conversion-focused layout.",
-    "li2": "Next.js modern architecture: Server components, high performance, and technical SEO structure.",
-    "li3": "Advanced corporate SEO: Refined metadata, custom OpenGraph, JSON-LD schema and multilanguage sitemap.",
-    "li4": "Testimonials and social proof: Real client feedback presented in a professional, trust-driven format.",
+      "li1": "Modern and elegant design: Dark theme, clean hierarchy, and conversion-focused layout.",
+      "li2": "Next.js modern architecture: Server components, high performance, and technical SEO structure.",
+      "li3": "Advanced corporate SEO: Refined metadata, custom OpenGraph, JSON-LD schema and multilanguage sitemap.",
+      "li4": "Testimonials and social proof: Real client feedback presented in a professional, trust-driven format.",
 
-    "img": "/src/assets/reddito.webp",
-    "imgAlt": "Preview of the RedditoBooks project",
-    "github": "https://github.com/IWeppler/redditobooks",
-    "deploy": "https://reddito.vercel.app/"
-  }
+      "img": "/src/assets/reddito.webp",
+      "imgAlt": "Preview of the RedditoBooks project",
+      "github": "https://github.com/IWeppler/redditobooks",
+      "deploy": "https://redditobooks.com/en"
+    },
+    "proyecto8": {
+      "etiqueta": "Corporate Website",
+      "name": "Iñaqui Techos",
+      "subtitulo": "A renewed digital presence for a leading roofing materials company.",
+      "p1": "Iñaqui Techos is an Argentine company with over 25 years of experience selling metal shingles, asphalt slates, and premium roofing materials. I joined the project through Ontide Marketing, who needed a complete overhaul of their website: the previous WordPress version was broken, insecure, and nearly unusable due to a permanent loader caused by update errors and installation issues.",
+      "p2": "My challenge was to transform an outdated, identity-less website into a modern, clear, and trustworthy platform. I researched the company's competitors, analyzed their international suppliers, and designed a visual identity based on bold typography, strong layout structures, and the strategic use of the brand’s intense colors. The new website prioritizes user experience, straightforward navigation, and a professional presentation of each product line.",
+      "p3": "The result was a fast, solid, and fully modernized corporate site that truly reflects the company’s level and trajectory. Iñaqui Techos regained its digital presence, improved its commercial communication, and now has an online tool that supports its growth and professionalism. The client was extremely satisfied with the transformation compared to the previous website.",
+      "caracteristicas": "Key Features",
+      "li1": "Complete visual identity redesign: impactful titles, strategic colors, and a modern, industrial-inspired style.",
+      "li2": "Full site optimization: removal of critical errors, improved security, and a stable structure for smooth navigation.",
+      "li3": "Professional display of product lines: Tilcor, Verona, and IKO with high-quality images and clear segmentation.",
+      "li4": "Conversion-focused structure: clear calls to action, prioritized contact options, and commercial-driven layout.",
+      "img": "/src/assets/inaki.webp",
+      "imgAlt": "Iñaqui Techos project preview",
+      "github": "",
+      "deploy": "https://inaqui.com.ar"
+    }
   },
   "projects": { "visitProject": "Visit Project" }
 }

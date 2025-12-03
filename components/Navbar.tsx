@@ -40,7 +40,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
   };
 
   return (
-    <nav className="w-full flex justify-between items-center py-6 bg-background text-white px-4 md:px-20">
+    <nav className="w-full flex justify-between items-center py-6 bg-background text-foreground px-4 md:px-20">
       {/* 1. Logo */}
       <Link href={`/${lang}`} className="uppercase font-medium">
         Ignacio

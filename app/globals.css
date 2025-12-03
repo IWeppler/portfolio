@@ -6,17 +6,19 @@
 :root {
   /* Fondo suizo tech profundo */
   --background: #0c1215;
-  --surface: #45444419;
+  --surface: #141A1F;
+  --foreground: #EDEDE9;
 
   /* Neutrales */
   --neutral-100: #fef5f0;
   --neutral-900: #0d1214;
-  --assets: #454444;
-  --paragraph: #aaabab;
+  --assets: #2D3339;
+  --paragraph: #9CA3AF;
   
   /* Acetos intensos Swiss */
-  --swiss-orange: #ff4942;
-  --swiss-bordeaux: #300a1e;
+  --swiss-orange: #FF3B30;
+  --swiss-blue: #335C9C;
+  --swiss-bordeaux: #300A1E;
 
   --font-general: "General Sans", sans-serif;
 
@@ -72,12 +74,14 @@
 @theme inline {
   /* COLORES PARA TAILWIND */
   --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --color-surface: var(--surface);
   --color-cream: var(--neutral-100);
   --color-dark: var(--neutral-900);
   --color-assets: var(--assets);
   --color-paragraph: var(--paragraph);
   --color-orange: var(--swiss-orange);
+  --color-swiss-blue: var(--swiss-blue);
   --color-bordeaux: var(--swiss-bordeaux);
 
   /* TIPOGRAFÍA */
@@ -142,8 +146,6 @@
   --color-card-foreground: var(--card-foreground);
 
   --color-card: var(--card);
-
-  --color-foreground: var(--foreground);
 
   --radius-sm: calc(var(--radius) - 4px);
 

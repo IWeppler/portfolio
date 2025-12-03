@@ -41,7 +41,7 @@ export default async function LangLayout({
         <link rel="alternate" href={base} hrefLang="x-default" />
       </head>
 
-      <body className="font-general bg-background text-white">
+      <body className="font-general bg-background text-foreground">
         <StructuredData />
         <Navbar lang={lang} labels={t.navbar} />
         <Cursor />

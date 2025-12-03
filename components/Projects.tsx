@@ -3,18 +3,20 @@ import Link from "next/link";
 import { RiArrowRightLine } from "react-icons/ri";
 import inmobiliaria1 from "@/public/inmobiliaria1.png";
 import workmanantial2 from "@/public/workmanantial2.png";
-import cat from "@/public/cat.webp";
+import atleticotostado from "@/public/atleticotostado.jpg";
 import modulo4henry from "@/public/modulo4henry.webp";
+import modulo4henryb from "@/public/modulo4henryb.webp";
 import checancha from "@/public/checancha.png";
 
 import { ButtonPrimary } from "./ui/Buttons";
 import { getDictionary } from "@/lib/get-dictionary";
+import { AnimatedTitle } from "./ui/AnimatedTitle";
 
 const imageMap: Record<string, StaticImageData> = {
   proyecto1: workmanantial2,
   proyecto2: inmobiliaria1,
   proyecto3: checancha,
-  proyecto4: cat,
+  proyecto4: atleticotostado,
   proyecto5: modulo4henry,
 };
 
@@ -27,9 +29,14 @@ type ProyectoData = {
 export default function Projects({ lang }: { lang: string }) {
   const t = getDictionary(lang);
 
-  const proyectos = t.proyectos as Record<string, ProyectoData>;
+  const raw = t.proyectos;
 
-  const projectsArray = Object.entries(proyectos).slice(0, 5);
+  const proyectosList = Object.entries(raw)
+    .filter(([key]) => key.startsWith("proyecto"))
+    .map(([slug, data]) => ({ slug, ...(data as ProyectoData) }));
+
+  // Tomar los primeros 5
+  const projectsArray = proyectosList.slice(0, 5);
 
   return (
     <section
@@ -40,14 +47,16 @@ export default function Projects({ lang }: { lang: string }) {
         <p className="font-medium tracking-widest text-paragraph mb-2 uppercase">
           • {t.works.section_subtitle}
         </p>
-        <h2 className="text-4xl md:text-6xl font-medium text-white uppercase tracking-tight">
-          {t.works.title}
-        </h2>
+        <AnimatedTitle
+          text={t.works.title}
+          className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight"
+        />
       </div>
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 w-full">
-        {projectsArray.map(([slug, proyecto], index) => {
+        {projectsArray.map((proyecto, index) => {
+          const slug = proyecto.slug;
           const image = imageMap[slug];
           if (!image) return null;
 
@@ -77,7 +86,7 @@ export default function Projects({ lang }: { lang: string }) {
               <div className="flex flex-col border-t border-white/10 pt-4">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-medium text-white group-hover:text-orange transition-colors">
+                    <h3 className="text-xl font-medium text-foreground group-hover:text-orange transition-colors">
                       {proyecto.name}
                     </h3>
                     <p className="text-sm text-paragraph uppercase tracking-wider">
@@ -86,7 +95,7 @@ export default function Projects({ lang }: { lang: string }) {
                   </div>
 
                   {/* Botón "View Project" */}
-                  <div className="flex items-center gap-2 text-white opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                  <div className="flex items-center gap-2 text-foreground opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
                     <span className="text-sm font-medium hidden sm:inline-block">
                       {t.works.view_project}
                     </span>

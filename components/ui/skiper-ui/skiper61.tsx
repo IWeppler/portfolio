@@ -29,10 +29,10 @@ export default function Cursor() {
       className="
         fixed top-0 left-0 
         w-4 h-4 
-        bg-white/80 
+        bg-orange/80 
         rounded-full 
         pointer-events-none 
-        z-[9999]
+        z-9999
         -translate-x-1/2 -translate-y-1/2
       "
     />
