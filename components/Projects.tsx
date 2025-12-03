@@ -1,8 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { RiArrowRightLine } from "react-icons/ri";
-
-// Imágenes
 import inmobiliaria1 from "@/public/inmobiliaria1.png";
 import workmanantial2 from "@/public/workmanantial2.png";
 import cat from "@/public/cat.webp";
@@ -13,10 +11,10 @@ import { ButtonPrimary } from "./ui/Buttons";
 import { getDictionary } from "@/lib/get-dictionary";
 
 const imageMap: Record<string, StaticImageData> = {
-  proyecto1: cat,
-  proyecto2: workmanantial2,
+  proyecto1: workmanantial2,
+  proyecto2: inmobiliaria1,
   proyecto3: checancha,
-  proyecto4: inmobiliaria1,
+  proyecto4: cat,
   proyecto5: modulo4henry,
 };
 
@@ -38,7 +36,6 @@ export default function Projects({ lang }: { lang: string }) {
       id="proyectos"
       className="w-full flex flex-col items-center py-20 bg-background"
     >
-      {/* Título de Sección */}
       <div className="w-full mb-12">
         <p className="font-medium tracking-widest text-paragraph mb-2 uppercase">
           • {t.works.section_subtitle}

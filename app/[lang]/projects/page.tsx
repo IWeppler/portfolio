@@ -1,21 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/lib/get-dictionary";
-
-import tres from "@/public/tres.webp";
-import mockupweb from "@/public/mockupweb.webp";
+import cat from "@/public/cat.webp";
+import workmanantial2 from "@/public/workmanantial2.png";
 import modulo4henry from "@/public/modulo4henry.webp";
 import inmobiliaria1 from "@/public/inmobiliaria1.png";
 import mockupnivo1 from "@/public/mockupnivo1.png";
-import checanchab from "@/public/checanchab.webp";
+import mockupnivo2 from "@/public/mockupnivo2.png";
+import checancha from "@/public/checancha.png";
 
 const imageMap: Record<string, any> = {
-  proyecto1: { cover: tres },
-  proyecto2: { cover: mockupweb },
-  proyecto3: { cover: modulo4henry },
-  proyecto4: { cover: inmobiliaria1 },
-  proyecto5: { cover: mockupnivo1 },
-  proyecto6: { cover: checanchab },
+  proyecto1: { cover: workmanantial2 },
+  proyecto2: { cover: inmobiliaria1 },
+  proyecto3: { cover: checancha },
+  proyecto4: { cover: cat },
+  proyecto5: { cover: modulo4henry },
+  proyecto6: { cover: mockupnivo1 },
+  // proyecto7: { cover: redditobooks },
+  // proyecto8: { cover: inaquitechos },
 };
 
 export async function generateStaticParams() {
@@ -23,7 +25,23 @@ export async function generateStaticParams() {
 }
 
 interface Props {
-  params: Promise<{ lang: string }>;
+  params: Promise<{ lang: "es" | "en" | "pt" }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { lang } = await params;
+
+  return {
+    alternates: {
+      canonical: `https://ignacioweppler.com/${lang}/projects`,
+      languages: {
+        "x-default": "https://ignacioweppler.com/es/projects",
+        es: "https://ignacioweppler.com/es/projects",
+        en: "https://ignacioweppler.com/en/projects",
+        pt: "https://ignacioweppler.com/pt/projects",
+      },
+    },
+  };
 }
 
 export default async function ProjectsPage({ params }: Props) {
@@ -38,19 +56,16 @@ export default async function ProjectsPage({ params }: Props) {
     pt: { main: "Últimos Projetos", sub: "& Estudos de Caso" },
   };
 
-  const currentTitle = titles[lang as keyof typeof titles] || titles.es;
+  const currentTitle = titles[lang] || titles.es;
 
   return (
     <main className="min-h-screen w-full bg-background text-white pt-32 pb-20">
-      <div className="w-full mx-auto px-4 md:px-20"> 
-        
+      <div className="w-full mx-auto px-4 md:px-20">
         {/* TITULO */}
         <h1 className="text-4xl md:text-6xl font-medium text-white uppercase tracking-tight mb-12">
           {currentTitle.main}
           <br />
-          <span className="text-white/60">
-            {currentTitle.sub}
-          </span>
+          <span className="text-white/60">{currentTitle.sub}</span>
         </h1>
 
         {/* BORDER */}
@@ -63,9 +78,9 @@ export default async function ProjectsPage({ params }: Props) {
             if (!images) return null;
 
             return (
-              <Link 
-                key={slug} 
-                href={`/${lang}/projects/${slug}`} 
+              <Link
+                key={slug}
+                href={`/${lang}/projects/${slug}`}
                 className="group block"
               >
                 {/* Contenedor de Imagen */}
@@ -85,7 +100,7 @@ export default async function ProjectsPage({ params }: Props) {
                 <h3 className="mt-4 text-xl font-medium text-white group-hover:text-orange transition-colors">
                   {data.name}
                 </h3>
-                
+
                 {/* Etiqueta opcional debajo del título */}
                 <p className="text-sm text-white/50 uppercase tracking-widest mt-1">
                   {data.etiqueta}

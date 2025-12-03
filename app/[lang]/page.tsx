@@ -6,21 +6,24 @@ import { Cta } from "@/components/Cta";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  return [
-    { lang: "es" },
-    { lang: "en" },
-    { lang: "pt" },
-  ];
+  return [{ lang: "es" }, { lang: "en" }, { lang: "pt" }];
 }
 
 interface Props {
-  params: Promise<{
-    lang: string;
-  }>;
+  params: Promise<{ lang: string }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { lang } = await params;
+
+  return {
+    alternates: {
+      canonical: `https://ignacioweppler.com/${lang}`,
+    },
+  };
 }
 
 export default async function LangHome({ params }: Props) {
-  
   const { lang } = await params;
 
   const validLangs = ["es", "en", "pt"];

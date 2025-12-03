@@ -147,23 +147,6 @@
   },
   "proyectos": {
     "proyecto1": {
-      "etiqueta": "Web Institucional",
-      "name": "Club Atlético Tostado",
-      "subtitulo": "Digitalizando el corazón deportivo de la región",
-      "p1": "Mi objetivo fue crear un hogar digital para el Club Atlético Tostado, la institución deportiva más importante de la región, que hasta entonces no contaba con una presencia online profesional. El proyecto buscó establecer un canal de comunicación oficial y moderno para conectar con socios y la comunidad.",
-      "p2": "Desarrollé una web institucional moderna y visualmente atractiva, enfocada en ofrecer una experiencia de usuario fluida. Utilizando tecnologías como Astro y Framer Motion, creé una plataforma rápida y con animaciones sutiles que refuerzan la identidad del club. Actualmente, el sitio sirve como un punto central de información, presentando noticias, horarios y la historia de la institución.",
-      "p3": "Este sitio web estableció la primera presencia digital oficial del club, mejorando significativamente la comunicación y el acceso a la información. Proporciona una base sólida y escalable para futuras expansiones y ha posicionado al club como una entidad que valora la modernidad y la conexión con su gente.",
-      "caracteristicas": "Características Actuales",
-      "li1": "Diseño atractivo y moderno con animaciones fluidas (Framer Motion).",
-      "li2": "Sección de noticias y novedades para mantener informada a la comunidad.",
-      "li3": "Información centralizada de horarios y actividades deportivas.",
-      "li4": "Página totalmente responsive y optimizada para un rendimiento veloz (Astro).",
-      "img": "/src/assets/tres.webp",
-      "imgAlt": "Vista previa del proyecto Club Atlético Tostado",
-      "github": "https://github.com/IWeppler/AtleticoTostado",
-      "deploy": "https://atleticotostado.vercel.app/"
-    },
-    "proyecto2": {
       "etiqueta": "Sistema de Gestión y Pedidos",
       "name": "El Nuevo Manantial",
       "subtitulo": "Impulsando un Emprendimiento Familiar",
@@ -180,24 +163,7 @@
       "github": "https://github.com/IWeppler/el-manantial",
       "deploy": "https://el-manantial-two.vercel.app/"
     },
-    "proyecto3": {
-      "etiqueta": "E-commerce",
-      "name": "E-commerce de Tecnología",
-      "subtitulo": "Tienda online de tecnología",
-      "p1": "Desarrollé un e-commerce para una tienda de tecnología que necesitaba una plataforma robusta y escalable. El objetivo era crear un sitio que no solo vendiera productos, sino que también ofreciera una experiencia de compra fluida y segura.",
-      "p2": "La tienda cuenta con un catálogo extenso de productos, un sistema de búsqueda avanzada y filtros para facilitar la navegación. Además, implementé un sistema de gestión de inventario y un proceso de pago seguro.",
-      "p3": "El diseño se centra en la simplicidad y la funcionalidad, asegurando que los usuarios puedan encontrar lo que buscan rápidamente y realizar sus compras sin complicaciones.",
-      "li1": "Catálogo extenso: Navegación fácil por categorías y productos.",
-      "li2": "Sistema de búsqueda avanzada: Filtros por marca, precio y características.",
-      "li3": "Proceso de pago seguro: Integración con pasarelas de pago confiables.",
-      "li4": "Gestión de inventario: Actualización automática del stock.",
-      "img": "/src/assets/ecommerce.webp",
-      "imgAlt": "Vista previa del proyecto E-commerce de Tecnología",
-      "caracteristicas": "Características Principales",
-      "github": "https://github.com/IWeppler/PM4FE",
-      "deploy": "https://pm-4-fe-pi.vercel.app/"
-    },
-    "proyecto4": {
+    "proyecto2": {
       "etiqueta": "Plataforma Real Estate & CRM",
       "name": "Inmobiliaria TerraNova",
       "subtitulo": "Solución integral para la gestión y venta de propiedades",
@@ -214,7 +180,58 @@
       "github": "https://github.com/IWeppler/TerraNova",
       "deploy": "https://inmobiliaria-pi.vercel.app/"
     },
+    "proyecto3": {
+      "etiqueta": "Plataforma SaaS para la Gestión de Complejos Deportivos",
+      "name": "CheCancha",
+      "subtitulo": "La solución SaaS que profesionaliza la reserva de canchas.",
+      "p1": "CheCancha nació como 'Courtify', un proyecto para el bootcamp de desarrollo Full Stack en Soy Henry. El desafío fue construir, de forma individual y desde cero, una aplicación completa que resolviera un problema real y tangible del mercado, demostrando la capacidad de llevar una idea del concepto al producto funcional.",
+      "p2": "Detecté que la mayoría de los complejos deportivos locales dependían de métodos informales y caóticos para gestionar sus reservas (cuadernos, WhatsApp, etc.). Mi objetivo fue claro: crear una plataforma digital robusta que ofreciera una experiencia moderna y ordenada, sentando las bases para lo que hoy es la visión de CheCancha.",
+      "p3": "Desde su concepción, el proyecto se centró en la usabilidad tanto para el administrador como para el cliente final. La plataforma no solo optimiza la gestión diaria, sino que abre la puerta a un modelo de negocio escalable (SaaS) que puede transformar la operación de cientos de complejos deportivos en el país.",
+      "caracteristicas": "Características Principales",
+      "li1": "Dashboard Administrativo Intuitivo: Un panel de control central con calendario interactivo para gestionar horarios, confirmar reservas y visualizar la ocupación en tiempo real.",
+      "li2": "Portal de Autogestión para Jugadores: Perfiles de usuario con registro tradicional y social (Google Auth), historial de reservas y gestión de datos personales.",
+      "li3": "Sistema de Notificaciones Automatizadas: Mails transaccionales para confirmaciones de reserva, recordatorios y cambios, reduciendo ausencias y mejorando la comunicación.",
+      "li4": "Integración de Pagos con Mercado Pago: Una pasarela segura para que los jugadores puedan señar o pagar el total de la reserva en línea, asegurando el cobro para el complejo.",
+      "img": "/src/assets/checancha.webp",
+      "imgAlt": "Vista previa del proyecto CheCancha",
+      "github": "https://github.com/IWeppler/Checancha",
+      "deploy": "https://checancha.com"
+    },
+    "proyecto4": {
+      "etiqueta": "Web Institucional",
+      "name": "Club Atlético Tostado",
+      "subtitulo": "Digitalizando el corazón deportivo de la región",
+      "p1": "Mi objetivo fue crear un hogar digital para el Club Atlético Tostado, la institución deportiva más importante de la región, que hasta entonces no contaba con una presencia online profesional. El proyecto buscó establecer un canal de comunicación oficial y moderno para conectar con socios y la comunidad.",
+      "p2": "Desarrollé una web institucional moderna y visualmente atractiva, enfocada en ofrecer una experiencia de usuario fluida. Utilizando tecnologías como Astro y Framer Motion, creé una plataforma rápida y con animaciones sutiles que refuerzan la identidad del club. Actualmente, el sitio sirve como un punto central de información, presentando noticias, horarios y la historia de la institución.",
+      "p3": "Este sitio web estableció la primera presencia digital oficial del club, mejorando significativamente la comunicación y el acceso a la información. Proporciona una base sólida y escalable para futuras expansiones y ha posicionado al club como una entidad que valora la modernidad y la conexión con su gente.",
+      "caracteristicas": "Características Actuales",
+      "li1": "Diseño atractivo y moderno con animaciones fluidas (Framer Motion).",
+      "li2": "Sección de noticias y novedades para mantener informada a la comunidad.",
+      "li3": "Información centralizada de horarios y actividades deportivas.",
+      "li4": "Página totalmente responsive y optimizada para un rendimiento veloz (Astro).",
+      "img": "/src/assets/tres.webp",
+      "imgAlt": "Vista previa del proyecto Club Atlético Tostado",
+      "github": "https://github.com/IWeppler/AtleticoTostado",
+      "deploy": "https://atleticotostado.vercel.app/"
+    },
     "proyecto5": {
+      "etiqueta": "E-commerce",
+      "name": "E-commerce de Tecnología",
+      "subtitulo": "Tienda online de tecnología",
+      "p1": "Desarrollé un e-commerce para una tienda de tecnología que necesitaba una plataforma robusta y escalable. El objetivo era crear un sitio que no solo vendiera productos, sino que también ofreciera una experiencia de compra fluida y segura.",
+      "p2": "La tienda cuenta con un catálogo extenso de productos, un sistema de búsqueda avanzada y filtros para facilitar la navegación. Además, implementé un sistema de gestión de inventario y un proceso de pago seguro.",
+      "p3": "El diseño se centra en la simplicidad y la funcionalidad, asegurando que los usuarios puedan encontrar lo que buscan rápidamente y realizar sus compras sin complicaciones.",
+      "li1": "Catálogo extenso: Navegación fácil por categorías y productos.",
+      "li2": "Sistema de búsqueda avanzada: Filtros por marca, precio y características.",
+      "li3": "Proceso de pago seguro: Integración con pasarelas de pago confiables.",
+      "li4": "Gestión de inventario: Actualización automática del stock.",
+      "img": "/src/assets/ecommerce.webp",
+      "imgAlt": "Vista previa del proyecto E-commerce de Tecnología",
+      "caracteristicas": "Características Principales",
+      "github": "https://github.com/IWeppler/PM4FE",
+      "deploy": "https://pm-4-fe-pi.vercel.app/"
+    },
+    "proyecto6": {
       "etiqueta": "SaaS de Gestión Comercial",
       "name": "Nivo POS",
       "subtitulo": "Herramienta web para gestión comercial",
@@ -231,22 +248,25 @@
       "github": "https://github.com/DreamTeeam/front",
       "deploy": "https://nivoapp.vercel.app/"
     },
-    "proyecto6": {
-      "etiqueta": "Plataforma SaaS para la Gestión de Complejos Deportivos",
-      "name": "CheCancha",
-      "subtitulo": "La solución SaaS que profesionaliza la reserva de canchas.",
-      "p1": "CheCancha nació como 'Courtify', un proyecto para el bootcamp de desarrollo Full Stack en Soy Henry. El desafío fue construir, de forma individual y desde cero, una aplicación completa que resolviera un problema real y tangible del mercado, demostrando la capacidad de llevar una idea del concepto al producto funcional.",
-      "p2": "Detecté que la mayoría de los complejos deportivos locales dependían de métodos informales y caóticos para gestionar sus reservas (cuadernos, WhatsApp, etc.). Mi objetivo fue claro: crear una plataforma digital robusta que ofreciera una experiencia moderna y ordenada, sentando las bases para lo que hoy es la visión de CheCancha.",
-      "p3": "Desde su concepción, el proyecto se centró en la usabilidad tanto para el administrador como para el cliente final. La plataforma no solo optimiza la gestión diaria, sino que abre la puerta a un modelo de negocio escalable (SaaS) que puede transformar la operación de cientos de complejos deportivos en el país.",
+    "proyecto7": {
+      "etiqueta": "Landing Corporativa",
+      "name": "RedditoBooks",
+      "subtitulo": "Una presencia digital moderna para una firma contable en crecimiento",
+      "p1": "RedditoBooks es una firma contable con sede en Miami que necesitaba una landing page profesional, moderna y confiable para respaldar su posicionamiento en el mercado estadounidense. El desafío era crear un sitio elegante y de alto impacto visual, capaz de comunicar seriedad, experiencia y claridad a clientes potenciales tanto locales como internacionales.",
+      "p2": "Trabajé en un diseño oscuro minimalista enfocado en tipografía precisa, testimonios verificados y secciones claras orientadas a conversión. Migré el proyecto a la arquitectura moderna de Next.js con server components, optimización de imágenes, OpenGraph avanzado, y un esquema JSON-LD con datos estructurados para mejorar el SEO local en EE.UU.",
+      "p3": "El resultado fue una landing sólida, rápida y con una narrativa visual que transmite confianza. La web está optimizada para adquisición de leads y preparada para escalar tanto hacia contenido educativo como hacia futuras integraciones con CRM.",
+
       "caracteristicas": "Características Principales",
-      "li1": "Dashboard Administrativo Intuitivo: Un panel de control central con calendario interactivo para gestionar horarios, confirmar reservas y visualizar la ocupación en tiempo real.",
-      "li2": "Portal de Autogestión para Jugadores: Perfiles de usuario con registro tradicional y social (Google Auth), historial de reservas y gestión de datos personales.",
-      "li3": "Sistema de Notificaciones Automatizadas: Mails transaccionales para confirmaciones de reserva, recordatorios y cambios, reduciendo ausencias y mejorando la comunicación.",
-      "li4": "Integración de Pagos con Mercado Pago: Una pasarela segura para que los jugadores puedan señar o pagar el total de la reserva en línea, asegurando el cobro para el complejo.",
-      "img": "/src/assets/checancha.webp",
-      "imgAlt": "Vista previa del proyecto CheCancha",
-      "github": "https://github.com/IWeppler/Checancha",
-      "deploy": "https://checancha.com"
+
+      "li1": "Diseño moderno y elegante: Estilo dark, tipografía Switzer, jerarquía visual limpia y foco en conversiones.",
+      "li2": "Arquitectura Next.js de última generación: Server components, optimización de rendimiento y estructura sólida para SEO técnico.",
+      "li3": "SEO corporativo avanzado: Metadatos refinados, OpenGraph personalizado, datos estructurados JSON-LD y sitemap multilenguaje.",
+      "li4": "Testimonios y social proof: Sección de reseñas reales con formato profesional orientado a credibilidad.",
+
+      "img": "/src/assets/reddito.webp",
+      "imgAlt": "Vista previa del proyecto RedditoBooks",
+      "github": "https://github.com/IWeppler/redditobooks",
+      "deploy": "https://reddito.vercel.app/"
     }
   },
   "projects": { "visitProject": "Visitar Proyecto" }
