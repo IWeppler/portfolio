@@ -1,12 +1,11 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { RiArrowRightLine } from "react-icons/ri";
-import inmobiliaria1 from "@/public/inmobiliaria1.png";
+import inmobiliaria1 from "@/public/inmobiliaria1.webp";
 import workmanantial2 from "@/public/workmanantial2.png";
-import atleticotostado from "@/public/atleticotostado.jpg";
+import atleticotostado from "@/public/atleticotostado.webp";
 import modulo4henry from "@/public/modulo4henry.webp";
-import modulo4henryb from "@/public/modulo4henryb.webp";
-import checancha from "@/public/checancha.png";
+import checancha from "@/public/checancha.webp";
 
 import { ButtonPrimary } from "./ui/Buttons";
 import { getDictionary } from "@/lib/get-dictionary";

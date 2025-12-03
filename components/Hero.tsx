@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import profile from "@/public/profile.jpeg";
+import profile from "@/public/profile.webp";
 import argentina from "@/public/argentina.avif";
 import { ButtonPrimary, ButtonSecondary } from "./ui/Buttons";
 import { getDictionary } from "@/lib/get-dictionary";
@@ -16,6 +16,7 @@ export default function HeroSection({ lang }: { lang: string }) {
       opacity: 1,
       transition: {
         staggerChildren: 0.05,
+        when: "beforeChildren",
       },
     },
   };
@@ -50,7 +51,7 @@ export default function HeroSection({ lang }: { lang: string }) {
         type: "spring",
         stiffness: 260,
         damping: 20,
-        delay: 0.8,
+        delay: 0.1,
       },
     },
   });
@@ -86,6 +87,7 @@ export default function HeroSection({ lang }: { lang: string }) {
               alt="Ignacio Weppler"
               className="w-16 h-12 object-contain"
               placeholder="blur"
+              priority={true}
             />
           </motion.span>
 
@@ -102,6 +104,7 @@ export default function HeroSection({ lang }: { lang: string }) {
               alt="Ignacio Weppler - Argentina"
               className="w-16 h-12 object-cover"
               placeholder="blur"
+              priority={true}
             />
           </motion.span>
 

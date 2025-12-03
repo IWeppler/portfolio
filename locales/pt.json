@@ -181,7 +181,7 @@
       "li2": "Arquitetura RBAC: controle avançado de permissões e gestão de equipe.",
       "li3": "SEO Técnico Avançado: JSON-LD, OpenGraph, otimização de imagens e carregamento instantâneo.",
       "li4": "Ferramentas de Conversão: integração com WhatsApp, mapas interativos e contador de visitas.",
-      "img": "/src/assets/inmobiliaria1.png",
+      "img": "/src/assets/inmobiliaria1.webp",
       "imgAlt": "Prévia do projeto Inmobiliaria TerraNova",
       "github": "https://github.com/IWeppler/TerraNova",
       "deploy": "https://inmobiliaria-pi.vercel.app/"

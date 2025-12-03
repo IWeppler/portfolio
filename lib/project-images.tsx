@@ -1,11 +1,10 @@
 import { StaticImageData } from "next/image";
 
-import atleticotostado from "@/public/atleticotostado.jpg";
-import atleticotostado2 from "@/public/atleticotostado2.jpg";
-import atleticotostado3 from "@/public/atleticotostado3.jpg";
-import mockupweb from "@/public/mockupweb.webp";
+import atleticotostado from "@/public/atleticotostado.webp";
+import atleticotostado2 from "@/public/atleticotostado2.webp";
+import atleticotostado3 from "@/public/atleticotostado3.webp";
 import workmanantial1 from "@/public/workmanantial1.png";
-import inmobiliaria1 from "@/public/inmobiliaria1.png";
+import inmobiliaria1 from "@/public/inmobiliaria1.webp";
 import inmobiliaria2 from "@/public/inmobiliaria2.png";
 import mockupnivo1 from "@/public/mockupnivo1.png";
 import mockupnivo2 from "@/public/mockupnivo2.png";
@@ -15,7 +14,7 @@ import checanchac from "@/public/checanchac.webp";
 import modulo4henry from "@/public/modulo4henry.webp";
 import modulo4henryb from "@/public/modulo4henryb.webp";
 import mockupreddittobooks from "@/public/mockupreddittobooks.jpg";
-import reddittobooksbanner from "@/public/reddittobooksbanner.jpg";
+import reddittobooksbanner from "@/public/reddittobooksbanner.webp";
 import mockupinaqui from "@/public/mockupinaqui.png";
 import maininaqui from "@/public/maininaqui.jpg";
 import mockinaqui2 from "@/public/mockinaqui2.jpg";

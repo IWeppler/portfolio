@@ -181,7 +181,7 @@
       "li2": "Arquitectura de Roles y Seguridad: Panel de administración con control de acceso basado en roles (RBAC) y gestión de equipo.",
       "li3": "Tecnología de Alto Rendimiento: SEO técnico avanzado (JSON-LD, OpenGraph), optimización de imágenes y carga instantánea.",
       "li4": "Herramientas de Conversión: Integración directa con WhatsApp, mapas interactivos para lotes/campos y contador de visitas en tiempo real.",
-      "img": "/src/assets/inmobiliaria1.png",
+      "img": "/src/assets/inmobiliaria1.webp",
       "imgAlt": "Vista previa del proyecto Inmobiliaria TerraNova",
       "github": "https://github.com/IWeppler/TerraNova",
       "deploy": "https://inmobiliaria-pi.vercel.app/"

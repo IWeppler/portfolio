@@ -1,14 +1,12 @@
 import { getDictionary } from "@/lib/get-dictionary";
 import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
-
-import atleticotostado from "@/public/atleticotostado.jpg";
+import atleticotostado from "@/public/atleticotostado.webp";
 import workmanantial2 from "@/public/workmanantial2.png";
 import modulo4henry from "@/public/modulo4henry.webp";
-import modulo4henryb from "@/public/modulo4henryb.webp";
-import inmobiliaria1 from "@/public/inmobiliaria1.png";
+import inmobiliaria1 from "@/public/inmobiliaria1.webp";
 import mockupnivo1 from "@/public/mockupnivo1.png";
-import checancha from "@/public/checancha.png";
-import reddittobooks from "@/public/reddittobooks.jpg";
+import checancha from "@/public/checancha.webp";
+import reddittobooks from "@/public/reddittobooks.webp";
 import mockupinaqui from "@/public/mockupinaqui.png";
 
 const imageMap: Record<string, any> = {

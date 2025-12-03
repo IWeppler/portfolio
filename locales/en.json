@@ -181,7 +181,7 @@
       "li2": "RBAC Security Architecture with advanced team and permission management.",
       "li3": "Technical SEO: JSON-LD, OpenGraph, image optimization and instant routing.",
       "li4": "Conversion Tools: WhatsApp integration, interactive satellite maps, and visit counter.",
-      "img": "/src/assets/inmobiliaria1.png",
+      "img": "/src/assets/inmobiliaria1.webp",
       "imgAlt": "Preview of the TerraNova Real Estate project",
       "github": "https://github.com/IWeppler/TerraNova",
       "deploy": "https://inmobiliaria-pi.vercel.app/"
