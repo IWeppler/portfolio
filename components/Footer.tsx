@@ -40,14 +40,14 @@ export default function Footer({ lang }: { lang: string }) {
 
         {/* Columna derecha: navegación */}
         <div className="flex flex-col space-y-4 text-3xl md:text-4xl font-light">
-          <Link href={`/${lang}/projects`} className="hover:text-paragraph transition-colors duration-150">
+          <Link href={`/${lang}#projects`} className="hover:text-paragraph transition-colors duration-150">
             {t.footer.links.projects}
           </Link>
           {/* Si tienes página de servicios: */}
-          <Link href={`/${lang}/#servicios`} className="hover:text-paragraph transition-colors duration-150">
+          <Link href={`/${lang}#servicios`} className="hover:text-paragraph transition-colors duration-150">
             {t.footer.links.services}
           </Link>
-          <Link href={`/${lang}/about`} className="hover:text-paragraph transition-colors duration-150">
+          <Link href={`/${lang}#sobremi`} className="hover:text-paragraph transition-colors duration-150">
             {t.footer.links.about}
           </Link>
           <Link href={`/${lang}#contacto`} className="hover:text-paragraph transition-colors duration-150">

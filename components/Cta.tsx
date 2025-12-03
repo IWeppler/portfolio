@@ -20,7 +20,7 @@ export const Cta = ({ lang }: { lang: string }) => {
 
         <AnimatedTitle
           text={cta.title}
-          className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight pb-4"
+          className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight pb-4 text-balance wrap-break-word"
         />
 
         <ButtonPrimary href={whatsappUrl} target="_blank">

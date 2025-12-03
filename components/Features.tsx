@@ -14,14 +14,14 @@ export default function Features({ lang }: { lang: string }) {
   const blocks = features.blocks as FeatureBlock[];
 
   return (
-    <section className="w-full py-16 md:py-32 text-foreground">
+    <section id="servicios" className="w-full py-16 md:py-32 text-foreground">
       {/* Subtítulo dinámico */}
       <p className="font-medium tracking-widest text-paragraph mb-2 uppercase">
         {features.subtitle}
       </p>
 
       {/* Título dinámico */}
-      <AnimatedTitle text={features.title} className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight pb-4" />
+      <AnimatedTitle text={features.title} className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight pb-4 text-balance wrap-break-word" />
 
       {blocks.map((block, i) => (
         <div

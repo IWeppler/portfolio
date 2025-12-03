@@ -40,7 +40,7 @@ export default function Projects({ lang }: { lang: string }) {
 
   return (
     <section
-      id="proyectos"
+      id="projects"
       className="w-full flex flex-col items-center py-20 bg-background"
     >
       <div className="w-full mb-12">
@@ -49,7 +49,7 @@ export default function Projects({ lang }: { lang: string }) {
         </p>
         <AnimatedTitle
           text={t.works.title}
-          className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight"
+          className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight text-balance wrap-break-word"
         />
       </div>
 

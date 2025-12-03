@@ -52,7 +52,7 @@ export const About = ({ lang }: { lang: string }) => {
   };
 
   return (
-    <section className="w-full py-16 md:py-32 text-foreground">
+    <section id="sobremi" className="w-full py-16 md:py-32 text-foreground">
       {/* GRID PRINCIPAL */}
       <motion.div
         className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-start mb-16 md:mb-32"
@@ -62,7 +62,7 @@ export const About = ({ lang }: { lang: string }) => {
         variants={containerVariants}
       >
         {/* IZQUIERDA – TÍTULO */}
-        <AnimatedTitle text={t.aboutme.title} className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight" />
+        <AnimatedTitle text={t.aboutme.title} className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight text-balance wrap-break-word" />
 
         {/* DERECHA – TEXTO REVEAL */}
         <motion.div variants={itemVariants} className="text-lg text-paragraph">
