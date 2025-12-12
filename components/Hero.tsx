@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import profile from "@/public/profile.webp";
+import profile from "@/public/profile.png";
 import argentina from "@/public/argentina.avif";
 import { ButtonPrimary, ButtonSecondary } from "./ui/Buttons";
 import { getDictionary } from "@/lib/get-dictionary";
