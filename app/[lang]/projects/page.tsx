@@ -2,7 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
 import atleticotostado from "@/public/atleticotostado.webp";
 import workmanantial2 from "@/public/workmanantial2.png";
-import modulo4henry from "@/public/modulo4henry.webp";
+import bikecomerce from "@/public/bikecomerce.png";
 import inmobiliaria1 from "@/public/inmobiliaria1.webp";
 import mockupnivo1 from "@/public/mockupnivo1.png";
 import checancha from "@/public/checancha.webp";
@@ -14,7 +14,7 @@ const imageMap: Record<string, any> = {
   proyecto2: { cover: inmobiliaria1 },
   proyecto3: { cover: checancha },
   proyecto4: { cover: atleticotostado },
-  proyecto5: { cover: modulo4henry },
+  proyecto5: { cover: bikecomerce },
   proyecto6: { cover: mockupnivo1 },
   proyecto7: { cover: reddittobooks },
   proyecto8: { cover: mockupinaqui },

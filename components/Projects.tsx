@@ -4,7 +4,7 @@ import { RiArrowRightLine } from "react-icons/ri";
 import inmobiliaria1 from "@/public/inmobiliaria1.webp";
 import workmanantial2 from "@/public/workmanantial2.png";
 import atleticotostado from "@/public/atleticotostado.webp";
-import modulo4henry from "@/public/modulo4henry.webp";
+import bikecomerce from "@/public/bikecomerce.png";
 import checancha from "@/public/checancha.webp";
 
 import { ButtonPrimary } from "./ui/Buttons";
@@ -16,7 +16,7 @@ const imageMap: Record<string, StaticImageData> = {
   proyecto2: inmobiliaria1,
   proyecto3: checancha,
   proyecto4: atleticotostado,
-  proyecto5: modulo4henry,
+  proyecto5: bikecomerce,
 };
 
 type ProyectoData = {
@@ -51,15 +51,11 @@ export default function Projects({ lang }: { lang: string }) {
         </h2>
 
         <div className="hidden md:block">
-        <AnimatedTitle
-          text={t.works.title}
-          className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight text-balance wrap-break-word"
+          <AnimatedTitle
+            text={t.works.title}
+            className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight text-balance wrap-break-word"
           />
-          </div>
-
-        
-
-        
+        </div>
       </div>
 
       {/* Grid Layout */}

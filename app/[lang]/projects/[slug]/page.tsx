@@ -87,7 +87,7 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* HERO IMAGE FULL WIDTH */}
         <div
-          className="relative w-full h-[380px] md:h-[480px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
+          className="relative w-full h-[380px] md:h-[620px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
           style={{ borderColor: colors.assets }}
         >
           <Image
@@ -119,7 +119,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* BREAK IMAGE, ALINEADA A LA DERECHA */}
         {images.img2 && (
           <div
-            className="relative w-full h-[380px] md:h-[480px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
+            className="relative w-full h-[380px] md:h-[620px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
             style={{ borderColor: colors.assets }}
           >
             <Image
@@ -186,7 +186,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* TERCERA IMAGEN OPCIONAL */}
         {images.img3 && (
           <div
-            className="relative w-full h-[360px] md:h-[420px] rounded-xl overflow-hidden bg-zinc-900 shadow-2xl mb-20 border"
+            className="relative w-full h-[360px] md:h-[620px] rounded-xl overflow-hidden bg-zinc-900 shadow-2xl mb-20 border"
             style={{ borderColor: colors.assets }}
           >
             <Image

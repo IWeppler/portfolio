@@ -225,20 +225,20 @@
 
     "proyecto5": {
       "etiqueta": "E-commerce",
-      "name": "E-commerce Tech",
-      "subtitulo": "Loja virtual de eletrônicos",
-      "p1": "Desenvolvi uma plataforma de e-commerce escalável para uma loja de tecnologia que precisava de uma presença online moderna e robusta.",
-      "p2": "A loja inclui catálogo amplo, busca avançada, filtros, gestão de estoque e pagamentos seguros.",
-      "p3": "O design prioriza clareza e navegação fluida.",
-      "caracteristicas": "Características Principais",
-      "li1": "Catálogo amplo com navegação por categorias.",
-      "li2": "Busca avançada com filtros.",
-      "li3": "Checkout seguro com integração de pagamentos.",
-      "li4": "Atualização automática de estoque.",
+      "name": "APEX Bikes E-commerce",
+      "subtitulo": "Boutique de Ciclismo & Garage de Seminovos",
+      "p1": "Projetei e desenvolvi um e-commerce de nicho para bicicletas de alta gama, focado em uma experiência de usuário premium e minimalista. A plataforma não apenas gerencia um catálogo complexo com variantes de cores e tamanhos, mas também integra um modelo de negócio híbrido de venda de novos e troca de usados.",
+      "p2": "A arquitetura é construída sobre Next.js 15 para velocidade máxima. Inclui um sistema de filtragem inteligente (por estilo, marca e preço), uma lógica de preços dinâmica que calcula descontos para transferência bancária e parcelamento em tempo real, e um módulo 'Garage' com validação de formulários complexos para avaliação de bicicletas.",
+      "p3": "O checkout foi otimizado em uma única página ('One Page Checkout') para reduzir o atrito, integrando validações de estoque e cálculo de frete. O design visual prioriza a fotografia do produto e a clareza nas informações técnicas.",
+      "li1": "Filtros dinâmicos e Busca: Navegação por subcategorias (MTB, Estrada, Urbana) e estilos.",
+      "li2": "Lógica Financeira Local: Cálculo automático de preços para transferência (-15%) e parcelamento.",
+      "li3": "Módulo APEX Garage: Formulário multi-etapa com validação Zod para cotação de usados.",
+      "li4": "Gestão de Variantes: Seletores visuais de cor e galerias de imagens interativas.",
+      "caracteristicas": "Principais Características",
       "img": "/src/assets/ecommerce.webp",
       "imgAlt": "Prévia do projeto de e-commerce de tecnologia",
-      "github": "https://github.com/IWeppler/PM4FE",
-      "deploy": "https://pm-4-fe-pi.vercel.app/"
+      "github": "https://github.com/IWeppler/bikecommerce",
+      "deploy": "https://bikecommerce-beige.vercel.app/"
     },
 
     "proyecto6": {

@@ -225,20 +225,20 @@
 
     "proyecto5": {
       "etiqueta": "E-commerce",
-      "name": "Technology E-commerce",
-      "subtitulo": "Online store for consumer electronics",
-      "p1": "I developed a scalable e-commerce platform for a tech store that required a reliable, modern online presence.",
-      "p2": "The site includes a large catalog, advanced search, filters, inventory management, and secure payment systems.",
-      "p3": "The design prioritizes clarity and smooth navigation.",
-      "caracteristicas": "Main Features",
-      "li1": "Extensive catalog with category browsing.",
-      "li2": "Advanced search and filtering.",
-      "li3": "Secure checkout with payment integration.",
-      "li4": "Automatic inventory updates.",
+      "name": "APEX Bikes E-commerce",
+      "subtitulo": "Cycling Boutique & Pre-owned Garage",
+      "p1": "Designed and developed a niche e-commerce for high-end bicycles, focused on a premium and minimalist user experience. The platform not only manages a complex catalog with color and size variants but also integrates a hybrid business model combining new product sales with used bike trade-ins.",
+      "p2": "The architecture is built on Next.js 15 for maximum speed. It includes a smart filtering system (by style, brand, and price), dynamic pricing logic that calculates bank transfer discounts and installment plans in real-time, and a 'Garage' module with complex form validation for bike appraisals.",
+      "p3": "The checkout process was optimized into a 'One Page Checkout' to reduce friction, integrating stock validation and shipping calculations. The visual design prioritizes product photography and clarity in technical information.",
+      "li1": "Dynamic Filters & Search: Navigation by subcategories (MTB, Road, Urban) and styles.",
+      "li2": "Local Financial Logic: Automatic price calculation for bank transfer discounts (-15%) and installments.",
+      "li3": "APEX Garage Module: Multi-step form with Zod validation for used bike quotes.",
+      "li4": "Variant Management: Visual color selectors and interactive image galleries.",
       "img": "/src/assets/ecommerce.webp",
       "imgAlt": "Preview of the tech e-commerce project",
-      "github": "https://github.com/IWeppler/PM4FE",
-      "deploy": "https://pm-4-fe-pi.vercel.app/"
+      "caracteristicas": "Key Features",
+      "github": "https://github.com/IWeppler/bikecommerce",
+      "deploy": "https://bikecommerce-beige.vercel.app/"
     },
 
     "proyecto6": {

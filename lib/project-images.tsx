@@ -11,8 +11,9 @@ import mockupnivo2 from "@/public/mockupnivo2.png";
 import figmanivo from "@/public/figmanivo.webp";
 import checanchab from "@/public/checanchab.webp";
 import checanchac from "@/public/checanchac.webp";
-import modulo4henry from "@/public/modulo4henry.webp";
-import modulo4henryb from "@/public/modulo4henryb.webp";
+import bikecomerce from "@/public/bikecomerce.png";
+import bikecomerceb from "@/public/bikecomerceb.png";
+import bikecomercec from "@/public/bikecomercec.png";
 import mockupreddittobooks from "@/public/mockupreddittobooks.jpg";
 import reddittobooksbanner from "@/public/reddittobooksbanner.webp";
 import mockupinaqui from "@/public/mockupinaqui.png";
@@ -35,7 +36,7 @@ export const imageMap: Record<string, ProjectImages> = {
     img2: atleticotostado3,
     cover: atleticotostado,
   },
-  proyecto5: { img1: modulo4henry, img2: modulo4henryb, cover: modulo4henry },
+  proyecto5: { img1: bikecomerce, img2: bikecomerceb, img3: bikecomercec, cover: bikecomerce },
   proyecto6: {
     img1: mockupnivo1,
     img2: mockupnivo2,
