@@ -1,15 +1,18 @@
-import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { AnchorHTMLAttributes } from "react";
+
+type FancyNavLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: string;
+  className?: string;
+};
 
 export function FancyNavLink({
   href,
-  children,
+  children, 
   className,
-}: {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
+  ...props
+}: FancyNavLinkProps) {
   return (
     <Link
       href={href}
@@ -21,6 +24,7 @@ export function FancyNavLink({
         "hover:before:origin-left hover:before:scale-x-100",
         className
       )}
+      {...props}
     >
       <span className="flex items-center">
         {children}{" "}

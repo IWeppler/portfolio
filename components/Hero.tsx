@@ -108,7 +108,7 @@ export default function HeroSection({ lang }: { lang: string }) {
             />
           </motion.span>
 
-          {/* Parte 3 del texto */}
+          {/* Parte 3 del texto */} 
           <motion.span variants={textVariants}>{t.hero.part3}</motion.span>
         </h1>
 
