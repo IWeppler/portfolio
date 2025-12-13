@@ -118,9 +118,7 @@ export default function HeroSection({ lang }: { lang: string }) {
             {t.hero.cta_write}
           </ButtonPrimary>
 
-          <ButtonSecondary href="#proyectos">
-            {t.hero.cta_works}
-          </ButtonSecondary>
+          <ButtonSecondary href="#projects">{t.hero.cta_works}</ButtonSecondary>
         </motion.div>
       </motion.div>
     </section>
