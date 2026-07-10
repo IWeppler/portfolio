@@ -128,6 +128,80 @@
     "title": "Let's work together",
     "cta": "Let's talk"
   },
+  "contact_modal": {
+    "close": "Close",
+    "back": "Back",
+    "continue": "Continue",
+    "progress": "Step {step} of {total}",
+    "step1": {
+      "title": "What do you want to build?",
+      "options": {
+        "web_inmobiliaria": "Real Estate Website",
+        "app_gestion": "Management App or System",
+        "web_corporativa": "Corporate Website",
+        "agencia": "I'm an agency looking to outsource",
+        "otro": "Other"
+      }
+    },
+    "step2_cliente": {
+      "idea_title": "What stage is your idea at?",
+      "idea_options": {
+        "solo_idea": "Just an idea",
+        "tengo_disenos": "I have designs",
+        "tengo_web": "I already have a website and want to improve it"
+      },
+      "presupuesto_title": "Estimated budget (USD)"
+    },
+    "step2_agencia": {
+      "tipo_title": "What kind of projects do you outsource?",
+      "tipo_options": {
+        "landings": "Landing pages",
+        "webs_completas": "Full websites",
+        "sistemas": "Systems or apps",
+        "varios": "A mix of everything"
+      },
+      "frecuencia_title": "How often?",
+      "frecuencia_options": {
+        "puntual": "One-off project",
+        "mensual": "1-2 per month",
+        "constante": "Steady flow"
+      }
+    },
+    "presupuesto_options": {
+      "200_400": "$200 – 400",
+      "400_1000": "$400 – 1,000",
+      "1000_3000": "$1,000 – 3,000",
+      "3000_plus": "$3,000+",
+      "a_conversar": "I'd rather discuss it"
+    },
+    "step3": {
+      "nombre_label": "Name",
+      "nombre_placeholder": "Your name",
+      "email_label": "Email",
+      "email_placeholder": "you@email.com",
+      "whatsapp_label": "WhatsApp (optional)",
+      "whatsapp_placeholder": "+1 234 567 8900",
+      "mensaje_label": "Briefly tell me your goal",
+      "mensaje_placeholder": "What would you like to achieve with this project?",
+      "link_label": "Have something to show me? Paste a link (Figma, current site)",
+      "link_placeholder": "https://",
+      "prefiere_whatsapp_label": "I'd rather have a quick WhatsApp call instead of email",
+      "submit": "Send",
+      "submitting": "Sending...",
+      "disclaimer": "I reply personally — no automated filters.",
+      "error_nombre": "Enter your name",
+      "error_email": "Enter a valid email",
+      "error_link": "Enter a valid link (e.g. https://...)",
+      "error_message": "We couldn't send your message. Your info is safe, you can try again.",
+      "retry": "Retry"
+    },
+    "success": {
+      "title": "All set!",
+      "message": "I'll get back to you within 24 hours.",
+      "message_whatsapp": "I'll message you on WhatsApp within 24 hours.",
+      "close": "Close"
+    }
+  },
   "footer": {
     "title": "Contact",
     "email_label": "Email",
@@ -174,13 +248,13 @@
       "name": "Inmobiliaria TerraNova",
       "subtitulo": "End-to-end solution for real estate sales and management",
       "p1": "I developed a high-performance web platform designed to modernize the operations of a rural and urban real estate agency. The goal was to surpass traditional website limitations and create a digital ecosystem that works as a sales-closing tool.",
-      "p2": "The application merges an SEO-optimized public portal with a powerful CRM Admin Dashboard. Built with Next.js 15 and Supabase, I implemented Row Level Security for granular permission control between Admins and Agents.",
-      "p3": "The system transforms the workflow: it automatically captures leads from the website, assigns them to agents, and allows detailed follow-up through internal notes and statuses.",
+      "p2": "The application merges an SEO-optimized public portal with a powerful CRM Admin Dashboard. Built with Next.js 15 and Supabase, I implemented Row Level Security for granular permission control between Admins and Agents, ensuring business data integrity and privacy.",
+      "p3": "The system transforms the workflow: it automatically captures leads from the website, assigns them to agents, and allows detailed follow-up through internal notes and statuses. Additionally, it features industry-specific tools like interactive satellite maps and dynamic metadata generation for social sharing.",
       "caracteristicas": "Main Features",
-      "li1": "Integrated Sales CRM with lead pipeline, internal notes chat, and reassignment system.",
-      "li2": "RBAC Security Architecture with advanced team and permission management.",
-      "li3": "Technical SEO: JSON-LD, OpenGraph, image optimization and instant routing.",
-      "li4": "Conversion Tools: WhatsApp integration, interactive satellite maps, and visit counter.",
+      "li1": "Integrated Sales CRM: Lead pipeline with statuses, internal notes chat, and agent reassignment system.",
+      "li2": "RBAC Security Architecture: Admin panel with Role-Based Access Control and advanced team management.",
+      "li3": "Technical SEO: Advanced JSON-LD, OpenGraph, image optimization, and instant routing.",
+      "li4": "Conversion Tools: Direct WhatsApp integration, interactive maps for plots/farms, and real-time visit counter.",
       "img": "/src/assets/inmobiliaria1.webp",
       "imgAlt": "Preview of the TerraNova Real Estate project",
       "github": "https://github.com/IWeppler/TerraNova",
@@ -295,6 +369,23 @@
       "imgAlt": "Iñaqui Techos project preview",
       "github": "",
       "deploy": "https://inaqui.com.ar"
+    },
+    "proyecto9": {
+      "etiqueta": "Agricultural Management System",
+      "name": "El Tolar",
+      "subtitulo": "Enterprise-level platform for the comprehensive management of agricultural operations.",
+      "p1": "Agricultural producers faced a critical problem: stock management, supplies, finances, and production were scattered across spreadsheets and manual processes. This led to wasted time, costly errors, and the inability to make decisions based on real data. The challenge was to build a centralized solution that digitized the entire farm operation without sacrificing ease of use.",
+      "p2": "I developed a full-stack enterprise web platform that integrates three worlds into a single system: supply logistics with multi-warehouse stock control, a financial module with multi-currency support (ARS/USD) and real-time exchange rates, and agronomic lot planning with crop campaign tracking. Each module was designed to work together, automatically allocating input costs to the lot that consumes them.",
+      "p3": "The result is a tool that fully replaces manual workflows, allowing the producer to monitor critical stock levels, outstanding debt, payment deadlines, and yield per hectare from a single dashboard. This project demonstrates my ability to analyze complex business processes, model a robust relational database, and build a modular, typed, and scalable architecture using modern technologies.",
+      "caracteristicas": "Key Features",
+      "li1": "Multi-Warehouse Stock Control: Full traceability of entries and exits per warehouse, with automatic critical stock alerts and digital delivery note generation in PDF.",
+      "li2": "Multi-Currency Financial Module: Current account management with native ARS and USD support, real-time exchange rate integration, and a debt KPI dashboard.",
+      "li3": "Agronomic Lot Planning: Crop campaign tracking with automatic cost allocation, ROI calculation, and gross margin analysis per hectare.",
+      "li4": "Centralized Operations Dashboard: Agricultural agenda with task and payment calendars, local weather API integration, and a connectivity indicator for rural areas.",
+      "img": "/src/assets/el-tolar.webp",
+      "imgAlt": "El Tolar - Agricultural Management System project preview",
+      "github": "https://github.com/IWeppler/el-tolar",
+      "deploy": "http://eltolar.vercel.app/"
     }
   },
   "projects": { "visitProject": "Visit Project" }

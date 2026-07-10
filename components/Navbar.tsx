@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { RiGlobalLine, RiArrowDownSLine } from "react-icons/ri";
+import { useContactModal } from "./contact-modal/ContactModalProvider";
 
 interface NavbarProps {
   lang: string;
@@ -18,6 +19,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const { open: openContactModal } = useContactModal();
 
   const languages = [
     { code: "es", label: "Español" },
@@ -63,6 +65,10 @@ export default function Navbar({ lang, labels }: NavbarProps) {
           </Link>
           <Link
             href={`/${lang}#contacto`}
+            onClick={(e) => {
+              e.preventDefault();
+              openContactModal();
+            }}
             className="transition-colors hover:text-orange"
           >
             {labels.contact}

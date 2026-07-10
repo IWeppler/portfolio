@@ -129,6 +129,80 @@
     "title": "Trabajemos juntos",
     "cta": "Hablemos"
   },
+  "contact_modal": {
+    "close": "Cerrar",
+    "back": "Volver",
+    "continue": "Continuar",
+    "progress": "Paso {step} de {total}",
+    "step1": {
+      "title": "¿Qué querés construir?",
+      "options": {
+        "web_inmobiliaria": "Web Inmobiliaria",
+        "app_gestion": "App o Sistema de Gestión",
+        "web_corporativa": "Web Corporativa",
+        "agencia": "Soy agencia, busco subcontratar",
+        "otro": "Otro"
+      }
+    },
+    "step2_cliente": {
+      "idea_title": "¿En qué estado está tu idea?",
+      "idea_options": {
+        "solo_idea": "Solo una idea",
+        "tengo_disenos": "Tengo diseños",
+        "tengo_web": "Ya tengo web y quiero mejorarla"
+      },
+      "presupuesto_title": "Presupuesto estimado (USD)"
+    },
+    "step2_agencia": {
+      "tipo_title": "¿Qué tipo de proyectos tercerizás?",
+      "tipo_options": {
+        "landings": "Landings",
+        "webs_completas": "Webs completas",
+        "sistemas": "Sistemas o apps",
+        "varios": "Varios"
+      },
+      "frecuencia_title": "¿Con qué frecuencia?",
+      "frecuencia_options": {
+        "puntual": "Proyecto puntual",
+        "mensual": "1-2 por mes",
+        "constante": "Flujo constante"
+      }
+    },
+    "presupuesto_options": {
+      "200_400": "$200 – 400",
+      "400_1000": "$400 – 1.000",
+      "1000_3000": "$1.000 – 3.000",
+      "3000_plus": "$3.000+",
+      "a_conversar": "Prefiero hablarlo"
+    },
+    "step3": {
+      "nombre_label": "Nombre",
+      "nombre_placeholder": "Tu nombre",
+      "email_label": "Email",
+      "email_placeholder": "tu@email.com",
+      "whatsapp_label": "WhatsApp (opcional)",
+      "whatsapp_placeholder": "+54 9 11 1234-5678",
+      "mensaje_label": "Contame brevemente tu objetivo",
+      "mensaje_placeholder": "¿Qué te gustaría lograr con este proyecto?",
+      "link_label": "¿Tenés algo para mostrarme? Pegá un link (Figma, web actual)",
+      "link_placeholder": "https://",
+      "prefiere_whatsapp_label": "Prefiero una llamada breve por WhatsApp en vez de email",
+      "submit": "Enviar",
+      "submitting": "Enviando...",
+      "disclaimer": "Respondo personalmente — sin filtros automáticos.",
+      "error_nombre": "Ingresá tu nombre",
+      "error_email": "Ingresá un email válido",
+      "error_link": "Ingresá un link válido (ej. https://...)",
+      "error_message": "No pudimos enviar tu mensaje. Tus datos están a salvo, podés reintentar.",
+      "retry": "Reintentar"
+    },
+    "success": {
+      "title": "¡Listo!",
+      "message": "Te respondo en menos de 24hs.",
+      "message_whatsapp": "Te escribo por WhatsApp en menos de 24hs.",
+      "close": "Cerrar"
+    }
+  },
   "footer": {
     "title": "Contacto",
     "email_label": "Email",
@@ -172,14 +246,14 @@
     "proyecto2": {
       "etiqueta": "Plataforma Real Estate & CRM",
       "name": "Inmobiliaria TerraNova",
-      "subtitulo": "Solución integral para la gestión y venta de propiedades",
+      "subtitulo": "Solución integral, automatizada y escalable para la gestión y venta de propiedades",
       "p1": "Desarrollé una plataforma web de alto rendimiento diseñada para modernizar la operatoria de una inmobiliaria rural y urbana. El objetivo fue superar las limitaciones de los sitios web tradicionales, creando un ecosistema digital que no solo funciona como vidriera, sino como una herramienta activa de cierre de ventas.",
       "p2": "La aplicación fusiona un portal público optimizado para SEO con un potente Dashboard administrativo (CRM). Construida sobre Next.js 15 y Supabase, implementé un sistema de seguridad avanzado (Row Level Security) que gestiona permisos granulares entre Administradores y Agentes, asegurando la integridad y privacidad de los datos del negocio.",
       "p3": "El sistema transforma el flujo de trabajo: captura leads automáticamente desde la web, los asigna al agente responsable y permite un seguimiento detallado mediante notas internas y estados. Además, incorpora herramientas específicas para el sector como mapas satelitales interactivos y generación de metadatos dinámicos para compartir en redes.",
       "caracteristicas": "Características Principales",
-      "li1": "CRM de Ventas Integrado: Pipeline de leads con estados, chat de notas internas para seguimiento y sistema de reasignación de agentes.",
-      "li2": "Arquitectura de Roles y Seguridad: Panel de administración con control de acceso basado en roles (RBAC) y gestión de equipo.",
-      "li3": "Tecnología de Alto Rendimiento: SEO técnico avanzado (JSON-LD, OpenGraph), optimización de imágenes y carga instantánea.",
+      "li1": "CRM & Business Intelligence: Pipeline de ventas automatizado con estados dinámicos y un panel de analíticas en tiempo real que monitorea ingresos generados, operaciones cerradas y rendimiento de leads.",
+      "li2": "Automatización con Inteligencia Artificial: Integración de Vercel AI SDK y Google Gemini para la redacción automática de descripciones persuasivas y optimizadas para SEO con un solo click.",
+      "li3": "Arquitectura de Roles y Seguridad: Panel de administración blindado con control de acceso basado en roles (RBAC) y Row Level Security (RLS), garantizando la privacidad y el aislamiento de los datos entre administradores y agentes.",
       "li4": "Herramientas de Conversión: Integración directa con WhatsApp, mapas interactivos para lotes/campos y contador de visitas en tiempo real.",
       "img": "/src/assets/inmobiliaria1.webp",
       "imgAlt": "Vista previa del proyecto Inmobiliaria TerraNova",
@@ -287,6 +361,22 @@
       "imgAlt": "Vista previa del proyecto Iñaqui Techos",
       "github": "",
       "deploy": "https://inaqui.com.ar"
+    },
+    "proyecto9": {
+      "etiqueta": "Sistema de Gestión Agropecuaria",
+      "name": "El Tolar",
+      "subtitulo": "Plataforma empresarial para la administración integral de operaciones agrícolas",
+      "p1": "Los productores agropecuarios enfrentaban un problema crítico: la gestión de stock, insumos, finanzas y producción estaba fragmentada en planillas dispersas y procesos manuales. Esto generaba pérdida de tiempo, errores costosos y la imposibilidad de tomar decisiones basadas en datos reales. El desafío fue construir una solución centralizada que digitalizara toda la operatoria del campo sin perder simplicidad de uso.",
+      "p2": "Desarrollé una plataforma web full-stack de nivel empresarial que integra tres mundos en un solo sistema: la logística de insumos con control multi-depósito, un módulo financiero con soporte multimoneda (ARS/USD) y cotización en tiempo real, y la planificación agronómica de lotes con seguimiento de campañas productivas. Cada módulo fue diseñado para trabajar en conjunto, imputando automáticamente los costos de insumos al lote que los consume.",
+      "p3": "El resultado es una herramienta que reemplaza por completo el trabajo manual, permitiendo al productor controlar stock crítico, deuda exigible, vencimientos y rendimiento por hectárea desde un único dashboard. Este proyecto demuestra mi capacidad para analizar procesos de negocio complejos, modelar una base de datos relacional robusta y construir una arquitectura modular, tipada y escalable con tecnologías modernas.",
+      "caracteristicas": "Características Principales",
+      "li1": "Control de Stock Multi-Depósito: Trazabilidad total de ingresos y egresos por galpón, con alertas automáticas de stock crítico y generación de remitos digitales en PDF.",
+      "li2": "Módulo Financiero Multimoneda: Gestión de cuentas corrientes con soporte nativo para ARS y USD, integración de cotización del dólar en tiempo real y panel de KPIs de deuda.",
+      "li3": "Planificación Agronómica de Lotes: Seguimiento de campañas productivas con imputación automática de costos, cálculo de ROI y análisis de márgenes brutos por hectárea.",
+      "li4": "Dashboard Operativo Centralizado: Agenda agrícola con calendario de tareas y vencimientos, integración con APIs de clima local e indicador de conectividad para zonas rurales.",
+      "img": "/src/assets/el-tolar.webp",
+      "github": "https://github.com/IWeppler/el-tolar",
+      "deploy": "http://eltolar.vercel.app/"
     }
   },
   "projects": { "visitProject": "Visitar Proyecto" }

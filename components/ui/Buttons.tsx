@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import { FancyNavLink } from "./FancyNavLink";
 
 interface ButtonProps {
@@ -7,6 +7,7 @@ interface ButtonProps {
   children: ReactNode;
   className?: string;
   target?: string;
+  onClick?: MouseEventHandler;
 }
 
 // --- 1. Botón Principal ---

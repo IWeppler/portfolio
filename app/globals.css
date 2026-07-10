@@ -206,3 +206,29 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Scoped scrollbar for scrollable containers that need to match the dark UI
+     (eg. the contact modal panel) instead of the browser's default scrollbar. */
+  .modal-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.35) transparent;
+  }
+
+  .modal-scroll::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .modal-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .modal-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.35);
+    border-radius: 9999px;
+  }
+
+  .modal-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(156, 163, 175, 0.55);
+  }
+}

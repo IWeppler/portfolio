@@ -128,6 +128,80 @@
     "title": "Trabalhemos juntos",
     "cta": "Fale comigo"
   },
+  "contact_modal": {
+    "close": "Fechar",
+    "back": "Voltar",
+    "continue": "Continuar",
+    "progress": "Passo {step} de {total}",
+    "step1": {
+      "title": "O que você quer construir?",
+      "options": {
+        "web_inmobiliaria": "Site Imobiliário",
+        "app_gestion": "App ou Sistema de Gestão",
+        "web_corporativa": "Site Corporativo",
+        "agencia": "Sou agência, busco terceirizar",
+        "otro": "Outro"
+      }
+    },
+    "step2_cliente": {
+      "idea_title": "Em que estado está sua ideia?",
+      "idea_options": {
+        "solo_idea": "Só uma ideia",
+        "tengo_disenos": "Tenho designs",
+        "tengo_web": "Já tenho site e quero melhorá-lo"
+      },
+      "presupuesto_title": "Orçamento estimado (USD)"
+    },
+    "step2_agencia": {
+      "tipo_title": "Que tipo de projetos você terceiriza?",
+      "tipo_options": {
+        "landings": "Landing pages",
+        "webs_completas": "Sites completos",
+        "sistemas": "Sistemas ou apps",
+        "varios": "Vários"
+      },
+      "frecuencia_title": "Com que frequência?",
+      "frecuencia_options": {
+        "puntual": "Projeto pontual",
+        "mensual": "1-2 por mês",
+        "constante": "Fluxo constante"
+      }
+    },
+    "presupuesto_options": {
+      "200_400": "$200 – 400",
+      "400_1000": "$400 – 1.000",
+      "1000_3000": "$1.000 – 3.000",
+      "3000_plus": "$3.000+",
+      "a_conversar": "Prefiro conversar"
+    },
+    "step3": {
+      "nombre_label": "Nome",
+      "nombre_placeholder": "Seu nome",
+      "email_label": "Email",
+      "email_placeholder": "seu@email.com",
+      "whatsapp_label": "WhatsApp (opcional)",
+      "whatsapp_placeholder": "+55 11 91234-5678",
+      "mensaje_label": "Conte brevemente seu objetivo",
+      "mensaje_placeholder": "O que você gostaria de alcançar com este projeto?",
+      "link_label": "Tem algo para me mostrar? Cole um link (Figma, site atual)",
+      "link_placeholder": "https://",
+      "prefiere_whatsapp_label": "Prefiro uma ligação breve pelo WhatsApp em vez de email",
+      "submit": "Enviar",
+      "submitting": "Enviando...",
+      "disclaimer": "Respondo pessoalmente — sem filtros automáticos.",
+      "error_nombre": "Digite seu nome",
+      "error_email": "Digite um email válido",
+      "error_link": "Digite um link válido (ex. https://...)",
+      "error_message": "Não conseguimos enviar sua mensagem. Seus dados estão salvos, você pode tentar novamente.",
+      "retry": "Tentar novamente"
+    },
+    "success": {
+      "title": "Pronto!",
+      "message": "Respondo em menos de 24h.",
+      "message_whatsapp": "Vou te escrever pelo WhatsApp em menos de 24h.",
+      "close": "Fechar"
+    }
+  },
   "footer": {
     "title": "Contato",
     "email_label": "Email",
@@ -168,19 +242,18 @@
       "github": "https://github.com/IWeppler/el-manantial",
       "deploy": "https://el-manantial-two.vercel.app/"
     },
-
     "proyecto2": {
       "etiqueta": "Plataforma Imobiliária & CRM",
       "name": "Inmobiliaria TerraNova",
       "subtitulo": "Solução completa para gestão e venda de propriedades",
       "p1": "Desenvolvi uma plataforma web de alto desempenho projetada para modernizar as operações de uma imobiliária rural e urbana. O objetivo foi ultrapassar as limitações dos sites tradicionais e criar um ecossistema digital que funcione como uma ferramenta ativa de fechamento de vendas.",
-      "p2": "A aplicação combina um portal público otimizado para SEO com um robusto Dashboard Administrativo (CRM). Construída com Next.js 15 e Supabase, implementei Row Level Security para permitir permissões granulares entre Administradores e Agentes.",
-      "p3": "O sistema transforma o fluxo de trabalho: captura leads automaticamente, atribui ao agente responsável e permite acompanhamento detalhado por meio de notas internas e status.",
+      "p2": "A aplicação combina um portal público otimizado para SEO com um robusto Dashboard Administrativo (CRM). Construída com Next.js 15 e Supabase, implementei Row Level Security para gerenciar permissões granulares entre Administradores e Agentes, garantindo a integridade dos dados.",
+      "p3": "O sistema transforma o fluxo de trabalho: captura leads automaticamente, atribui ao agente responsável e permite acompanhamento detalhado por meio de notas internas e status. Também inclui mapas satelitais interativos e geração de metadados dinâmicos para redes sociais.",
       "caracteristicas": "Características Principais",
-      "li1": "CRM de Vendas Integrado: pipeline de leads, chat interno e reatribuição de agentes.",
-      "li2": "Arquitetura RBAC: controle avançado de permissões e gestão de equipe.",
+      "li1": "CRM de Vendas Integrado: Pipeline de leads, chat de notas internas e sistema de reatribuição de agentes.",
+      "li2": "Arquitetura RBAC: Painel administrativo com controle de acesso baseado em funções e gestão de equipe.",
       "li3": "SEO Técnico Avançado: JSON-LD, OpenGraph, otimização de imagens e carregamento instantâneo.",
-      "li4": "Ferramentas de Conversão: integração com WhatsApp, mapas interativos e contador de visitas.",
+      "li4": "Ferramentas de Conversão: Integração com WhatsApp, mapas interativos para lotes e campos, e contador de visitas em tempo real.",
       "img": "/src/assets/inmobiliaria1.webp",
       "imgAlt": "Prévia do projeto Inmobiliaria TerraNova",
       "github": "https://github.com/IWeppler/TerraNova",
@@ -294,6 +367,23 @@
       "imgAlt": "Pré-visualização do projeto Iñaqui Techos",
       "github": "",
       "deploy": "https://inaqui.com.ar/"
+    },
+    "proyecto9": {
+      "etiqueta": "Sistema de Gestão Agropecuária",
+      "name": "El Tolar",
+      "subtitulo": "Plataforma empresarial para a gestão integral de operações agrícolas.",
+      "p1": "Os produtores agropecuários enfrentavam um problema crítico: a gestão de estoque, insumos, finanças e produção estava fragmentada em planilhas dispersas e processos manuais. Isso gerava perda de tempo, erros custosos e a impossibilidade de tomar decisões baseadas em dados reais. O desafio foi construir uma solução centralizada que digitalizasse toda a operação do campo sem perder a simplicidade de uso.",
+      "p2": "Desenvolvi uma plataforma web full-stack de nível empresarial que integra três mundos em um único sistema: a logística de insumos com controle multi-depósito, um módulo financeiro com suporte multi-moeda (ARS/USD) e cotação em tempo real, e o planejamento agronômico de lotes com acompanhamento de campanhas produtivas. Cada módulo foi projetado para trabalhar em conjunto, imputando automaticamente os custos dos insumos ao lote que os consome.",
+      "p3": "O resultado é uma ferramenta que substitui completamente o trabalho manual, permitindo ao produtor monitorar estoque crítico, dívida exigível, vencimentos e rentabilidade por hectare a partir de um único dashboard. Este projeto demonstra minha capacidade de analisar processos de negócio complexos, modelar um banco de dados relacional robusto e construir uma arquitetura modular, tipada e escalável com tecnologias modernas.",
+      "caracteristicas": "Características Principais",
+      "li1": "Controle de Estoque Multi-Depósito: Rastreabilidade total de entradas e saídas por galpão, com alertas automáticos de estoque crítico e geração de romaneios digitais em PDF.",
+      "li2": "Módulo Financeiro Multi-Moeda: Gestão de contas correntes com suporte nativo para ARS e USD, integração de cotação do dólar em tempo real e painel de KPIs de dívida.",
+      "li3": "Planejamento Agronômico de Lotes: Acompanhamento de campanhas produtivas com imputação automática de custos, cálculo de ROI e análise de margens brutas por hectare.",
+      "li4": "Dashboard Operacional Centralizado: Agenda agrícola com calendário de tarefas e vencimentos, integração com APIs de clima local e indicador de conectividade para zonas rurais.",
+      "img": "/src/assets/el-tolar.webp",
+      "imgAlt": "Pré-visualização do projeto El Tolar - Sistema de Gestão Agropecuária",
+      "github": "https://github.com/IWeppler/el-tolar",
+      "deploy": "http://eltolar.vercel.app/"
     }
   },
   "projects": { "visitProject": "Visitar Projeto" }

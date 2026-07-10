@@ -6,9 +6,12 @@ import argentina from "@/public/argentina.avif";
 import { ButtonPrimary, ButtonSecondary } from "./ui/Buttons";
 import { getDictionary } from "@/lib/get-dictionary";
 import { easeOut, motion, Variants } from "framer-motion";
+import type { MouseEvent } from "react";
+import { useContactModal } from "./contact-modal/ContactModalProvider";
 
 export default function HeroSection({ lang }: { lang: string }) {
   const t = getDictionary(lang);
+  const { open: openContactModal } = useContactModal();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -114,7 +117,13 @@ export default function HeroSection({ lang }: { lang: string }) {
 
         {/* Botones  */}
         <motion.div variants={buttonVariants} className="flex gap-4 mt-8">
-          <ButtonPrimary href={`/${lang}#contacto`}>
+          <ButtonPrimary
+            href={`/${lang}#contacto`}
+            onClick={(e: MouseEvent) => {
+              e.preventDefault();
+              openContactModal();
+            }}
+          >
             {t.hero.cta_write}
           </ButtonPrimary>
 

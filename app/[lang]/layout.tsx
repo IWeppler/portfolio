@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Cursor from "@/components/ui/skiper-ui/skiper61";
 import { getDictionary } from "@/lib/get-dictionary";
 import StructuredData from "@/components/StructuredData";
+import { ContactModalProvider } from "@/components/contact-modal/ContactModalProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
 import { GoogleAnalytics } from '@next/third-parties/google'
@@ -41,14 +42,17 @@ export default async function LangLayout({
       </head>
 
       <body className="font-general bg-background text-foreground">
+        
         <StructuredData />
         <Analytics />
         <SpeedInsights />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""} />
-        <Navbar lang={lang} labels={t.navbar} />
-        <Cursor />
-        {children}
-        <Footer lang={lang} />
+        <ContactModalProvider lang={lang}>
+          <Navbar lang={lang} labels={t.navbar} />
+          <Cursor />
+          {children}
+          <Footer lang={lang} />
+        </ContactModalProvider>
       </body>
     </html>
   );
