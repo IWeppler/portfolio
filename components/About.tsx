@@ -2,11 +2,26 @@
 
 import { FancyNavLink } from "./ui/FancyNavLink";
 import { getDictionary } from "@/lib/get-dictionary";
-import { easeOut, motion, Variants } from "framer-motion";
-import { AnimatedTitle } from "./ui/AnimatedTitle";
+import { motion, Variants } from "framer-motion";
+import { AnimatedTitle, EASE_OUT_SOFT } from "./ui/AnimatedTitle";
+
+// Separa el número/prefijo (+, dígitos) del resto del texto para resaltarlo
+const splitMetric = (text: string) => {
+  const match = text.match(/^(\+)?(\d+)(\+)?\s*(.*)$/);
+  if (!match) return { leadingPlus: false, digits: "", trailingPlus: false, label: text };
+  const [, leadingPlus, digits, trailingPlus, label] = match;
+  return { leadingPlus: !!leadingPlus, digits, trailingPlus: !!trailingPlus, label };
+};
 
 export const About = ({ lang }: { lang: string }) => {
   const t = getDictionary(lang);
+
+  const metrics = [
+    t.aboutme.metrics.projects,
+    t.aboutme.metrics.clients,
+    t.aboutme.metrics.industries,
+    t.aboutme.metrics.reach,
+  ];
 
   // Variantes para el contenedor principal
   const containerVariants: Variants = {
@@ -19,17 +34,18 @@ export const About = ({ lang }: { lang: string }) => {
     },
   };
 
-  // Animación de entrada suave (Fade Up)
+  // Animación de entrada suave (fade + blur, sin rebote)
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 12, filter: "blur(8px)" },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: easeOut },
+      filter: "blur(0px)",
+      transition: { duration: 0.9, ease: EASE_OUT_SOFT },
     },
   };
 
-  // Variantes para las métricas (Staggered Pop)
+  // Variantes para las métricas (staggered fade + blur, sin rebote)
   const metricsContainerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -42,12 +58,12 @@ export const About = ({ lang }: { lang: string }) => {
   };
 
   const metricItemVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.8, y: 20 },
+    hidden: { opacity: 0, y: 12, filter: "blur(8px)" },
     visible: {
       opacity: 1,
-      scale: 1,
       y: 0,
-      transition: { type: "spring", stiffness: 100, damping: 10 },
+      filter: "blur(0px)",
+      transition: { duration: 0.9, ease: EASE_OUT_SOFT },
     },
   };
 
@@ -115,45 +131,21 @@ export const About = ({ lang }: { lang: string }) => {
         viewport={{ once: true, amount: 0.3 }}
         variants={metricsContainerVariants}
       >
-        {/* Métrica 1 */}
-        <motion.div variants={metricItemVariants}>
-          <h3 className="text-6xl md:text-7xl font-semibold tracking-tight">
-            7<span className="text-orange">+</span>
-          </h3>
-          <p className="text-paragraph mt-2 text-sm uppercase tracking-wide">
-            {t.aboutme.metrics.projects}
-          </p>
-        </motion.div>
-
-        {/* Métrica 2 */}
-        <motion.div variants={metricItemVariants}>
-          <h3 className="text-6xl md:text-7xl font-semibold tracking-tight">
-            10<span className="text-orange">+</span>
-          </h3>
-          <p className="text-paragraph mt-2 text-sm uppercase tracking-wide">
-            {t.aboutme.metrics.tech}
-          </p>
-        </motion.div>
-
-        {/* Métrica 3 */}
-        <motion.div variants={metricItemVariants}>
-          <h3 className="text-6xl md:text-7xl font-semibold tracking-tight">
-            1<span className="text-orange">+</span>
-          </h3>
-          <p className="text-paragraph mt-2 text-sm uppercase tracking-wide">
-            {t.aboutme.metrics.exp}
-          </p>
-        </motion.div>
-
-        {/* Métrica 4 */}
-        <motion.div variants={metricItemVariants}>
-          <h3 className="text-6xl md:text-7xl font-semibold tracking-tight">
-            ∞
-          </h3>
-          <p className="text-paragraph mt-2 text-sm uppercase tracking-wide">
-            {t.aboutme.metrics.desire}
-          </p>
-        </motion.div>
+        {metrics.map((metric, i) => {
+          const { leadingPlus, digits, trailingPlus, label } = splitMetric(metric);
+          return (
+            <motion.div key={i} variants={metricItemVariants}>
+              <h3 className="text-6xl md:text-7xl font-semibold tracking-tight">
+                {leadingPlus && <span className="text-orange">+</span>}
+                {digits}
+                {trailingPlus && <span className="text-orange">+</span>}
+              </h3>
+              <p className="text-paragraph mt-2 text-sm uppercase tracking-wide">
+                {label}
+              </p>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </section>
   );

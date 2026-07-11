@@ -1,59 +1,48 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, useReducedMotion } from "framer-motion";
 
 interface AnimatedTitleProps {
   text: string;
   className?: string;
 }
 
-export const AnimatedTitle = ({ text, className = "" }: AnimatedTitleProps) => {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-        delayChildren: 0.1,
-      },
-    },
-  };
+// Sin rebote: desacelera fuerte al final, sin overshoot
+export const EASE_OUT_SOFT = [0.22, 1, 0.36, 1] as const;
 
-  const letterVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: "50%",
+const titleVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 12,
+    filter: "blur(8px)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.9,
+      ease: EASE_OUT_SOFT,
     },
-    visible: {
-      opacity: 1,
-      y: 0, 
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-  };
+  },
+};
+
+export const AnimatedTitle = ({ text, className = "" }: AnimatedTitleProps) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  if (shouldReduceMotion) {
+    return <h2 className={className}>{text}</h2>;
+  }
 
   return (
     <motion.h2
       className={className}
-      variants={containerVariants}
+      variants={titleVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      aria-label={text}
+      viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
     >
-      {text.split("").map((char, index) => (
-        <motion.span
-          key={`${char}-${index}`}
-          variants={letterVariants}
-          className="inline-block"
-          aria-hidden="true"
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
-      ))}
+      {text}
     </motion.h2>
   );
 };
