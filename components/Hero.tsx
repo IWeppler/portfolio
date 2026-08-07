@@ -76,7 +76,7 @@ export default function HeroSection({ lang }: { lang: string }) {
         animate="visible"
         variants={containerVariants}
       >
-        <h1 className="text-2xl md:text-4xl font-general text-foreground font-medium leading-snug tracking-tight">
+        <h1 className="text-2xl md:text-4xl font-general text-foreground font-light leading-snug tracking-tight">
           {/* Parte 1 del texto */}
           <motion.span variants={textVariants}>{t.hero.part1}</motion.span>
 

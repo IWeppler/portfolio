@@ -12,7 +12,6 @@
     "cta_works": "Ver Trabajos"
   },
   "works": {
-    "section_subtitle": "Portfolio",
     "title": "Proyectos Destacados",
     "view_project": "Ver Proyecto",
     "view_all": "Ver Todos los Proyectos",
@@ -39,34 +38,19 @@
       "reach": "3 países"
     }
   },
-
   "features": {
-    "subtitle": "• Servicios",
     "title": "Cómo hago la diferencia",
     "blocks": [
-      {
-        "title": "Diseño & Experiencia",
-        "itemsLeft": [
-          "Arquitectura visual clara",
-          "Experiencia pensada para personas",
-          "Navegación simple e intuitiva"
-        ],
-        "itemsRight": [
-          "Interfaces limpias y modernas",
-          "Responsive profesional",
-          "Microajustes que mejoran conversión"
-        ]
-      },
       {
         "title": "Desarrollo Web & Performance",
         "itemsLeft": [
           "Webs rápidas y optimizadas",
-          "Desarrollo moderno (Next.js / Astro)",
+          "Arquitectura visual clara",
           "Código limpio y escalable"
         ],
         "itemsRight": [
-          "Landing pages de alta conversión",
-          "Mejoras de velocidad",
+          "Navegación simple e intuitiva",
+          "Interfaces limpias y modernas",
           "Integraciones directas (APIs / SaaS)"
         ]
       },
@@ -219,165 +203,15 @@
     "title": "Ultimos Proyectos",
     "subtitle": "& Casos de Estudio"
   },
-  "proyectos": {
-    "projects": {
-      "challenge": "El Desafío",
-      "solution": "La Solución",
-      "outcome": "Resultados",
-      "visitProject": "Visitar Proyecto"
-    },
-    "proyecto1": {
-      "etiqueta": "Sistema de Gestión y Pedidos",
-      "name": "El Nuevo Manantial",
-      "subtitulo": "Impulsando un Emprendimiento Familiar",
-      "p1": "Para potenciar un emprendimiento familiar en crecimiento, detecté la necesidad crítica de digitalizar su operatoria. El sistema manual de pedidos a través de redes sociales y papel generaba desorganización, limitaba el crecimiento y consumía tiempo valioso. El desafío era crear una solución tecnológica que fuera tan robusta como fácil de usar para la familia y sus clientes.",
-      "p2": "Desarrollé una aplicación web full-stack a medida que centraliza todo el ciclo de ventas. La plataforma permite a los clientes (tanto registrados como invitados) realizar pedidos de forma intuitiva, mientras que los administradores gestionan todo desde un panel de control operativo diseñado para la toma de decisiones rápidas y eficientes.",
-      "p3": "El resultado es una herramienta que no solo optimizó drásticamente el tiempo de gestión, sino que también mejoró la experiencia del cliente y sentó las bases para un crecimiento escalable. Este proyecto demuestra mi capacidad para entender una necesidad de negocio, diseñar una solución completa y ejecutarla con tecnologías modernas, entregando un producto final que genera un impacto directo y medible.",
-      "li1": "Plataforma de Pedidos Inteligente: Permite a clientes nuevos y registrados comprar de forma rápida, con cálculo de precios en tiempo real y un flujo de compra sin fricción.",
-      "li2": "Dashboard de Operaciones Centralizado: Un panel de control para administradores con métricas de ventas, filtros avanzados por fecha y estado, gestión de órdenes y control de stock.",
-      "li3": "Sistema de Autenticación y Roles: Gestión segura de usuarios con roles de cliente y administrador (NextAuth.js), protegiendo datos y funcionalidades sensibles.",
-      "li4": "Arquitectura Full-Stack Moderna y Escalable: Construido con Next.js, Prisma y Supabase para un rendimiento óptimo y un mantenimiento sencillo.",
-      "img": "/src/assets/el-manantial.webp",
-      "imgAlt": "Vista previa del proyecto El Nuevo Manantial",
-      "caracteristicas": "Características Principales",
-      "github": "https://github.com/IWeppler/el-manantial",
-      "deploy": "https://el-manantial-two.vercel.app/"
-    },
-    "proyecto2": {
-      "etiqueta": "Plataforma Real Estate & CRM",
-      "name": "Inmobiliaria TerraNova",
-      "subtitulo": "Solución integral, automatizada y escalable para la gestión y venta de propiedades",
-      "p1": "Desarrollé una plataforma web de alto rendimiento diseñada para modernizar la operatoria de una inmobiliaria rural y urbana. El objetivo fue superar las limitaciones de los sitios web tradicionales, creando un ecosistema digital que no solo funciona como vidriera, sino como una herramienta activa de cierre de ventas.",
-      "p2": "La aplicación fusiona un portal público optimizado para SEO con un potente Dashboard administrativo (CRM). Construida sobre Next.js 15 y Supabase, implementé un sistema de seguridad avanzado (Row Level Security) que gestiona permisos granulares entre Administradores y Agentes, asegurando la integridad y privacidad de los datos del negocio.",
-      "p3": "El sistema transforma el flujo de trabajo: captura leads automáticamente desde la web, los asigna al agente responsable y permite un seguimiento detallado mediante notas internas y estados. Además, incorpora herramientas específicas para el sector como mapas satelitales interactivos y generación de metadatos dinámicos para compartir en redes.",
-      "caracteristicas": "Características Principales",
-      "li1": "CRM & Business Intelligence: Pipeline de ventas automatizado con estados dinámicos y un panel de analíticas en tiempo real que monitorea ingresos generados, operaciones cerradas y rendimiento de leads.",
-      "li2": "Automatización con Inteligencia Artificial: Integración de Vercel AI SDK y Google Gemini para la redacción automática de descripciones persuasivas y optimizadas para SEO con un solo click.",
-      "li3": "Arquitectura de Roles y Seguridad: Panel de administración blindado con control de acceso basado en roles (RBAC) y Row Level Security (RLS), garantizando la privacidad y el aislamiento de los datos entre administradores y agentes.",
-      "li4": "Herramientas de Conversión: Integración directa con WhatsApp, mapas interactivos para lotes/campos y contador de visitas en tiempo real.",
-      "img": "/src/assets/inmobiliaria1.webp",
-      "imgAlt": "Vista previa del proyecto Inmobiliaria TerraNova",
-      "github": "https://github.com/IWeppler/TerraNova",
-      "deploy": "https://inmobiliaria-pi.vercel.app/"
-    },
-    "proyecto3": {
-      "etiqueta": "Plataforma SaaS para la Gestión de Complejos Deportivos",
-      "name": "CheCancha",
-      "subtitulo": "La solución SaaS que profesionaliza la reserva de canchas.",
-      "p1": "CheCancha nació como 'Courtify', un proyecto para el bootcamp de desarrollo Full Stack en Soy Henry. El desafío fue construir, de forma individual y desde cero, una aplicación completa que resolviera un problema real y tangible del mercado, demostrando la capacidad de llevar una idea del concepto al producto funcional.",
-      "p2": "Detecté que la mayoría de los complejos deportivos locales dependían de métodos informales y caóticos para gestionar sus reservas (cuadernos, WhatsApp, etc.). Mi objetivo fue claro: crear una plataforma digital robusta que ofreciera una experiencia moderna y ordenada, sentando las bases para lo que hoy es la visión de CheCancha.",
-      "p3": "Desde su concepción, el proyecto se centró en la usabilidad tanto para el administrador como para el cliente final. La plataforma no solo optimiza la gestión diaria, sino que abre la puerta a un modelo de negocio escalable (SaaS) que puede transformar la operación de cientos de complejos deportivos en el país.",
-      "caracteristicas": "Características Principales",
-      "li1": "Dashboard Administrativo Intuitivo: Un panel de control central con calendario interactivo para gestionar horarios, confirmar reservas y visualizar la ocupación en tiempo real.",
-      "li2": "Portal de Autogestión para Jugadores: Perfiles de usuario con registro tradicional y social (Google Auth), historial de reservas y gestión de datos personales.",
-      "li3": "Sistema de Notificaciones Automatizadas: Mails transaccionales para confirmaciones de reserva, recordatorios y cambios, reduciendo ausencias y mejorando la comunicación.",
-      "li4": "Integración de Pagos con Mercado Pago: Una pasarela segura para que los jugadores puedan señar o pagar el total de la reserva en línea, asegurando el cobro para el complejo.",
-      "img": "/src/assets/checancha.webp",
-      "imgAlt": "Vista previa del proyecto CheCancha",
-      "github": "https://github.com/IWeppler/Checancha",
-      "deploy": "https://checancha.com"
-    },
-    "proyecto4": {
-      "etiqueta": "Web Institucional",
-      "name": "Club Atlético Tostado",
-      "subtitulo": "Digitalizando el corazón deportivo de la región",
-      "p1": "Mi objetivo fue crear un hogar digital para el Club Atlético Tostado, la institución deportiva más importante de la región, que hasta entonces no contaba con una presencia online profesional. El proyecto buscó establecer un canal de comunicación oficial y moderno para conectar con socios y la comunidad.",
-      "p2": "Desarrollé una web institucional moderna y visualmente atractiva, enfocada en ofrecer una experiencia de usuario fluida. Utilizando tecnologías como Astro y Framer Motion, creé una plataforma rápida y con animaciones sutiles que refuerzan la identidad del club. Actualmente, el sitio sirve como un punto central de información, presentando noticias, horarios y la historia de la institución.",
-      "p3": "Este sitio web estableció la primera presencia digital oficial del club, mejorando significativamente la comunicación y el acceso a la información. Proporciona una base sólida y escalable para futuras expansiones y ha posicionado al club como una entidad que valora la modernidad y la conexión con su gente.",
-      "caracteristicas": "Características Actuales",
-      "li1": "Diseño atractivo y moderno con animaciones fluidas (Framer Motion).",
-      "li2": "Sección de noticias y novedades para mantener informada a la comunidad.",
-      "li3": "Información centralizada de horarios y actividades deportivas.",
-      "li4": "Página totalmente responsive y optimizada para un rendimiento veloz (Astro).",
-      "img": "/src/assets/tres.webp",
-      "imgAlt": "Vista previa del proyecto Club Atlético Tostado",
-      "github": "https://github.com/IWeppler/AtleticoTostado",
-      "deploy": "https://atleticotostado.vercel.app/"
-    },
-    "proyecto5": {
-      "etiqueta": "E-commerce",
-      "name": "APEX Bikes E-commerce",
-      "subtitulo": "Boutique de Ciclismo & Garage de Usados",
-      "p1": "Diseñé y desarrollé un e-commerce de nicho para bicicletas de alta gama, enfocado en una experiencia de usuario premium y minimalista. La plataforma no solo gestiona un catálogo complejo con variantes de colores y talles, sino que integra un modelo de negocio híbrido de venta de nuevos y canje de usados.",
-      "p2": "La arquitectura está construida sobre Next.js 15 para máxima velocidad. Incluye un sistema de filtrado inteligente (por estilo, marca y precio), una lógica de precios dinámica que calcula descuentos por transferencia y cuotas en tiempo real, y un módulo 'Garage' con validación de formularios complejos para la tasación de bicicletas.",
-      "p3": "El checkout fue optimizado en una sola página ('One Page Checkout') para reducir la fricción, integrando validaciones de stock y cálculo de envíos. El diseño visual prioriza la fotografía de producto y la claridad en la información técnica.",
-      "li1": "Filtros dinámicos y Búsqueda: Navegación por subcategorías (MTB, Ruta, Urbana) y estilos.",
-      "li2": "Lógica Financiera Local: Cálculo automático de precios por transferencia (-15%) y cuotas.",
-      "li3": "Módulo APEX Garage: Formulario multi-step con validación Zod para cotización de usados.",
-      "li4": "Gestión de Variantes: Selectores visuales de color y galerías de imágenes interactivas.",
-      "img": "/src/assets/ecommerce.webp",
-      "imgAlt": "Vista previa del proyecto E-commerce de Tecnología",
-      "caracteristicas": "Características Principales",
-      "github": "https://github.com/IWeppler/bikecommerce",
-      "deploy": "https://bikecommerce-beige.vercel.app/"
-    },
-    "proyecto6": {
-      "etiqueta": "SaaS de Gestión Comercial",
-      "name": "Nivo POS",
-      "subtitulo": "Herramienta web para gestión comercial",
-      "p1": "Nivo es una herramienta web que desarrollé para una empresa de servicios comerciales. El objetivo era crear una plataforma que facilitara la gestión de clientes, ventas y reportes.",
-      "p2": "La herramienta incluye funcionalidades como gestión de clientes, seguimiento de ventas, generación de reportes y análisis de datos. Además, implementé un sistema de autenticación y autorización para garantizar la seguridad de la información.",
-      "p3": "El diseño se centra en la eficiencia y la funcionalidad, asegurando que los usuarios puedan acceder a la información que necesitan rápidamente.",
-      "li1": "Gestión de clientes: Base de datos para almacenar información de clientes.",
-      "li2": "Seguimiento de ventas: Registro de transacciones y análisis de rendimiento.",
-      "li3": "Generación de reportes: Informes personalizables sobre ventas y clientes.",
-      "li4": "Análisis de datos: Herramientas para visualizar y analizar información comercial.",
-      "img": "/src/assets/nivo.webp",
-      "imgAlt": "Vista previa del proyecto Nivo",
-      "caracteristicas": "Características Principales",
-      "github": "https://github.com/DreamTeeam/front",
-      "deploy": "https://nivoapp.vercel.app/"
-    },
-    "proyecto7": {
-      "etiqueta": "Landing Corporativa",
-      "name": "RedditoBooks",
-      "subtitulo": "Una presencia digital moderna para una firma contable en crecimiento",
-      "p1": "RedditoBooks es una firma contable con sede en Miami que necesitaba una landing page profesional, moderna y confiable para respaldar su posicionamiento en el mercado estadounidense. El desafío era crear un sitio elegante y de alto impacto visual, capaz de comunicar seriedad, experiencia y claridad a clientes potenciales tanto locales como internacionales.",
-      "p2": "Trabajé en un diseño oscuro minimalista enfocado en tipografía precisa, testimonios verificados y secciones claras orientadas a conversión. Migré el proyecto a la arquitectura moderna de Next.js con server components, optimización de imágenes, OpenGraph avanzado, y un esquema JSON-LD con datos estructurados para mejorar el SEO local en EE.UU.",
-      "p3": "El resultado fue una landing sólida, rápida y con una narrativa visual que transmite confianza. La web está optimizada para adquisición de leads y preparada para escalar tanto hacia contenido educativo como hacia futuras integraciones con CRM.",
-      "caracteristicas": "Características Principales",
-      "li1": "Diseño moderno y elegante: Estilo dark, tipografía Switzer, jerarquía visual limpia y foco en conversiones.",
-      "li2": "Arquitectura Next.js de última generación: Server components, optimización de rendimiento y estructura sólida para SEO técnico.",
-      "li3": "SEO corporativo avanzado: Metadatos refinados, OpenGraph personalizado, datos estructurados JSON-LD y sitemap multilenguaje.",
-      "li4": "Testimonios y social proof: Sección de reseñas reales con formato profesional orientado a credibilidad.",
-      "img": "/src/assets/reddito.webp",
-      "imgAlt": "Vista previa del proyecto RedditoBooks",
-      "github": "https://github.com/IWeppler/redditobooks",
-      "deploy": "https://redditobooks.com/en"
-    },
-    "proyecto8": {
-      "etiqueta": "Web Institucional",
-      "name": "Iñaqui Techos",
-      "subtitulo": "Renovando la presencia digital de una empresa líder en tejas y materiales para techos.",
-      "p1": "Iñaqui Techos es una empresa argentina con más de 25 años de trayectoria en la comercialización de tejas metálicas, pizarras asfálticas y materiales premium para techos. Llegué al proyecto a través de Ontide Marketing, quienes necesitaban una renovación completa del sitio web: la versión anterior en WordPress estaba rota, insegura y era prácticamente innavegable debido a un loader permanente causado por errores de actualización y fallas en la instalación.",
-      "p2": "Mi desafío fue transformar un sitio obsoleto y sin identidad en una plataforma moderna, clara y confiable. Para lograrlo analicé la comunicación de la competencia, estudié a sus proveedores internacionales y trabajé en una identidad visual basada en trazos fuertes, tipografías con carácter y una paleta que aprovechara los colores intensos de la marca. La nueva web prioriza la experiencia del usuario, la navegación directa y la presentación profesional de cada línea de productos.",
-      "p3": "El resultado fue un sitio institucional sólido, rápido y totalmente renovado que hoy representa fielmente el nivel de la empresa. Iñaqui Techos recuperó su presencia digital, mejoró su comunicación comercial y obtuvo una herramienta que acompaña su crecimiento y profesionalismo. El cliente quedó plenamente satisfecho con el cambio radical respecto a la versión anterior.",
-      "caracteristicas": "Características Principales",
-      "li1": "Rediseño completo de identidad visual: títulos de alto impacto, colores estratégicos y estilo moderno con esencia industrial.",
-      "li2": "Optimización total del sitio: eliminación de errores críticos, mejora de seguridad y estructura estable para navegación fluida.",
-      "li3": "Presentación profesional de líneas de productos: Tilcor, Verona e IKO con imágenes de alta calidad y secciones diferenciadas.",
-      "li4": "Enfoque comercial: llamados a la acción claros, contacto prioritario y estructura orientada a conversión.",
-      "img": "/src/assets/inaki.webp",
-      "imgAlt": "Vista previa del proyecto Iñaqui Techos",
-      "github": "",
-      "deploy": "https://inaqui.com.ar"
-    },
-    "proyecto9": {
-      "etiqueta": "Sistema de Gestión Agropecuaria",
-      "name": "El Tolar",
-      "subtitulo": "Plataforma empresarial para la administración integral de operaciones agrícolas",
-      "p1": "Los productores agropecuarios enfrentaban un problema crítico: la gestión de stock, insumos, finanzas y producción estaba fragmentada en planillas dispersas y procesos manuales. Esto generaba pérdida de tiempo, errores costosos y la imposibilidad de tomar decisiones basadas en datos reales. El desafío fue construir una solución centralizada que digitalizara toda la operatoria del campo sin perder simplicidad de uso.",
-      "p2": "Desarrollé una plataforma web full-stack de nivel empresarial que integra tres mundos en un solo sistema: la logística de insumos con control multi-depósito, un módulo financiero con soporte multimoneda (ARS/USD) y cotización en tiempo real, y la planificación agronómica de lotes con seguimiento de campañas productivas. Cada módulo fue diseñado para trabajar en conjunto, imputando automáticamente los costos de insumos al lote que los consume.",
-      "p3": "El resultado es una herramienta que reemplaza por completo el trabajo manual, permitiendo al productor controlar stock crítico, deuda exigible, vencimientos y rendimiento por hectárea desde un único dashboard. Este proyecto demuestra mi capacidad para analizar procesos de negocio complejos, modelar una base de datos relacional robusta y construir una arquitectura modular, tipada y escalable con tecnologías modernas.",
-      "caracteristicas": "Características Principales",
-      "li1": "Control de Stock Multi-Depósito: Trazabilidad total de ingresos y egresos por galpón, con alertas automáticas de stock crítico y generación de remitos digitales en PDF.",
-      "li2": "Módulo Financiero Multimoneda: Gestión de cuentas corrientes con soporte nativo para ARS y USD, integración de cotización del dólar en tiempo real y panel de KPIs de deuda.",
-      "li3": "Planificación Agronómica de Lotes: Seguimiento de campañas productivas con imputación automática de costos, cálculo de ROI y análisis de márgenes brutos por hectárea.",
-      "li4": "Dashboard Operativo Centralizado: Agenda agrícola con calendario de tareas y vencimientos, integración con APIs de clima local e indicador de conectividad para zonas rurales.",
-      "img": "/src/assets/el-tolar.webp",
-      "github": "https://github.com/IWeppler/el-tolar",
-      "deploy": "http://eltolar.vercel.app/"
-    }
+  "projects": {
+    "visitProject": "Visitar Proyecto",
+    "back": "Volver a proyectos",
+    "viewCode": "Ver código"
   },
-  "projects": { "visitProject": "Visitar Proyecto" }
+  "project_categories": {
+    "all": "Todos",
+    "web": "Web",
+    "app-saas": "App & SaaS",
+    "diseno": "Diseño & Marca"
+  }
 }

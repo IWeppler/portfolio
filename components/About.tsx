@@ -81,15 +81,15 @@ export const About = ({ lang }: { lang: string }) => {
         <AnimatedTitle text={t.aboutme.title} className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight text-balance wrap-break-word" />
 
         {/* DERECHA – TEXTO REVEAL */}
-        <motion.div variants={itemVariants} className="text-lg text-paragraph">
+        <motion.div variants={itemVariants} className="text-lg font-light text-paragraph">
           <p className="md:text-2xl leading-relaxed text-paragraph max-w-2lg">
             {/* Párrafo 1 */}
             {t.aboutme.p1_part1}
-            <span className="text-foreground font-medium italic">
+            <span className="text-foreground font-light italic">
               {t.aboutme.p1_span1}
             </span>
             {t.aboutme.p1_part2}
-            <span className="text-foreground font-medium italic">
+            <span className="text-foreground font-light italic">
               {t.aboutme.p1_span2}
             </span>
             {t.aboutme.p1_part3}
@@ -99,11 +99,11 @@ export const About = ({ lang }: { lang: string }) => {
 
             {/* Párrafo 2 */}
             {t.aboutme.p2_part1}
-            <span className="text-foreground font-medium italic">
+            <span className="text-foreground font-light italic">
               {t.aboutme.p2_span1}
             </span>
             {t.aboutme.p2_part2}
-            <span className="text-foreground font-medium italic">
+            <span className="text-foreground font-light italic">
               {t.aboutme.p2_span2}
             </span>
             {t.aboutme.p2_part3}
@@ -115,7 +115,7 @@ export const About = ({ lang }: { lang: string }) => {
             {t.aboutme.question}
             <FancyNavLink
               href={`/${lang}#contacto`}
-              className="text-lg md:text-2xl text-cream font-medium py-2 px-1"
+              className="text-lg md:text-2xl text-cream font-light py-2 px-1"
             >
               {t.aboutme.cta}
             </FancyNavLink>

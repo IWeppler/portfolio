@@ -1,18 +1,25 @@
 import "../globals.css";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import Cursor from "@/components/ui/skiper-ui/skiper61";
+import { SiteChrome } from "@/components/SiteChrome";
+import SmoothScroll from "@/components/SmoothScroll";
 import { getDictionary } from "@/lib/get-dictionary";
 import StructuredData from "@/components/StructuredData";
 import { ContactModalProvider } from "@/components/contact-modal/ContactModalProvider";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { Familjen_Grotesk } from "next/font/google";
 
+
+const familjenGrotesk = Familjen_Grotesk({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-familjen",
+});
 
 export const metadata = {
   title: "Ignacio Weppler",
-  description: "Ignacio Weppler, desarrollador Web Full Stack.",
+  descriptPion: "Ignacio Weppler, desarrollador Web Full Stack.",
 };
 
 export default async function LangLayout({
@@ -28,12 +35,8 @@ export default async function LangLayout({
   const base = "https://ignacioweppler.com";
 
   return (
-    <html lang={lang}>
+    <html lang={lang} className={familjenGrotesk.variable}>
       <head>
-        <link
-          href="https://api.fontshare.com/v2/css?f[]=general-sans@400,401,500,501,600,700&display=swap"
-          rel="stylesheet"
-        />
         <link rel="canonical" href={`${base}/${lang}`} />
         <link rel="alternate" href={`${base}/es`} hrefLang="es" />
         <link rel="alternate" href={`${base}/en`} hrefLang="en" />
@@ -42,16 +45,17 @@ export default async function LangLayout({
       </head>
 
       <body className="font-general bg-background text-foreground">
-        
+        <SmoothScroll />
         <StructuredData />
         <Analytics />
         <SpeedInsights />
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""} />
+        <GoogleAnalytics
+          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
+        />
         <ContactModalProvider lang={lang}>
-          <Navbar lang={lang} labels={t.navbar} />
-          <Cursor />
-          {children}
-          <Footer lang={lang} />
+          <SiteChrome lang={lang} labels={t.navbar}>
+            {children}
+          </SiteChrome>
         </ContactModalProvider>
       </body>
     </html>

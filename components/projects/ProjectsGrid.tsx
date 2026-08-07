@@ -4,61 +4,54 @@ import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { AnimatedTitle } from "@/components/ui/AnimatedTitle";
 
 export interface ProjectItem {
   slug: string;
   name: string;
-  etiqueta: string;
-  cover: StaticImageData;
-  category?: string;
+  category: string;
+  /** Estatica desde /public, o URL de Supabase Storage si viene del panel. */
+  cover: StaticImageData | string;
 }
 
 interface Props {
   projects: ProjectItem[];
   lang: string;
+  /** Label traducido de cada categoria, mas `all` para el filtro sin filtrar. */
+  categoryLabels: Record<string, string>;
 }
 
-export const ProjectsGrid = ({ projects = [], lang }: Props) => {
-  const [filter, setFilter] = useState("Todos");
+const ALL = "all";
 
-  const categories = ["Todos", "Web", "App/SaaS", "E-commerce"];
+export const ProjectsGrid = ({ projects = [], lang, categoryLabels }: Props) => {
+  const [filter, setFilter] = useState(ALL);
 
-  const getCategory = (tag: string) => {
-    if (!tag) return "Web";
+  // Solo se ofrecen las categorias que tienen al menos un proyecto, para no
+  // dejar filtros que devuelven una grilla vacia.
+  const usedCategories = Object.keys(categoryLabels).filter(
+    (category) =>
+      category !== ALL && projects.some((project) => project.category === category)
+  );
+  const categories = [ALL, ...usedCategories];
 
-    const t = tag.toLowerCase();
-    if (
-      t.includes("saas") ||
-      t.includes("sistema") ||
-      t.includes("app") ||
-      t.includes("platform")
-    )
-      return "App/SaaS";
-    if (t.includes("e-commerce") || t.includes("tienda")) return "E-commerce";
-    return "Web";
-  };
-
-  const filteredProjects = projects.filter((p) => {
-    if (filter === "Todos") return true;
-    return getCategory(p.etiqueta) === filter;
-  });
+  const filteredProjects = projects.filter(
+    (project) => filter === ALL || project.category === filter
+  );
 
   return (
     <div>
       {/* BARRA DE FILTROS (Estilo Píldora) */}
       <div className="flex flex-wrap gap-4 mb-12">
-        {categories.map((cat) => (
+        {categories.map((category) => (
           <button
-            key={cat}
-            onClick={() => setFilter(cat)}
+            key={category}
+            onClick={() => setFilter(category)}
             className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
-              filter === cat
+              filter === category
                 ? "bg-foreground text-background border-foreground"
                 : "bg-transparent text-paragraph border-assets hover:border-foreground/30 hover:text-foreground"
             }`}
           >
-            {cat}
+            {categoryLabels[category]}
           </button>
         ))}
       </div>
@@ -66,8 +59,7 @@ export const ProjectsGrid = ({ projects = [], lang }: Props) => {
       {/* GRID ANIMADA */}
       <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <AnimatePresence mode="popLayout">
-          {filteredProjects.map((project, index) => {
-
+          {filteredProjects.map((project) => {
             return (
               <motion.div
                 layout
@@ -90,21 +82,22 @@ export const ProjectsGrid = ({ projects = [], lang }: Props) => {
                       src={project.cover}
                       alt={project.name}
                       fill
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      className="object-cover transition-transform duration-900 ease-out group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      placeholder="blur"
+                      // El blur solo existe para las imagenes importadas de /public.
+                      placeholder={typeof project.cover === "string" ? "empty" : "blur"}
                     />
                     <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
                   </div>
 
                   {/* Textos */}
                   <div className="flex flex-col items-start">
-                    <h3 className="text-2xl font-medium tracking-tight group-hover:text-orange transition-colors">
+                    <h3 className="text-xl font-light uppercase tracking-tight">
                       {project.name}
                     </h3>
 
-                    <p className="text-xs md:text-sm text-paragraph uppercase tracking-widest mt-1">
-                      {project.etiqueta}
+                    <p className="text-xs md:text-sm text-paragraph tracking-widest mt-1">
+                      {categoryLabels[project.category]}
                     </p>
                   </div>
                 </Link>

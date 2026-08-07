@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/middleware";
 
 const locales = ["es", "en", "pt"];
 const defaultLocale = "es";
@@ -22,22 +23,47 @@ function getLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
-export function middleware(request: NextRequest) {
+function stripLocale(pathname: string, locale: string) {
+  const withoutLocale = pathname.slice(`/${locale}`.length);
+
+  return withoutLocale === "" ? "/" : withoutLocale;
+}
+
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // 1. Verificar si la ruta ya tiene el locale
-  const pathnameHasLocale = locales.some(
+  const matchedLocale = locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  if (pathnameHasLocale) return;
+  if (matchedLocale) {
+    const { response, user } = await updateSession(request);
+    const localePath = stripLocale(pathname, matchedLocale);
+
+    if (localePath.startsWith("/dashboard") && !user) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = `/${matchedLocale}/panel-acceso`;
+
+      return NextResponse.redirect(loginUrl);
+    }
+
+    if (localePath.startsWith("/panel-acceso") && user) {
+      const dashboardUrl = request.nextUrl.clone();
+      dashboardUrl.pathname = `/${matchedLocale}/dashboard`;
+
+      return NextResponse.redirect(dashboardUrl);
+    }
+
+    return response;
+  }
 
   if (
     pathname.includes(".") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api")
   ) {
-    return;
+    return NextResponse.next();
   }
 
   // 3. Si no tiene locale, detectamos cuál usar y redirigimos

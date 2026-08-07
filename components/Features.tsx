@@ -15,11 +15,6 @@ export default function Features({ lang }: { lang: string }) {
 
   return (
     <section id="servicios" className="w-full py-16 md:py-32 text-foreground">
-      {/* Subtítulo dinámico */}
-      <p className="font-medium tracking-widest text-paragraph mb-2 uppercase">
-        {features.subtitle}
-      </p>
-
       {/* Título dinámico */}
       <AnimatedTitle
         text={features.title}

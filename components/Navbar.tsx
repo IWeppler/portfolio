@@ -42,9 +42,9 @@ export default function Navbar({ lang, labels }: NavbarProps) {
   };
 
   return (
-    <nav className="w-full flex justify-between items-center py-6 bg-background text-foreground px-4 md:px-20">
+    <nav className="fixed top-0 left-0 right-0 z-[100] w-full flex justify-between items-center py-6 bg-background text-foreground px-4 md:px-20">
       {/* 1. Logo */}
-      <Link href={`/${lang}`} className="uppercase font-medium">
+      <Link href={`/${lang}`} className="font-general text-xl uppercase">
         Ignacio
       </Link>
 
@@ -53,13 +53,13 @@ export default function Navbar({ lang, labels }: NavbarProps) {
         <div className="hidden md:flex gap-8">
           <Link
             href={`/${lang}`}
-            className="transition-colors hover:text-orange"
+            className="transition-colors font-light text-lg hover:text-paragraph uppercase"
           >
             {labels.home}
           </Link>
           <Link
             href={`/${lang}/projects`}
-            className="transition-colors hover:text-orange"
+            className="transition-colors font-light text-lg hover:text-paragraph uppercase"
           >
             {labels.projects}
           </Link>
@@ -69,7 +69,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
               e.preventDefault();
               openContactModal();
             }}
-            className="transition-colors hover:text-orange"
+            className="transition-colors font-light text-lg hover:text-paragraph uppercase"
           >
             {labels.contact}
           </Link>
@@ -79,10 +79,10 @@ export default function Navbar({ lang, labels }: NavbarProps) {
         <div className="relative">
           <button
             onClick={() => setIsLangOpen(!isLangOpen)}
-            className="flex items-center gap-1 transition-colors focus:outline-none hover:text-orange uppercase"
+            className="flex items-center gap-1 transition-colors focus:outline-none hover:text-paragraph uppercase"
           >
             <RiGlobalLine size={20} />
-            <span className="text-sm font-medium">{lang}</span>
+            <span className="font-light text-md">{lang}</span>
             <RiArrowDownSLine
               size={14}
               className={`transition-transform ${

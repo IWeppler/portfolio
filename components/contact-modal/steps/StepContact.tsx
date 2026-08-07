@@ -79,6 +79,9 @@ export function StepContact({
       prefiere_whatsapp: state.prefiere_whatsapp,
       idioma: lang as SubmitLeadInput["idioma"],
       honeypot: state.honeypot,
+      referrer: document.referrer || undefined,
+      utm_source:
+        new URLSearchParams(window.location.search).get("utm_source") || undefined,
     };
 
     try {

@@ -79,7 +79,7 @@ export default function Footer({ lang }: { lang: string }) {
           <ButtonSecondary
             href="https://www.instagram.com/ignacioweppler/"
             target="_blank"
-            className="flex text-paragraph text-sm items-center gap-1 hover:text-foreground transition-colors"
+            className="flex text-paragraph font-light text-sm items-center gap-1 hover:text-foreground transition-colors"
           >
             Instagram
           </ButtonSecondary>
@@ -87,7 +87,7 @@ export default function Footer({ lang }: { lang: string }) {
           <ButtonSecondary
             href="https://github.com/IWeppler"
             target="_blank"
-            className="flex text-paragraph text-sm items-center gap-1 hover:text-foreground transition-colors"
+            className="flex text-paragraph font-light text-sm items-center gap-1 hover:text-foreground transition-colors"
           >
             GitHub
           </ButtonSecondary>
@@ -95,7 +95,7 @@ export default function Footer({ lang }: { lang: string }) {
           <ButtonSecondary
             href="https://www.linkedin.com/in/ignacioweppler/"
             target="_blank"
-            className="flex text-paragraph text-sm items-center gap-1 hover:text-foreground transition-colors"
+            className="flex text-paragraph font-light text-sm items-center gap-1 hover:text-foreground transition-colors"
           >
             LinkedIn
           </ButtonSecondary>

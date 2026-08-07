@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
+import { getPublishedProjects } from "@/lib/projects/published";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://ignacioweppler.com";
 
   const languages = ["es", "en", "pt"];
@@ -15,16 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  const projectSlugs = [
-    "proyecto1",
-    "proyecto2",
-    "proyecto3",
-    "proyecto4",
-    "proyecto5",
-    "proyecto6",
-    "proyecto7",
-    "proyecto8",
-  ];
+  // Los slugs salen de los proyectos publicados en Supabase.
+  const projectSlugs = (await getPublishedProjects("es")).map((project) => project.slug);
 
   const projectRoutes = languages.flatMap((lang) =>
     projectSlugs.map((slug) => ({

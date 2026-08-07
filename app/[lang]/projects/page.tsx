@@ -1,24 +1,6 @@
+import { ProjectsGrid, type ProjectItem } from "@/components/projects/ProjectsGrid";
+import { getPublishedProjects } from "@/lib/projects/published";
 import { getDictionary } from "@/lib/get-dictionary";
-import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
-import atleticotostado from "@/public/atleticotostado.webp";
-import workmanantial2 from "@/public/workmanantial2.png";
-import bikecomerce from "@/public/bikecomerce.png";
-import inmobiliaria1 from "@/public/inmobiliaria1.webp";
-import mockupnivo1 from "@/public/mockupnivo1.png";
-import checancha from "@/public/checancha.webp";
-import reddittobooks from "@/public/reddittobooks.webp";
-import mockupinaqui from "@/public/mockupinaqui.png";
-
-const imageMap: Record<string, any> = {
-  proyecto1: { cover: workmanantial2 },
-  proyecto2: { cover: inmobiliaria1 },
-  proyecto3: { cover: checancha },
-  proyecto4: { cover: atleticotostado },
-  proyecto5: { cover: bikecomerce },
-  proyecto6: { cover: mockupnivo1 },
-  proyecto7: { cover: reddittobooks },
-  proyecto8: { cover: mockupinaqui },
-};
 
 export async function generateStaticParams() {
   return [{ lang: "es" }, { lang: "en" }, { lang: "pt" }];
@@ -37,22 +19,19 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function ProjectsPage({ params }: Props) {
   const { lang } = await params;
-  const t = getDictionary(lang);
 
-  const projectsData = Object.entries(t.proyectos as any)
-    .map(([slug, data]: [string, any]) => {
-      const images = imageMap[slug];
+  const published = await getPublishedProjects(lang);
 
-      if (!images) return null;
+  const projectsData: ProjectItem[] = published
+    .filter((project) => project.cover)
+    .map((project) => ({
+      slug: project.slug,
+      name: project.name,
+      category: project.category,
+      cover: project.cover as string,
+    }));
 
-      return {
-        slug,
-        name: data.name,
-        etiqueta: data.etiqueta,
-        cover: images.cover,
-      };
-    })
-    .filter((p): p is NonNullable<typeof p> => p !== null);
+  const categoryLabels = getDictionary(lang).project_categories as Record<string, string>;
 
   const titles = {
     es: { main: "Últimos Proyectos", sub: "& Casos de Estudio" },
@@ -72,7 +51,7 @@ export default async function ProjectsPage({ params }: Props) {
 
         <hr className="border-t border-white/10 mb-12" />
 
-        <ProjectsGrid projects={projectsData} lang={lang} />
+        <ProjectsGrid projects={projectsData} lang={lang} categoryLabels={categoryLabels} />
       </div>
     </main>
   );

@@ -1,249 +1,148 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Github } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { getDictionary } from "@/lib/get-dictionary";
-import { ButtonSecondary } from "@/components/ui/Buttons";
-import { AnimatedTitle } from "@/components/ui/AnimatedTitle";
-import { imageMap } from "@/lib/project-images";
+import { getPublishedProject, getPublishedProjects } from "@/lib/projects/published";
+import { categoryLabel } from "@/lib/projects/categories";
+import { PageViewTracker } from "@/components/analytics/PageViewTracker";
+import { ConversionLink } from "@/components/analytics/ConversionLink";
 
-interface ProjectData {
-  name: string;
-  subtitulo: string;
-  etiqueta: string;
-  p1: string;
-  p2: string;
-  p3?: string;
-  caracteristicas?: string;
-  li1?: string;
-  li2?: string;
-  li3?: string;
-  li4?: string;
-  github?: string;
-  deploy?: string;
-  [key: string]: string | undefined;
-}
+const LANGS = ["es", "en", "pt"];
 
 export async function generateStaticParams() {
-  const slugs = [
-    "proyecto1",
-    "proyecto2",
-    "proyecto3",
-    "proyecto4",
-    "proyecto5",
-    "proyecto6",
-    "proyecto7",
-    "proyecto8",
-  ];
-  const langs = ["en", "es", "pt"];
-  return langs.flatMap((lang) => slugs.map((slug) => ({ lang, slug })));
+  // Los proyectos viven en Supabase: los slugs salen de lo que este publicado.
+  const projects = await getPublishedProjects("es");
+
+  return LANGS.flatMap((lang) => projects.map((project) => ({ lang, slug: project.slug })));
 }
 
 interface Props {
   params: Promise<{ lang: string; slug: string }>;
 }
 
+const colors = {
+  swissOrange: "#FF3B30",
+  surface: "#141A1F",
+  assets: "#2D3339",
+  paragraph: "#9CA3AF",
+  foreground: "#EDEDE9",
+};
+
 export default async function ProjectPage({ params }: Props) {
   const { lang, slug } = await params;
   const t = getDictionary(lang);
 
-  // Accedemos a los proyectos y casteamos
-  const localeProyectos = t.proyectos as any;
-  const proyecto = localeProyectos[slug] as ProjectData;
-  const images = imageMap[slug];
+  const project = await getPublishedProject(slug, lang);
 
-  if (!proyecto || !images) {
+  if (!project) {
     notFound();
   }
 
-  const colors = {
-    swissOrange: "#FF3B30",
-    surface: "#141A1F",
-    assets: "#2D3339",
-    paragraph: "#9CA3AF",
-    foreground: "#EDEDE9",
-  };
+  const visitLabel = t.projects?.visitProject || "Ver Proyecto";
+  const backLabel = t.projects?.back || "Volver a proyectos";
+  const codeLabel = t.projects?.viewCode || "Ver código";
+
+  const [hero, ...rest] = project.cover
+    ? [project.cover, ...project.images.filter((url) => url !== project.cover)]
+    : project.images;
 
   return (
     <section className="w-full min-h-screen bg-background text-foreground pt-16 md:pt-32 pb-20 px-4 md:px-20">
+      <PageViewTracker projectId={slug} />
       <div className="max-w-5xl mx-auto">
-        {/* HEADER */}
-        <small
-          className="uppercase tracking-widest text-sm block mb-3"
-          style={{ color: colors.swissOrange }}
+        <Link
+          href={`/${lang}/projects`}
+          className="group mb-10 inline-flex items-center gap-2 text-sm uppercase tracking-widest text-paragraph transition-colors hover:text-foreground"
         >
-          {proyecto.etiqueta}
-        </small>
+          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+          {backLabel}
+        </Link>
 
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
+          <small
+            className="uppercase tracking-widest text-sm"
+            style={{ color: colors.swissOrange }}
+          >
+            {categoryLabel(project.category, lang)}
+          </small>
+
+          {project.githubUrl && (
+            <ConversionLink
+              href={project.githubUrl}
+              projectId={slug}
+              className="inline-flex items-center gap-2 rounded-full border border-assets px-4 py-1.5 text-sm text-paragraph transition-colors hover:border-foreground/40 hover:text-foreground"
+              title={codeLabel}
+            >
+              <Github className="h-4 w-4" />
+              {codeLabel}
+            </ConversionLink>
+          )}
+        </div>
+
+        {/* El titulo es el link a la web del proyecto; sin deploy queda plano. */}
         <h2 className="text-4xl md:text-7xl font-medium uppercase tracking-tight mb-6 text-balance">
-          {proyecto.name}
+          {project.deployUrl ? (
+            <ConversionLink
+              href={project.deployUrl}
+              projectId={slug}
+              className="group inline-flex items-start gap-3 transition-colors hover:text-orange"
+              title={visitLabel}
+            >
+              {project.name}
+              <ArrowUpRight className="h-6 w-6 shrink-0 md:h-10 md:w-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </ConversionLink>
+          ) : (
+            project.name
+          )}
         </h2>
 
-        <p
-          className="text-xl max-w-3xl leading-relaxed mb-12"
-          style={{ color: colors.paragraph }}
-        >
-          {proyecto.subtitulo}
-        </p>
-
-        {/* HERO IMAGE FULL WIDTH */}
-        <div
-          className="relative w-full h-[380px] md:h-[620px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
-          style={{ borderColor: colors.assets }}
-        >
-          <Image
-            src={images.img1}
-            alt={proyecto.name}
-            fill
-            className="object-cover"
-            priority
-            placeholder="blur"
-          />
-        </div>
-
-        {/* SECCIÓN: DESAFÍO */}
-        <div className="mb-20">
-          <h2
-            className="text-2xl font-medium mb-4 tracking-wide uppercase"
-            style={{ color: colors.foreground }}
-          >
-            {localeProyectos.projects?.challenge || "El Desafío"}
-          </h2>
+        {project.excerpt && (
           <p
-            className="text-lg leading-relaxed"
+            className="text-xl max-w-3xl leading-relaxed mb-12"
             style={{ color: colors.paragraph }}
           >
-            {proyecto.p1}
+            {project.excerpt}
           </p>
-        </div>
+        )}
 
-        {/* BREAK IMAGE, ALINEADA A LA DERECHA */}
-        {images.img2 && (
+        {hero && (
           <div
             className="relative w-full h-[380px] md:h-[620px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
             style={{ borderColor: colors.assets }}
           >
-            <Image
-              src={images.img2}
-              alt="Vista adicional"
-              fill
-              className="object-cover"
-              placeholder="blur"
-            />
+            <Image src={hero} alt={project.name} fill className="object-cover" priority />
           </div>
         )}
 
-        {/* SECCIÓN: SOLUCIÓN */}
-        <div className="mb-20">
-          <h2
-            className="text-2xl font-medium mb-4 tracking-wide uppercase"
-            style={{ color: colors.foreground }}
-          >
-            {localeProyectos.projects?.solution || "La Solución"}
-          </h2>
-          <p
-            className="text-lg leading-relaxed mb-10"
+        {project.content && (
+          <div
+            className="text-lg leading-relaxed whitespace-pre-line mb-20 max-w-3xl"
             style={{ color: colors.paragraph }}
           >
-            {proyecto.p2}
-          </p>
-
-          {/* FEATURES EN GRID SWISS */}
-          <div
-            className="p-4 md:p-10 rounded-xl border"
-            style={{
-              backgroundColor: colors.surface,
-              borderColor: colors.assets,
-            }}
-          >
-            <h3
-              className="text-xl font-medium mb-8 uppercase tracking-wide"
-              style={{ color: colors.foreground }}
-            >
-              {proyecto.caracteristicas ?? "Características"}
-            </h3>
-
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg leading-relaxed">
-              {["li1", "li2", "li3", "li4"].map((key) => {
-                const item = proyecto[key];
-                if (!item) return null;
-
-                return (
-                  <li key={key} className="flex gap-3">
-                    <span
-                      className="font-bold"
-                      style={{ color: colors.swissOrange }}
-                    >
-                      –
-                    </span>
-                    <span style={{ color: colors.paragraph }}>{item}</span>
-                  </li>
-                );
-              })}
-            </ul>
+            {project.content}
           </div>
-        </div>
+        )}
 
-        {/* TERCERA IMAGEN OPCIONAL */}
-        {images.img3 && (
+        {rest.map((url) => (
           <div
-            className="relative w-full h-[360px] md:h-[620px] rounded-xl overflow-hidden bg-zinc-900 shadow-2xl mb-20 border"
+            key={url}
+            className="relative w-full h-[380px] md:h-[620px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
             style={{ borderColor: colors.assets }}
           >
-            <Image
-              src={images.img3}
-              alt="Detalle extra"
-              fill
-              className="object-cover"
-              placeholder="blur"
-            />
+            <Image src={url} alt={project.name} fill className="object-cover" />
           </div>
-        )}
+        ))}
 
-        {/* SECCIÓN: RESULTADOS / IMPACTO */}
-        {proyecto.p3 && (
-          <div className="mb-24">
-            <h2
-              className="text-2xl font-medium mb-4 tracking-wide uppercase"
-              style={{ color: colors.foreground }}
-            >
-              {localeProyectos.projects?.outcome || "Resultados"}
-            </h2>
-            <p
-              className="text-lg leading-relaxed"
-              style={{ color: colors.paragraph }}
-            >
-              {proyecto.p3}
-            </p>
-          </div>
-        )}
-
-        {/* CALL TO ACTION */}
-        <div
-          className="pt-10 border-t flex flex-wrap gap-6"
-          style={{ borderColor: colors.assets }}
-        >
-          {proyecto.deploy && (
-            <ButtonSecondary
-              href={proyecto.deploy}
-              className="text-md"
-              target="_blank"
-            >
-              {t.projects?.visitProject ||
-                localeProyectos.projects?.visitProject ||
-                "Ver Proyecto"}
-            </ButtonSecondary>
-          )}
-
-          {proyecto.github && (
-            <ButtonSecondary
-              href={proyecto.github}
-              className="text-md"
-              target="_blank"
-            >
-              <Github className="h-5 w-5" />
-              Github
-            </ButtonSecondary>
-          )}
+        {/* Cierre: el visitante que llego al final vuelve al listado sin scrollear. */}
+        <div className="pt-10 border-t" style={{ borderColor: colors.assets }}>
+          <Link
+            href={`/${lang}/projects`}
+            className="group inline-flex items-center gap-2 text-sm uppercase tracking-widest text-paragraph transition-colors hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+            {backLabel}
+          </Link>
         </div>
       </div>
     </section>
