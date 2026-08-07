@@ -7,6 +7,7 @@ import { getPublishedProject, getPublishedProjects } from "@/lib/projects/publis
 import { categoryLabel } from "@/lib/projects/categories";
 import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 import { ConversionLink } from "@/components/analytics/ConversionLink";
+import SuggestedProjects from "@/components/projects/SuggestedProjects";
 
 const LANGS = ["es", "en", "pt"];
 
@@ -134,16 +135,8 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         ))}
 
-        {/* Cierre: el visitante que llego al final vuelve al listado sin scrollear. */}
-        <div className="pt-10 border-t" style={{ borderColor: colors.assets }}>
-          <Link
-            href={`/${lang}/projects`}
-            className="group inline-flex items-center gap-2 text-sm uppercase tracking-widest text-paragraph transition-colors hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            {backLabel}
-          </Link>
-        </div>
+        {/* Cierre: en vez de mandar al listado, se ofrecen dos proyectos mas. */}
+        <SuggestedProjects lang={lang} currentSlug={slug} />
       </div>
     </section>
   );

@@ -219,7 +219,8 @@
   "projects": {
     "visitProject": "Visit Project",
     "back": "Back to projects",
-    "viewCode": "View code"
+    "viewCode": "View code",
+    "suggestedTitle": "Keep exploring"
   },
   "project_categories": {
     "all": "All",

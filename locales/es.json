@@ -206,7 +206,8 @@
   "projects": {
     "visitProject": "Visitar Proyecto",
     "back": "Volver a proyectos",
-    "viewCode": "Ver código"
+    "viewCode": "Ver código",
+    "suggestedTitle": "Seguí viendo"
   },
   "project_categories": {
     "all": "Todos",
