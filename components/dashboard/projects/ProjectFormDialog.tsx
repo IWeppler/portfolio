@@ -51,7 +51,6 @@ type FormState = {
   deployUrl: string;
   githubUrl: string;
   isPublished: boolean;
-  isFeatured: boolean;
   category: ProjectCategory;
   translations: ProjectTranslations;
   images: ProjectImage[];
@@ -63,7 +62,6 @@ const emptyForm: FormState = {
   deployUrl: "",
   githubUrl: "",
   isPublished: false,
-  isFeatured: false,
   category: DEFAULT_CATEGORY,
   translations: {},
   images: [],
@@ -93,7 +91,6 @@ export function ProjectFormDialog({ open, onOpenChange, project, onSaved }: Proj
         deployUrl: project.deployUrl ?? "",
         githubUrl: project.githubUrl ?? "",
         isPublished: project.isPublished,
-        isFeatured: project.isFeatured,
         category: project.category ?? DEFAULT_CATEGORY,
         translations: project.translations ?? {},
         images: project.images ?? [],
@@ -142,7 +139,6 @@ export function ProjectFormDialog({ open, onOpenChange, project, onSaved }: Proj
       deployUrl: form.deployUrl.trim() || null,
       githubUrl: form.githubUrl.trim() || null,
       isPublished: form.isPublished,
-      isFeatured: form.isFeatured,
       category: form.category,
       translations: form.translations,
       images: form.images,
@@ -257,16 +253,9 @@ export function ProjectFormDialog({ open, onOpenChange, project, onSaved }: Proj
                 />
               </div>
 
-              <div className="flex items-center justify-between rounded-md border border-white/10 bg-background px-4 py-3">
-                <Label htmlFor="isFeatured" className="cursor-pointer">
-                  Destacado
-                </Label>
-                <Switch
-                  id="isFeatured"
-                  checked={form.isFeatured}
-                  onCheckedChange={(checked) => setForm((current) => ({ ...current, isFeatured: checked }))}
-                />
-              </div>
+              <p className="rounded-md border border-orange/20 bg-orange/5 px-4 py-3 text-xs leading-5 text-paragraph">
+                Los primeros cinco publicados con portada aparecen en la landing. Ordenalos desde el tablero de proyectos.
+              </p>
 
               {/* Imagenes */}
               <div className="grid gap-3 md:col-span-2">

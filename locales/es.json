@@ -2,116 +2,63 @@
   "navbar": {
     "home": "Inicio",
     "projects": "Proyectos",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "about": "Sobre mí",
+    "start": "Empezar un proyecto",
+    "location": "Argentina"
   },
   "hero": {
-    "part1": "Hola!",
-    "part2": " Soy Ignacio, desarrollador full-stack trabajando desde",
-    "part3": " Argentina, creando soluciones digitales para negocios que quieren crecer en serio.",
-    "cta_write": "Escribime",
-    "cta_works": "Ver Trabajos"
-  },
-  "works": {
-    "title": "Proyectos Destacados",
-    "view_project": "Ver Proyecto",
-    "view_all": "Ver Todos los Proyectos",
-    "default_tag": "Desarrollo • Diseño"
-  },
-  "aboutme": {
-    "title": "Sobre mí",
-    "p1_part1": "Soy Ignacio, ",
-    "p1_span1": "desarrollador full stack ",
-    "p1_part2": "trabajando desde Argentina. Colaboro con negocios y emprendedores que necesitan una presencia digital clara y moderna, junto con las ",
-    "p1_span2": "herramientas correctas para crecer",
-    "p1_part3": ".",
-    "p2_part1": "Mi enfoque combina desarrollo, diseño funcional y estrategia. ",
-    "p2_span1": "No hago webs por hacer",
-    "p2_part2": ": resuelvo problemas reales, optimizo procesos y creo ",
-    "p2_span2": "experiencias que convierten mejor",
-    "p2_part3": ".",
-    "question": "¿Tenés un proyecto, una idea o querés mejorar lo que ya tenés? ",
-    "cta": "Hablemos.",
-    "metrics": {
-      "projects": "10+ Proyectos entregados",
-      "clients": "6 negocios con sistemas propios",
-      "industries": "+5 rubros distintos",
-      "reach": "3 países"
-    }
-  },
-  "features": {
-    "title": "Cómo hago la diferencia",
-    "blocks": [
-      {
-        "title": "Desarrollo Web & Performance",
-        "itemsLeft": [
-          "Webs rápidas y optimizadas",
-          "Arquitectura visual clara",
-          "Código limpio y escalable"
-        ],
-        "itemsRight": [
-          "Navegación simple e intuitiva",
-          "Interfaces limpias y modernas",
-          "Integraciones directas (APIs / SaaS)"
-        ]
-      },
-      {
-        "title": "Sistemas Internos & Dashboards",
-        "itemsLeft": [
-          "Aplicaciones internas",
-          "Sistemas de gestión",
-          "Paneles administrativos"
-        ],
-        "itemsRight": [
-          "MVPs y SaaS a medida",
-          "Automatización de procesos",
-          "Integración con datos reales"
-        ]
-      },
-      {
-        "title": "Implementación Técnica & SEO",
-        "itemsLeft": [
-          "Corrección de DNS y hosting",
-          "SEO técnico para 2025",
-          "Implementación de analytics"
-        ],
-        "itemsRight": [
-          "Optimización para Google & IA",
-          "Integración de servicios externos",
-          "Mejoras de indexación"
-        ]
-      },
-      {
-        "title": "Branding Digital",
-        "itemsLeft": [
-          "Selección tipográfica profesional",
-          "Paletas modernas y consistentes",
-          "Re-ordenamiento visual"
-        ],
-        "itemsRight": [
-          "Corrección de estilos incoherentes",
-          "Refinación estética de sitios",
-          "Mejora de marca sin rediseño"
-        ]
-      },
-      {
-        "title": "Consultoría & Auditorías",
-        "itemsLeft": [
-          "Diagnóstico de sitios",
-          "Revisión de usabilidad",
-          "Detección de problemas reales"
-        ],
-        "itemsRight": [
-          "Auditorías de performance",
-          "Recomendaciones accionables",
-          "Acompañamiento profesional"
-        ]
-      }
+    "name_first": "Ignacio",
+    "name_last": "Weppler",
+    "portfolio": "Portfolio",
+    "role": "Desarrollador full-stack",
+    "location": "Argentina",
+    "statement": "Una presencia digital a la altura de lo que construís. Experiencias que conectan tu marca con nuevas oportunidades y hacen más simple cada proceso.",
+    "scroll": "Bajá despacio",
+    "cta_works": "Ver proyectos",
+    "ticker": [
+      "Webs a medida",
+      "Portales inmobiliarios",
+      "CRM personalizados",
+      "Landing Pages",
+      "Productos SaaS",
+      "Interfaces interactivas"
     ]
   },
-  "cta": {
-    "subtitle": "¿Tenés un proyecto en mente?",
-    "title": "Trabajemos juntos",
-    "cta": "Hablemos"
+  "works": {
+    "title": "Proyectos",
+    "view_project": "Ver proyecto",
+    "view_all": "Ver todos los proyectos",
+    "default_tag": "Desarrollo • Diseño"
+  },
+  "slider": {
+    "label": "De cerca",
+    "hint": "Arrastrá o deslizá",
+    "detail": "Detalle"
+  },
+  "aboutme": {
+    "label": "Hola",
+    "title": "Sobre mí",
+    "statement": "Soy Ignacio. Diseño y programo sitios y sistemas para negocios que quieren vender más y ordenarse mejor, hoy sobre todo inmobiliarias. Hecho a medida, desde",
+    "accent": "Argentina.",
+    "metrics": [
+      {
+        "value": "2",
+        "label": "años en el oficio"
+      },
+      {
+        "value": "+15",
+        "label": "proyectos entregados"
+      },
+      {
+        "value": "+10",
+        "label": "negocios como clientes"
+      },
+      {
+        "value": "3",
+        "label": "países con clientes"
+      }
+    ]
   },
   "contact_modal": {
     "close": "Cerrar",
@@ -197,7 +144,10 @@
       "services": "Servicios",
       "about": "Sobre mí",
       "contact": "Contacto"
-    }
+    },
+    "cta_label": "¿Tenés algo en mente?",
+    "cta": "Hablemos",
+    "back_to_top": "Volver arriba"
   },
   "projectspage": {
     "title": "Ultimos Proyectos",

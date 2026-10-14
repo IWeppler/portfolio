@@ -1,106 +1,65 @@
 import Link from "next/link";
-import { ButtonSecondary } from "./ui/Buttons";
 import { getDictionary } from "@/lib/get-dictionary";
+import { LocalTime } from "./ui/LocalTime";
+import { TextPressure } from "./ui/TextPressure";
 
+const SOCIALS = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/ignacioweppler/" },
+  { label: "GitHub", href: "https://github.com/IWeppler" },
+  { label: "Instagram", href: "https://www.instagram.com/ignacioweppler/" },
+];
+
+const WHATSAPP_URL =
+  "https://wa.me/5491154702118?text=Hola%20Ignacio,%20vengo%20de%20tu%20portfolio%20y%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto.";
+
+/**
+ * Cierre de todas las paginas: la invitacion a hablar en grande (va directo a
+ * WhatsApp) y una sola fila con los datos de contacto.
+ */
 export default function Footer({ lang }: { lang: string }) {
   const t = getDictionary(lang);
-  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-surface text-foreground px-6 md:px-20 pt-24 pb-10 border-t border-foreground/10">
-      {/* TÍTULO */}
-      <div className="flex justify-between items-start md:items-center mb-16">
-        <h2 className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight">
-          {t.footer.title}
-        </h2>
-      </div>
+    <footer id="contacto" className="w-full bg-background px-4 pt-24 pb-8 text-foreground md:px-8 md:pt-40 md:pb-10">
+      <p className="label text-paragraph">{t.footer.cta_label}</p>
 
-      {/* GRID PRINCIPAL */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mb-24">
-        {/* Columna izquierda: contacto directo */}
-        <div className="space-y-12">
-          <div>
-            <p className="text-sm uppercase tracking-wide text-paragraph mb-2">
-              {t.footer.email_label}
-            </p>
-            <ButtonSecondary href="mailto:ignacionweppler@gmail.com">
-              ignacionweppler@gmail.com
-            </ButtonSecondary>
-          </div>
+      {/* Mismo efecto que el nombre del hero: las letras reaccionan al cursor.
+          El link lleva el nombre accesible; las letras son solo visuales. */}
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={t.footer.cta}
+        className="mt-6 block w-full transition-colors duration-200 select-none hover:text-orange focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-orange"
+      >
+        <TextPressure as="div" entrance={false} lines={[{ text: t.footer.cta }]} lineClassName="w-full" />
+      </a>
 
-          <div>
-            <p className="text-sm uppercase tracking-wide text-paragraph mb-2">
-              {t.footer.phone_label}
-            </p>
-            <ButtonSecondary href="tel:+541154702118">
-              +54 11 5470 2118
-            </ButtonSecondary>
-          </div>
+      <div className="label mt-20 grid grid-cols-2 gap-x-6 gap-y-6 text-paragraph md:mt-28 lg:grid-cols-[auto_1fr_auto_auto] lg:items-center lg:gap-x-16">
+        <a href="mailto:ignacionweppler@gmail.com" className="col-span-2 w-fit max-w-full break-all text-foreground transition-colors hover:text-orange lg:col-span-1">
+          ignacionweppler@gmail.com
+        </a>
+
+        <div className="col-span-2 flex flex-wrap gap-x-6 gap-y-2 lg:col-span-1 lg:justify-center">
+          {SOCIALS.map((social) => (
+            <a key={social.label} href={social.href} target="_blank" rel="noreferrer" className="transition-colors hover:text-foreground">
+              {social.label}
+            </a>
+          ))}
         </div>
 
-        {/* Columna derecha: navegación */}
-        <div className="flex flex-col space-y-4 text-3xl md:text-4xl font-light">
-          <Link
-            href={`/${lang}#projects`}
-            className="hover:text-paragraph transition-colors duration-150"
-          >
-            {t.footer.links.projects}
-          </Link>
-          {/* Si tienes página de servicios: */}
-          <Link
-            href={`/${lang}#servicios`}
-            className="hover:text-paragraph transition-colors duration-150"
-          >
-            {t.footer.links.services}
-          </Link>
-          <Link
-            href={`/${lang}#sobremi`}
-            className="hover:text-paragraph transition-colors duration-150"
-          >
-            {t.footer.links.about}
-          </Link>
-          <Link
-            href={`/${lang}#contacto`}
-            className="hover:text-paragraph transition-colors duration-150"
-          >
-            {t.footer.links.contact}
-          </Link>
-        </div>
-      </div>
-
-      {/* Línea inferior */}
-      <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center text-paragraph text-sm">
-        <p className="mb-4 md:mb-0">
-          © {currentYear} {t.footer.rights}
+        <p className="col-span-2 lg:col-span-1">
+          {t.hero.location} <LocalTime />
         </p>
 
-        {/* Redes sociales  */}
-        <div className="flex items-center gap-6 text-sm">
-          <ButtonSecondary
-            href="https://www.instagram.com/ignacioweppler/"
-            target="_blank"
-            className="flex text-paragraph font-light text-sm items-center gap-1 hover:text-foreground transition-colors"
-          >
-            Instagram
-          </ButtonSecondary>
-
-          <ButtonSecondary
-            href="https://github.com/IWeppler"
-            target="_blank"
-            className="flex text-paragraph font-light text-sm items-center gap-1 hover:text-foreground transition-colors"
-          >
-            GitHub
-          </ButtonSecondary>
-
-          <ButtonSecondary
-            href="https://www.linkedin.com/in/ignacioweppler/"
-            target="_blank"
-            className="flex text-paragraph font-light text-sm items-center gap-1 hover:text-foreground transition-colors"
-          >
-            LinkedIn
-          </ButtonSecondary>
-        </div>
+        <Link href={`/${lang}`} className="col-span-2 w-fit transition-colors hover:text-foreground lg:col-span-1 lg:justify-self-end">
+          {t.footer.back_to_top} ↑
+        </Link>
       </div>
+
+      <p className="label mt-10 text-paragraph/60">
+        © {new Date().getFullYear()} {t.footer.rights}
+      </p>
     </footer>
   );
 }

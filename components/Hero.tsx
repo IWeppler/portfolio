@@ -1,135 +1,54 @@
 "use client";
 
-import Image from "next/image";
-import profile from "@/public/profile.png";
-import argentina from "@/public/argentina.avif";
-import { ButtonPrimary, ButtonSecondary } from "./ui/Buttons";
+import Link from "next/link";
+import { TextPressure } from "./ui/TextPressure";
 import { getDictionary } from "@/lib/get-dictionary";
-import { easeOut, motion, Variants } from "framer-motion";
-import type { MouseEvent } from "react";
-import { useContactModal } from "./contact-modal/ContactModalProvider";
 
 export default function HeroSection({ lang }: { lang: string }) {
   const t = getDictionary(lang);
-  const { open: openContactModal } = useContactModal();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-        when: "beforeChildren",
-      },
-    },
-  };
-
-  const textVariants = {
-    hidden: {
-      opacity: 0,
-      filter: "blur(10px)",
-      y: 10,
-    },
-    visible: {
-      opacity: 1,
-      filter: "blur(0px)",
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: easeOut,
-      },
-    },
-  };
-  const imageVariants = (rotation: number): Variants => ({
-    hidden: {
-      opacity: 0,
-      scale: 0,
-      rotate: 0,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      rotate: rotation,
-      transition: {
-        type: "spring",
-        stiffness: 260,
-        damping: 20,
-        delay: 0.1,
-      },
-    },
-  });
-
-  const buttonVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { delay: 1.2, duration: 0.5 },
-    },
-  };
+  const year = new Date().getFullYear();
 
   return (
-    <section className="w-full min-h-[90dvh] bg-background flex items-end mb-20">
-      <motion.div
-        className="max-w-4xl w-full mb-12 md:mb-20"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
-        <h1 className="text-2xl md:text-4xl font-general text-foreground font-light leading-snug tracking-tight">
-          {/* Parte 1 del texto */}
-          <motion.span variants={textVariants}>{t.hero.part1}</motion.span>
+    <section className="relative flex min-h-[100svh] w-full flex-col bg-background pt-24 pb-8 md:pt-28 md:pb-10">
+      {/* Fila de datos: que es esto, quien y desde donde. */}
+      <div className="hero-rise grid grid-cols-2 gap-y-2 text-paragraph md:grid-cols-3">
+        <p className="label">
+          ({t.hero.portfolio} / ©{year})
+        </p>
+        <p className="label text-right md:text-center">{t.hero.role}</p>
+        <p className="label hidden text-right md:block">{t.hero.location}</p>
+      </div>
 
-          {/* Imagen Perfil */}
-          <motion.span
-            className="inline-block align-middle mx-2"
-            variants={imageVariants(2)}
+      {/* El nombre en dos lineas: la primera a la izquierda, la segunda contra
+          el margen derecho. Las letras reaccionan a la distancia del cursor. */}
+      <TextPressure
+        label={`${t.hero.name_first} ${t.hero.name_last}`}
+        lines={[
+          { text: t.hero.name_first, align: "start" },
+          { text: t.hero.name_last, align: "end" },
+        ]}
+        className="my-auto py-10 text-foreground select-none"
+        lineClassName="w-full md:w-[74%]"
+      />
+
+      <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-[1fr_auto_1fr]">
+        <p className="hero-rise max-w-[40ch] text-[clamp(1.125rem,1.5vw,1.375rem)] leading-[1.35] tracking-[-0.01em] text-foreground [animation-delay:200ms]">
+          {t.hero.statement}
+        </p>
+
+        <p className="label hero-rise hidden text-center text-paragraph md:block [animation-delay:260ms]">
+          ↓ {t.hero.scroll}
+        </p>
+
+        <div className="hero-rise md:flex md:justify-end [animation-delay:300ms]">
+          <Link
+            href="#projects"
+            className="label inline-flex items-center gap-2 rounded-full bg-foreground/[0.06] px-6 py-4 text-foreground transition-[transform,background-color] duration-150 ease-out hover:bg-foreground/[0.12] active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
           >
-            <Image
-              src={profile}
-              alt="Ignacio Weppler"
-              className="w-16 h-12 object-contain"
-              placeholder="blur"
-              priority={true}
-            />
-          </motion.span>
-
-          {/* Parte 2 del texto */}
-          <motion.span variants={textVariants}>{t.hero.part2}</motion.span>
-
-          {/* Imagen Argentina */}
-          <motion.span
-            className="inline-block align-middle mx-2"
-            variants={imageVariants(-2)}
-          >
-            <Image
-              src={argentina}
-              alt="Ignacio Weppler - Argentina"
-              className="w-16 h-12 object-cover"
-              placeholder="blur"
-              priority={true}
-            />
-          </motion.span>
-
-          {/* Parte 3 del texto */} 
-          <motion.span variants={textVariants}>{t.hero.part3}</motion.span>
-        </h1>
-
-        {/* Botones  */}
-        <motion.div variants={buttonVariants} className="flex gap-4 mt-8">
-          <ButtonPrimary
-            href={`/${lang}#contacto`}
-            onClick={(e: MouseEvent) => {
-              e.preventDefault();
-              openContactModal();
-            }}
-          >
-            {t.hero.cta_write}
-          </ButtonPrimary>
-
-          <ButtonSecondary href="#projects">{t.hero.cta_works}</ButtonSecondary>
-        </motion.div>
-      </motion.div>
+            {t.hero.cta_works} →
+          </Link>
+        </div>
+      </div>
     </section>
   );
 }

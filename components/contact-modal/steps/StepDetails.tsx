@@ -31,10 +31,10 @@ export function StepDetails({
     <div>
       {isAgencia ? (
         <>
-          <h2 className="text-lg md:text-xl font-medium text-foreground mb-4">
+          <h2 className="text-statement font-medium text-foreground mb-5 mt-10 first:mt-0">
             {copy.step2_agencia.tipo_title}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {(
               Object.keys(copy.step2_agencia.tipo_options) as Array<
                 keyof typeof copy.step2_agencia.tipo_options
@@ -50,7 +50,7 @@ export function StepDetails({
             ))}
           </div>
 
-          <h2 className="text-lg md:text-xl font-medium text-foreground mb-4">
+          <h2 className="text-statement font-medium text-foreground mb-5 mt-10 first:mt-0">
             {copy.step2_agencia.frecuencia_title}
           </h2>
           <div className="grid grid-cols-1 gap-3">
@@ -71,10 +71,10 @@ export function StepDetails({
         </>
       ) : (
         <>
-          <h2 className="text-lg md:text-xl font-medium text-foreground mb-4">
+          <h2 className="text-statement font-medium text-foreground mb-5 mt-10 first:mt-0">
             {copy.step2_cliente.idea_title}
           </h2>
-          <div className="grid grid-cols-1 gap-3 mb-4">
+          <div className="grid grid-cols-1 gap-3">
             {(
               Object.keys(copy.step2_cliente.idea_options) as Array<
                 keyof typeof copy.step2_cliente.idea_options
@@ -90,7 +90,7 @@ export function StepDetails({
             ))}
           </div>
 
-          <h2 className="text-lg md:text-xl font-medium text-foreground mb-4">
+          <h2 className="text-statement font-medium text-foreground mb-5 mt-10 first:mt-0">
             {copy.step2_cliente.presupuesto_title}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -111,11 +111,11 @@ export function StepDetails({
         </>
       )}
 
-      <div className="flex items-center justify-between mt-6">
+      <div className="flex items-center justify-between mt-10">
         <button
           type="button"
           onClick={onBack}
-          className="text-sm text-paragraph hover:text-foreground transition-colors cursor-pointer"
+          className="label inline-flex cursor-pointer rounded-full bg-foreground/[0.06] px-6 py-4 text-foreground transition-[transform,background-color] duration-150 ease-out hover:bg-foreground/[0.12] active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
         >
           {copy.back}
         </button>
@@ -123,7 +123,7 @@ export function StepDetails({
           type="button"
           onClick={onNext}
           disabled={!canContinue}
-          className="inline-flex items-center justify-center rounded-full bg-orange px-6 py-3 text-sm font-medium text-dark transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+          className="label inline-flex cursor-pointer items-center justify-center rounded-full bg-orange px-6 py-4 text-dark transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange disabled:cursor-not-allowed disabled:opacity-40"
         >
           {copy.continue}
         </button>

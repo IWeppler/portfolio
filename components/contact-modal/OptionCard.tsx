@@ -16,15 +16,20 @@ export function OptionCard({ label, selected, onClick, size = "lg" }: OptionCard
       onClick={onClick}
       aria-pressed={selected}
       className={cn(
-        "w-full text-left rounded-xl border transition-colors cursor-pointer",
-        "border-assets bg-surface hover:border-orange/60 hover:bg-white/5",
-        selected && "border-orange bg-orange/10 text-orange",
+        "flex w-full cursor-pointer items-center justify-between gap-4 rounded-2xl text-left font-medium",
+        "transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.98]",
+        "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange",
+        selected
+          ? "bg-orange text-dark"
+          : "bg-surface text-foreground hover:bg-foreground/[0.1]",
         size === "lg"
-          ? "p-5 md:p-6 text-base md:text-lg font-medium"
-          : "p-4 text-sm md:text-base font-medium"
+          ? "p-5 text-lg md:p-6 md:text-xl"
+          : "p-4 text-sm md:text-base"
       )}
     >
       {label}
+      {size === "lg" && <span aria-hidden="true">→</span>}
     </button>
   );
 }
+

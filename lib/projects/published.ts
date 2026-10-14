@@ -1,5 +1,10 @@
+import { LANDING_PROJECT_LIMIT } from "./landing";
 import { supabaseRest } from "@/lib/supabase/rest";
-import { DEFAULT_CATEGORY, isProjectCategory, type ProjectCategory } from "./categories";
+import {
+  DEFAULT_CATEGORY,
+  isProjectCategory,
+  type ProjectCategory,
+} from "./categories";
 
 export type PublishedProject = {
   slug: string;
@@ -34,7 +39,6 @@ type PublishedRow = {
   url_deploy: string | null;
   url_github: string | null;
   category: string | null;
-  is_featured: boolean | null;
   orden: number | null;
   created_at: string | null;
   project_translations: TranslationRow[] | null;
@@ -44,7 +48,7 @@ type PublishedRow = {
 const DEFAULT_LANG = "es";
 
 const SELECT =
-  "slug,client,url_deploy,url_github,category,is_featured,orden,created_at," +
+  "slug,client,url_deploy,url_github,category,orden,created_at," +
   "project_translations(idioma,titulo,descripcion,contenido)," +
   "project_images(url,es_portada,orden)";
 
@@ -59,14 +63,26 @@ function pickTranslation(rows: TranslationRow[] | null, lang: string) {
   };
 }
 
-function toPublishedProject(row: PublishedRow, lang: string): PublishedProject | null {
-  if (!row.slug) return null;
+function toPublishedProject(
+  row: PublishedRow,
+  lang: string,
+): PublishedProject | null {
+  if (
+    !row.slug ||
+    !row.project_translations?.some(
+      (translation) =>
+        translation.idioma === DEFAULT_LANG && translation.titulo?.trim(),
+    )
+  )
+    return null;
 
   const translation = pickTranslation(row.project_translations, lang);
 
   if (!translation.titulo) return null;
 
-  const images = [...(row.project_images ?? [])].sort((a, b) => (a.orden ?? 0) - (b.orden ?? 0));
+  const images = [...(row.project_images ?? [])].sort(
+    (a, b) => (a.orden ?? 0) - (b.orden ?? 0),
+  );
   const cover = images.find((image) => image.es_portada) ?? images[0];
 
   return {
@@ -80,7 +96,7 @@ function toPublishedProject(row: PublishedRow, lang: string): PublishedProject |
     deployUrl: row.url_deploy,
     githubUrl: row.url_github,
     client: row.client,
-    isFeatured: Boolean(row.is_featured),
+    isFeatured: false,
   };
 }
 
@@ -88,17 +104,29 @@ function toPublishedProject(row: PublishedRow, lang: string): PublishedProject |
  * Proyectos publicados desde el panel. Se cachea 60s: publicar o despublicar se
  * ve en la landing sin necesidad de rebuild.
  */
-export async function getPublishedProjects(lang: string): Promise<PublishedProject[]> {
+export async function getPublishedProjects(
+  lang: string,
+): Promise<PublishedProject[]> {
   try {
     const response = await supabaseRest(
-      `projects?is_published=eq.true&select=${SELECT}&order=orden.asc.nullslast,created_at.desc`,
-      { method: "GET", next: { revalidate: 60 } }
+      `projects?is_published=eq.true&select=${SELECT}&order=orden.asc.nullslast,created_at.desc,id.asc`,
+      { method: "GET", next: { revalidate: 60, tags: ["projects"] } },
     );
     const rows = (await response.json()) as PublishedRow[];
 
-    return rows
+    const projects = rows
       .map((row) => toPublishedProject(row, lang))
       .filter((project): project is PublishedProject => project !== null);
+    const featuredSlugs = new Set(
+      projects
+        .filter((project) => project.cover)
+        .slice(0, LANDING_PROJECT_LIMIT)
+        .map((project) => project.slug),
+    );
+    return projects.map((project) => ({
+      ...project,
+      isFeatured: featuredSlugs.has(project.slug),
+    }));
   } catch (error) {
     // La landing no puede caerse porque Supabase no responda: se cae al
     // contenido estatico de los locales.

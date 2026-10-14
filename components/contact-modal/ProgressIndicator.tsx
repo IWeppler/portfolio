@@ -6,11 +6,11 @@ interface ProgressIndicatorProps {
 
 export function ProgressIndicator({ step, total, label }: ProgressIndicatorProps) {
   return (
-    <div className="mb-4">
-      <p className="text-xs text-paragraph mb-2">{label}</p>
-      <div className="h-1 w-full rounded-full bg-assets overflow-hidden">
+    <div className="mb-10">
+      <p className="label mb-3 text-paragraph">{label}</p>
+      <div className="h-1 w-full overflow-hidden rounded-full bg-surface">
         <div
-          className="h-full bg-orange transition-all duration-300"
+          className="h-full rounded-full bg-orange transition-[width] duration-300 ease-out"
           style={{ width: `${(step / total) * 100}%` }}
         />
       </div>

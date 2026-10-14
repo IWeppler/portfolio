@@ -2,129 +2,63 @@
   "navbar": {
     "home": "Home",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "about": "About",
+    "start": "Start a project",
+    "location": "Argentina"
   },
   "hero": {
-    "part1": "Hello!",
-    "part2": " I'm Ignacio, full-stack developer working from",
-    "part3": " Argentina, creating digital solutions for businesses that want to grow seriously.",
-    "cta_write": "Get in touch",
-    "cta_works": "See Works"
-  },
-  "works": {
-    "title": "Featured Works",
-    "view_project": "View Project",
-    "view_all": "View All Projects",
-    "default_tag": "Development • Design"
-  },
-  "aboutme": {
-    "title": "About Me",
-    "p1_part1": "I'm Ignacio, a ",
-    "p1_span1": "full-stack developer ",
-    "p1_part2": "working from Argentina. I collaborate with businesses and entrepreneurs who need a clear, modern digital presence, along with the ",
-    "p1_span2": "right tools to grow",
-    "p1_part3": ".",
-    "p2_part1": "My approach blends development, functional design, and strategy. ",
-    "p2_span1": "I don’t build websites just to build them",
-    "p2_part2": ": I solve real problems, optimize processes, and create ",
-    "p2_span2": "experiences that convert better",
-    "p2_part3": ".",
-    "question": "Got a project, an idea, or want to improve what you already have? ",
-    "cta": "Let's talk.",
-    "metrics": {
-      "projects": "10+ Projects delivered",
-      "clients": "6 businesses running custom systems",
-      "industries": "+5 industries served",
-      "reach": "3 countries"
-    }
-  },
-  "features": {
-    "title": "How I Make a Difference",
-    "blocks": [
-      {
-        "title": "Design & Experience",
-        "itemsLeft": [
-          "Clear visual architecture",
-          "Human-centered experience",
-          "Simple and intuitive navigation"
-        ],
-        "itemsRight": [
-          "Clean and modern interfaces",
-          "Professional responsive design",
-          "Micro-adjustments that boost conversion"
-        ]
-      },
-      {
-        "title": "Web Development & Performance",
-        "itemsLeft": [
-          "Fast, optimized websites",
-          "Modern development (Next.js / Astro)",
-          "Clean, scalable code"
-        ],
-        "itemsRight": [
-          "High-converting landing pages",
-          "Speed improvements",
-          "Direct integrations (APIs / SaaS)"
-        ]
-      },
-      {
-        "title": "Internal Systems & Dashboards",
-        "itemsLeft": [
-          "Internal applications",
-          "Management systems",
-          "Admin dashboards"
-        ],
-        "itemsRight": [
-          "Custom MVPs & SaaS",
-          "Process automation",
-          "Real-data integrations"
-        ]
-      },
-      {
-        "title": "Technical Implementation & SEO",
-        "itemsLeft": [
-          "DNS & hosting fixes",
-          "Technical SEO for 2025",
-          "Analytics implementation"
-        ],
-        "itemsRight": [
-          "Optimization for Google & AI",
-          "External service integrations",
-          "Indexing improvements"
-        ]
-      },
-      {
-        "title": "Digital Branding",
-        "itemsLeft": [
-          "Professional typography selection",
-          "Modern, consistent palettes",
-          "Visual re-organization"
-        ],
-        "itemsRight": [
-          "Fixing inconsistent styles",
-          "Aesthetic refinement",
-          "Brand improvement without redesign"
-        ]
-      },
-      {
-        "title": "Consulting & Audits",
-        "itemsLeft": [
-          "Site diagnosis",
-          "Usability review",
-          "Detection of real issues"
-        ],
-        "itemsRight": [
-          "Performance audits",
-          "Actionable recommendations",
-          "Professional guidance"
-        ]
-      }
+    "name_first": "Ignacio",
+    "name_last": "Weppler",
+    "portfolio": "Portfolio",
+    "role": "Full-stack developer",
+    "location": "Argentina",
+    "statement": "A digital presence that matches what you build. Experiences that connect your brand with new opportunities and make every process simpler.",
+    "scroll": "Scroll, gently",
+    "cta_works": "See the work",
+    "ticker": [
+      "Real estate websites",
+      "CRM",
+      "Landing pages",
+      "Apps & SaaS",
+      "Next.js",
+      "Supabase"
     ]
   },
-  "cta": {
-    "subtitle": "Do you have a project in mind?",
-    "title": "Let's work together",
-    "cta": "Let's talk"
+  "works": {
+    "title": "Projects",
+    "view_project": "View project",
+    "view_all": "View all projects",
+    "default_tag": "Development • Design"
+  },
+  "slider": {
+    "label": "Up close",
+    "hint": "Drag or scroll",
+    "detail": "Detail"
+  },
+  "aboutme": {
+    "label": "Hello",
+    "title": "About me",
+    "statement": "I'm Ignacio. I design and build websites and systems for businesses that want to sell more and run better, these days mostly real estate agencies. Made to measure, from",
+    "accent": "Argentina.",
+    "metrics": [
+      {
+        "value": "2",
+        "label": "years in the craft"
+      },
+      {
+        "value": "15+",
+        "label": "projects delivered"
+      },
+      {
+        "value": "10+",
+        "label": "businesses as clients"
+      },
+      {
+        "value": "3",
+        "label": "countries with clients"
+      }
+    ]
   },
   "contact_modal": {
     "close": "Close",
@@ -210,7 +144,10 @@
       "services": "Services",
       "about": "About Me",
       "contact": "Contact"
-    }
+    },
+    "cta_label": "Got something in mind?",
+    "cta": "Let's talk",
+    "back_to_top": "Back to top"
   },
   "projectspage": {
     "title": "Last Projects",

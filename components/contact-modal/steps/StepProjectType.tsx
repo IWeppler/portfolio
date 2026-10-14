@@ -23,7 +23,7 @@ export function StepProjectType({ lang, onSelect }: StepProjectTypeProps) {
 
   return (
     <div>
-      <h2 className="text-xl md:text-2xl font-medium text-foreground mb-5">
+      <h2 className="text-statement font-medium text-foreground mb-6">
         {copy.title}
       </h2>
       <div className="grid grid-cols-1 gap-3">

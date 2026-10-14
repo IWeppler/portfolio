@@ -23,9 +23,12 @@ export function ButtonPrimary({
       className={`
         inline-flex items-center justify-center
         whitespace-nowrap
-        border border-white/25 px-6 py-3.5 md:px-10 rounded-full
-        text-base md:text-lg font-medium text-foreground
-        hover:border-foreground hover:bg-white/5 transition-all
+        rounded-full bg-orange px-6 py-3.5 md:px-8
+        text-base md:text-lg font-medium text-dark
+        transition-[transform,background-color] duration-150 ease-out
+        hover:bg-[color-mix(in_srgb,var(--swiss-orange)_88%,white)]
+        active:scale-[0.97]
+        focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange
         ${className}
       `}
       {...props}
@@ -48,10 +51,10 @@ export function ButtonSecondary({
       className={`
         inline-flex items-center
         whitespace-nowrap
-        text-cream font-medium text-base md:text-lg
-        py-3 px-4 md:px-1
-        transition-colors duration-300
-        hover:text-foreground 
+        text-foreground font-medium text-base md:text-lg
+        py-3 px-1
+        transition-colors duration-200
+        hover:text-paragraph
         ${className}
       `}
       {...props}

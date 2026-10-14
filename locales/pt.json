@@ -2,129 +2,63 @@
   "navbar": {
     "home": "Início",
     "projects": "Projetos",
-    "contact": "Contato"
+    "contact": "Contato",
+    "about": "Sobre mim",
+    "start": "Começar um projeto",
+    "location": "Argentina"
   },
   "hero": {
-    "part1": "Olá!",
-    "part2": " Sou Ignacio, desenvolvedor full-stack trabalhando da",
-    "part3": " Argentina, criando soluções digitais para negócios que querem crescer de verdade.",
-    "cta_write": "Fale comigo",
-    "cta_works": "Trabalhos"
-  },
-  "works": {
-    "title": "Projetos em Destaque",
-    "view_project": "Ver Projeto",
-    "view_all": "Ver Todos os Projetos",
-    "default_tag": "Desenvolvimento • Design"
-  },
-  "aboutme": {
-    "title": "Sobre mim",
-    "p1_part1": "Sou Ignacio, ",
-    "p1_span1": "desenvolvedor full stack ",
-    "p1_part2": "trabalhando a partir da Argentina. Colaboro com negócios e empreendedores que precisam de uma presença digital clara e moderna, junto com as ",
-    "p1_span2": "ferramentas certas para crescer",
-    "p1_part3": ".",
-    "p2_part1": "Minha abordagem combina desenvolvimento, design funcional e estratégia. ",
-    "p2_span1": "Não faço sites apenas por fazer",
-    "p2_part2": ": resolvo problemas reais, otimizo processos e crio ",
-    "p2_span2": "experiências que convertem melhor",
-    "p2_part3": ".",
-    "question": "Tem um projeto, uma ideia ou quer melhorar o que você já tem? ",
-    "cta": "Vamos conversar.",
-    "metrics": {
-      "projects": "10+ Projetos entregues",
-      "clients": "6 negócios com sistemas próprios",
-      "industries": "+5 segmentos diferentes",
-      "reach": "3 países"
-    }
-  },
-  "features": {
-    "title": "Como faço a diferença",
-    "blocks": [
-      {
-        "title": "Design & Experiência",
-        "itemsLeft": [
-          "Arquitetura visual clara",
-          "Experiência centrada nas pessoas",
-          "Navegação simples e intuitiva"
-        ],
-        "itemsRight": [
-          "Interfaces limpas e modernas",
-          "Responsividade profissional",
-          "Microajustes que aumentam conversão"
-        ]
-      },
-      {
-        "title": "Desenvolvimento Web & Performance",
-        "itemsLeft": [
-          "Sites rápidos e otimizados",
-          "Desenvolvimento moderno (Next.js / Astro)",
-          "Código limpo e escalável"
-        ],
-        "itemsRight": [
-          "Landing pages de alta conversão",
-          "Melhorias de velocidade",
-          "Integrações diretas (APIs / SaaS)"
-        ]
-      },
-      {
-        "title": "Sistemas Internos & Dashboards",
-        "itemsLeft": [
-          "Aplicações internas",
-          "Sistemas de gestão",
-          "Painéis administrativos"
-        ],
-        "itemsRight": [
-          "MVPs e SaaS sob medida",
-          "Automação de processos",
-          "Integração com dados reais"
-        ]
-      },
-      {
-        "title": "Implementação Técnica & SEO",
-        "itemsLeft": [
-          "Correções de DNS e hosting",
-          "SEO técnico para 2025",
-          "Implementação de analytics"
-        ],
-        "itemsRight": [
-          "Otimização para Google & IA",
-          "Integração de serviços externos",
-          "Melhorias de indexação"
-        ]
-      },
-      {
-        "title": "Branding Digital",
-        "itemsLeft": [
-          "Seleção tipográfica profissional",
-          "Paletas modernas e consistentes",
-          "Reorganização visual"
-        ],
-        "itemsRight": [
-          "Correção de estilos inconsistentes",
-          "Refinamento estético",
-          "Melhora de marca sem redesign"
-        ]
-      },
-      {
-        "title": "Consultoria & Auditorias",
-        "itemsLeft": [
-          "Diagnóstico de sites",
-          "Revisão de usabilidade",
-          "Identificação de problemas reais"
-        ],
-        "itemsRight": [
-          "Auditorias de performance",
-          "Recomendações acionáveis",
-          "Acompanhamento profissional"
-        ]
-      }
+    "name_first": "Ignacio",
+    "name_last": "Weppler",
+    "portfolio": "Portfólio",
+    "role": "Desenvolvedor full-stack",
+    "location": "Argentina",
+    "statement": "Uma presença digital à altura do que você constrói. Experiências que conectam sua marca a novas oportunidades e tornam cada processo mais simples.",
+    "scroll": "Role devagar",
+    "cta_works": "Ver projetos",
+    "ticker": [
+      "Sites para imobiliárias",
+      "CRM",
+      "Landing pages",
+      "Apps e SaaS",
+      "Next.js",
+      "Supabase"
     ]
   },
-  "cta": {
-    "subtitle": "Tenha um projeto em mente?",
-    "title": "Trabalhemos juntos",
-    "cta": "Fale comigo"
+  "works": {
+    "title": "Projetos",
+    "view_project": "Ver projeto",
+    "view_all": "Ver todos os projetos",
+    "default_tag": "Desenvolvimento • Design"
+  },
+  "slider": {
+    "label": "De perto",
+    "hint": "Arraste ou role",
+    "detail": "Detalhe"
+  },
+  "aboutme": {
+    "label": "Olá",
+    "title": "Sobre mim",
+    "statement": "Sou o Ignacio. Crio e programo sites e sistemas para negócios que querem vender mais e se organizar melhor, hoje principalmente imobiliárias. Sob medida, direto da",
+    "accent": "Argentina.",
+    "metrics": [
+      {
+        "value": "2",
+        "label": "anos no ofício"
+      },
+      {
+        "value": "+15",
+        "label": "projetos entregues"
+      },
+      {
+        "value": "+10",
+        "label": "negócios como clientes"
+      },
+      {
+        "value": "3",
+        "label": "países com clientes"
+      }
+    ]
   },
   "contact_modal": {
     "close": "Fechar",
@@ -210,7 +144,10 @@
       "services": "Serviços",
       "about": "Sobre Mim",
       "contact": "Contato"
-    }
+    },
+    "cta_label": "Tem algo em mente?",
+    "cta": "Vamos falar",
+    "back_to_top": "Voltar ao topo"
   },
   "projectspage": {
     "title": "Ultimos Projetos",

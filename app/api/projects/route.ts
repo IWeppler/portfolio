@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
+import { markLandingProjects } from "@/lib/projects/landing";
 import { z } from "zod";
 import { getSessionUser } from "@/lib/supabase/server";
 import { supabaseRest } from "@/lib/supabase/project-storage";
-import { DEFAULT_CATEGORY, PROJECT_CATEGORIES } from "@/lib/projects/categories";
+import {
+  DEFAULT_CATEGORY,
+  PROJECT_CATEGORIES,
+} from "@/lib/projects/categories";
 
 const urlOptional = z.preprocess(
   emptyStringToUndefined,
-  z.string().trim().url().max(500).optional()
+  z.string().trim().url().max(500).optional(),
 );
 
 const translationSchema = z.object({
@@ -32,13 +37,18 @@ const projectFields = {
     .trim()
     .min(1)
     .max(120)
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug invalido: usar minusculas, numeros y guiones."),
-  client: z.preprocess(emptyStringToUndefined, z.string().trim().max(160).optional()),
+    .regex(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+      "Slug invalido: usar minusculas, numeros y guiones.",
+    ),
+  client: z.preprocess(
+    emptyStringToUndefined,
+    z.string().trim().max(160).optional(),
+  ),
   category: z.enum(PROJECT_CATEGORIES).default(DEFAULT_CATEGORY),
   deployUrl: urlOptional,
   githubUrl: urlOptional,
   isPublished: z.boolean().default(false),
-  isFeatured: z.boolean().default(false),
   translations: translationsSchema.default({}),
   images: z.array(imageSchema).max(20).default([]),
 };
@@ -60,7 +70,6 @@ const updateProjectSchema = z.object({
   deployUrl: urlOptional,
   githubUrl: urlOptional,
   isPublished: z.boolean().optional(),
-  isFeatured: z.boolean().optional(),
   translations: translationsSchema.optional(),
   images: z.array(imageSchema).max(20).optional(),
 });
@@ -91,14 +100,14 @@ type ProjectRow = {
   url_github: string | null;
   category: string | null;
   is_published: boolean | null;
-  is_featured: boolean | null;
+  orden: number | null;
   created_at?: string;
   project_translations?: TranslationRow[] | null;
   project_images?: ImageRow[] | null;
 };
 
 const PROJECT_SELECT =
-  "id,slug,client,url_deploy,url_github,category,is_published,is_featured,created_at," +
+  "id,slug,client,url_deploy,url_github,category,is_published,orden,created_at," +
   "project_translations(idioma,titulo,descripcion,contenido)," +
   "project_images(url,es_portada,orden)";
 
@@ -120,16 +129,21 @@ function toProjectColumns(payload: ProjectPatch, provided: Set<string>) {
   if (provided.has("client")) columns.client = payload.client ?? null;
   if (provided.has("deployUrl")) columns.url_deploy = payload.deployUrl ?? null;
   if (provided.has("githubUrl")) columns.url_github = payload.githubUrl ?? null;
-  if (provided.has("category")) columns.category = payload.category ?? DEFAULT_CATEGORY;
+  if (provided.has("category"))
+    columns.category = payload.category ?? DEFAULT_CATEGORY;
   if (provided.has("isPublished")) columns.is_published = payload.isPublished;
-  if (provided.has("isFeatured")) columns.is_featured = payload.isFeatured;
 
   return columns;
 }
 
-function toTranslationRows(projectId: string, translations: ProjectPatch["translations"]) {
+function toTranslationRows(
+  projectId: string,
+  translations: ProjectPatch["translations"],
+) {
   return Object.entries(translations ?? {})
-    .filter(([, value]) => Boolean(value?.title || value?.excerpt || value?.content))
+    .filter(([, value]) =>
+      Boolean(value?.title || value?.excerpt || value?.content),
+    )
     .map(([idioma, value]) => ({
       project_id: projectId,
       idioma,
@@ -149,7 +163,10 @@ function toImageRows(projectId: string, images: ProjectPatch["images"]) {
 }
 
 function fromProjectRow(row: ProjectRow) {
-  const translations: Record<string, { title?: string; excerpt?: string; content?: string }> = {};
+  const translations: Record<
+    string,
+    { title?: string; excerpt?: string; content?: string }
+  > = {};
 
   for (const translation of row.project_translations ?? []) {
     translations[translation.idioma] = {
@@ -171,7 +188,8 @@ function fromProjectRow(row: ProjectRow) {
     deployUrl: row.url_deploy,
     githubUrl: row.url_github,
     isPublished: Boolean(row.is_published),
-    isFeatured: Boolean(row.is_featured),
+    isFeatured: false,
+    order: row.orden,
     translations,
     images,
     created_at: row.created_at,
@@ -188,15 +206,18 @@ async function insertRows(table: string, rows: unknown[]) {
 }
 
 async function deleteChildren(table: string, projectId: string) {
-  await supabaseRest(`${table}?project_id=eq.${encodeURIComponent(projectId)}`, {
-    method: "DELETE",
-  });
+  await supabaseRest(
+    `${table}?project_id=eq.${encodeURIComponent(projectId)}`,
+    {
+      method: "DELETE",
+    },
+  );
 }
 
 async function readProject(id: string) {
   const response = await supabaseRest(
     `projects?id=eq.${encodeURIComponent(id)}&select=${PROJECT_SELECT}`,
-    { method: "GET" }
+    { method: "GET" },
   );
   const rows = (await response.json()) as ProjectRow[];
 
@@ -204,29 +225,45 @@ async function readProject(id: string) {
 }
 
 async function createProject(payload: ProjectInput) {
+  const lastResponse = await supabaseRest(
+    "projects?select=orden&orden=not.is.null&order=orden.desc&limit=1",
+    { method: "GET", cache: "no-store" },
+  );
+  const lastRows = (await lastResponse.json()) as { orden: number }[];
+  const order = (lastRows[0]?.orden ?? -1) + 1;
   const response = await supabaseRest("projects", {
     method: "POST",
     headers: { Prefer: "return=representation" },
-    body: JSON.stringify(toProjectColumns(payload, new Set(PROJECT_FIELD_NAMES))),
+    body: JSON.stringify({
+      ...toProjectColumns(payload, new Set(PROJECT_FIELD_NAMES)),
+      orden: order,
+    }),
   });
   const rows = (await response.json()) as ProjectRow[];
   const created = Array.isArray(rows) ? rows[0] : (rows as ProjectRow);
 
   try {
-    await insertRows("project_translations", toTranslationRows(created.id, payload.translations));
+    await insertRows(
+      "project_translations",
+      toTranslationRows(created.id, payload.translations),
+    );
     await insertRows("project_images", toImageRows(created.id, payload.images));
   } catch (error) {
     // Sin transacciones via REST: si fallan los hijos, el proyecto huerfano se borra.
-    await supabaseRest(`projects?id=eq.${encodeURIComponent(created.id)}`, { method: "DELETE" }).catch(
-      () => undefined
-    );
+    await supabaseRest(`projects?id=eq.${encodeURIComponent(created.id)}`, {
+      method: "DELETE",
+    }).catch(() => undefined);
     throw error;
   }
 
   return readProject(created.id);
 }
 
-async function updateProject(id: string, payload: ProjectPatch, provided: Set<string>) {
+async function updateProject(
+  id: string,
+  payload: ProjectPatch,
+  provided: Set<string>,
+) {
   const columns = toProjectColumns(payload, provided);
 
   if (Object.keys(columns).length > 0) {
@@ -240,7 +277,10 @@ async function updateProject(id: string, payload: ProjectPatch, provided: Set<st
   // mando. Un PATCH de `isPublished` no las toca.
   if (provided.has("translations")) {
     await deleteChildren("project_translations", id);
-    await insertRows("project_translations", toTranslationRows(id, payload.translations));
+    await insertRows(
+      "project_translations",
+      toTranslationRows(id, payload.translations),
+    );
   }
 
   if (provided.has("images")) {
@@ -264,12 +304,14 @@ export async function GET() {
 
   try {
     const response = await supabaseRest(
-      `projects?select=${PROJECT_SELECT}&order=created_at.desc`,
-      { method: "GET" }
+      `projects?select=${PROJECT_SELECT}&order=orden.asc.nullslast,created_at.desc,id.asc`,
+      { method: "GET" },
     );
     const rows = (await response.json()) as ProjectRow[];
 
-    return NextResponse.json({ projects: rows.map(fromProjectRow) });
+    return NextResponse.json({
+      projects: markLandingProjects(rows.map(fromProjectRow)),
+    });
   } catch (error) {
     console.error("projects: failed to load projects", error);
 
@@ -289,12 +331,13 @@ export async function POST(request: NextRequest) {
     const payload = createProjectSchema.parse(body);
     const project = await createProject(payload);
 
+    revalidateTag("projects", { expire: 0 });
     return NextResponse.json({ project }, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "invalid_payload", issues: error.issues },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -327,12 +370,13 @@ export async function PATCH(request: NextRequest) {
     const provided = new Set(Object.keys(rest as Record<string, unknown>));
     const project = await updateProject(id, payload, provided);
 
+    revalidateTag("projects", { expire: 0 });
     return NextResponse.json({ project });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "invalid_payload", issues: error.issues },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -367,6 +411,7 @@ export async function DELETE(request: NextRequest) {
       method: "DELETE",
     });
 
+    revalidateTag("projects", { expire: 0 });
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("projects: failed to delete project", error);

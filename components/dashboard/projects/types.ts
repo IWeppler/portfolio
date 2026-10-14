@@ -22,6 +22,7 @@ export type ProjectRecord = {
   githubUrl?: string | null;
   isPublished: boolean;
   isFeatured: boolean;
+  order: number | null;
   translations: ProjectTranslations;
   images: ProjectImage[];
   created_at?: string;
@@ -36,7 +37,11 @@ export const LANGS = [
 export type LangCode = (typeof LANGS)[number]["code"];
 
 export function isTranslationComplete(translation?: ProjectTranslation) {
-  return Boolean(translation?.title?.trim() && translation?.excerpt?.trim() && translation?.content?.trim());
+  return Boolean(
+    translation?.title?.trim() &&
+      translation?.excerpt?.trim() &&
+      translation?.content?.trim(),
+  );
 }
 
 export type { ProjectImage };

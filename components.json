@@ -19,6 +19,7 @@
     "hooks": "@/hooks"
   },
   "registries": {
+    "@ss-components": "https://shadcnstudio.com/r/components/radix-vega/{name}.json",
     "@react-bits": "https://reactbits.dev/r/{name}.json",
     "@skiper-ui": "https://skiper-ui.com/registry/{name}.json",
     "@bklit": "https://ui.bklit.com/r/{name}.json"

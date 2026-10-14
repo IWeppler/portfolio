@@ -17,8 +17,8 @@ interface StepContactProps {
 type FieldErrors = Partial<Record<"nombre" | "email" | "link_referencia", string>>;
 
 const inputClassName =
-  "w-full rounded-lg border border-assets bg-surface px-4 py-2.5 text-foreground placeholder:text-paragraph/60 focus:outline-none focus:border-orange transition-colors";
-const errorInputClassName = "border-red-500 focus:border-red-500";
+  "w-full rounded-xl bg-surface px-4 py-3.5 text-foreground placeholder:text-paragraph/60 outline-2 outline-transparent transition-[background-color,outline-color] duration-150 focus:bg-foreground/[0.08] focus-visible:outline-orange";
+const errorInputClassName = "outline-red-500 focus-visible:outline-red-500";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -107,7 +107,7 @@ export function StepContact({
 
       <div className="space-y-4">
         <div>
-          <label htmlFor="nombre" className="block text-sm text-paragraph mb-1.5">
+          <label htmlFor="nombre" className="label block text-paragraph mb-2">
             {copy.nombre_label}
           </label>
           <input
@@ -125,7 +125,7 @@ export function StepContact({
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm text-paragraph mb-1.5">
+          <label htmlFor="email" className="label block text-paragraph mb-2">
             {copy.email_label}
           </label>
           <input
@@ -143,7 +143,7 @@ export function StepContact({
         </div>
 
         <div>
-          <label htmlFor="whatsapp" className="block text-sm text-paragraph mb-1.5">
+          <label htmlFor="whatsapp" className="label block text-paragraph mb-2">
             {copy.whatsapp_label}
           </label>
           <input
@@ -157,7 +157,7 @@ export function StepContact({
         </div>
 
         <div>
-          <label htmlFor="mensaje" className="block text-sm text-paragraph mb-1.5">
+          <label htmlFor="mensaje" className="label block text-paragraph mb-2">
             {copy.mensaje_label}
           </label>
           <textarea
@@ -171,7 +171,7 @@ export function StepContact({
         </div>
 
         <div>
-          <label htmlFor="link_referencia" className="block text-sm text-paragraph mb-1.5">
+          <label htmlFor="link_referencia" className="label block text-paragraph mb-2">
             {copy.link_label}
           </label>
           <input
@@ -188,7 +188,7 @@ export function StepContact({
           )}
         </div>
 
-        <label className="flex items-start gap-2.5 text-sm text-foreground cursor-pointer">
+        <label className="flex items-start gap-2.5 text-note text-foreground cursor-pointer">
           <input
             type="checkbox"
             checked={state.prefiere_whatsapp}
@@ -205,19 +205,19 @@ export function StepContact({
         )}
       </div>
 
-      <div className="flex items-center justify-between mt-8">
+      <div className="flex items-center justify-between mt-10">
         <button
           type="button"
           onClick={onBack}
           disabled={submitting}
-          className="text-sm text-paragraph hover:text-foreground transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          className="label inline-flex cursor-pointer rounded-full bg-foreground/[0.06] px-6 py-4 text-foreground transition-[transform,background-color] duration-150 ease-out hover:bg-foreground/[0.12] active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange disabled:cursor-not-allowed disabled:opacity-40"
         >
           {t.contact_modal.back}
         </button>
         <button
           type="submit"
           disabled={submitting}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-orange px-6 py-3 text-sm font-medium text-dark transition-opacity hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="label inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-orange px-6 py-4 text-dark transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting && (
             <span
@@ -229,7 +229,7 @@ export function StepContact({
         </button>
       </div>
 
-      <p className="text-xs text-paragraph mt-4 text-center">{copy.disclaimer}</p>
+      <p className="label text-paragraph mt-6">{copy.disclaimer}</p>
     </form>
   );
 }

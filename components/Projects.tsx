@@ -1,113 +1,38 @@
-import Image from "next/image";
-import Link from "next/link";
-import { RiArrowRightLine } from "react-icons/ri";
+import { LANDING_PROJECT_LIMIT } from "@/lib/projects/landing";
 
-import { ButtonPrimary } from "./ui/Buttons";
+import { ButtonSecondary } from "./ui/Buttons";
 import { getDictionary } from "@/lib/get-dictionary";
-import { AnimatedTitle } from "./ui/AnimatedTitle";
 import { getPublishedProjects } from "@/lib/projects/published";
-import { categoryLabel } from "@/lib/projects/categories";
-
-type ProjectCard = {
-  slug: string;
-  name: string;
-  category: string;
-  cover: string;
-};
+import { ProjectList, type ProjectRow } from "./projects/ProjectList";
+import { Reveal } from "./ui/Reveal";
 
 export default async function Projects({ lang }: { lang: string }) {
   const t = getDictionary(lang);
 
   const published = await getPublishedProjects(lang);
 
-  // Unica fuente: los proyectos publicados desde el panel. Sin portada no se
-  // renderiza la tarjeta.
-  const projectsArray: ProjectCard[] = published
+  // Unica fuente: los proyectos publicados desde el panel, en el orden del
+  // tablero. Sin portada no entra: la fila la necesita para la vista previa.
+  const projects: ProjectRow[] = published
     .filter((project) => project.cover)
     .map((project) => ({
       slug: project.slug,
       name: project.name,
-      category: categoryLabel(project.category, lang),
+      excerpt: project.excerpt,
       cover: project.cover as string,
     }))
-    .slice(0, 5);
+    .slice(0, LANDING_PROJECT_LIMIT);
 
   return (
-    <section
-      id="projects"
-      className="w-full flex flex-col items-center py-12 md:py-20 bg-background"
-    >
-      <div className="w-full mb-12">
-        <h2 className="block md:hidden text-4xl font-medium text-foreground uppercase tracking-tight pb-4 text-balance wrap-break-word">
-          {t.works.title}
-        </h2>
+    <section id="projects" className="w-full bg-background pt-28 pb-32 md:pt-40 md:pb-48">
+      {/* El titulo va a tamano de frase: los nombres de los proyectos son los
+          que tienen que verse grandes. */}
+      <Reveal className="mb-6 flex flex-wrap items-baseline justify-between gap-4 md:mb-10">
+        <h2 className="text-statement font-medium text-paragraph">{t.works.title}</h2>
+        <ButtonSecondary href={`/${lang}/projects`}>{t.works.view_all}</ButtonSecondary>
+      </Reveal>
 
-        <div className="hidden md:block">
-          <AnimatedTitle
-            text={t.works.title}
-            className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight text-balance wrap-break-word"
-          />
-        </div>
-      </div>
-
-      {/* Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 w-full">
-        {projectsArray.map((proyecto, index) => {
-          const slug = proyecto.slug;
-          const image = proyecto.cover;
-          const isWide = index === 2;
-
-          return (
-            <Link
-              key={slug}
-              href={`/${lang}/projects/${slug}`}
-              className={`group block w-full ${
-                isWide ? "md:col-span-2" : "md:col-span-1"
-              }`}
-            >
-              {/* Contenedor de Imagen */}
-              <div className="relative w-full overflow-hidden bg-background aspect-16/10 mb-4">
-                <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10 z-10" />
-                <Image
-                  src={image}
-                  alt={proyecto.name}
-                  fill
-                  className="object-cover transition-transform duration-900 ease-out group-hover:scale-105"
-                  sizes={isWide ? "90vw" : "(max-width: 768px) 100vw, 50vw"}
-                />
-              </div>
-
-              {/* Info y Texto */}
-              <div className="flex flex-col">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-xl font-light uppercase text-foreground">
-                      {proyecto.name}
-                    </h3>
-                    <p className="text-sm text-paragraph tracking-wider">
-                      {proyecto.category}
-                    </p>
-                  </div>
-
-                  {/* Botón "View Project" */}
-                  {/* <div className="flex items-center gap-2 text-foreground opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
-                    <span className="text-sm font-medium hidden sm:inline-block">
-                      {t.works.view_project}
-                    </span>
-                    <RiArrowRightLine className="text-lg" />
-                  </div> */}
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-
-      <div className="mt-20">
-        <ButtonPrimary href={`/${lang}/projects`}>
-          {t.works.view_all}
-        </ButtonPrimary>
-      </div>
+      <ProjectList lang={lang} projects={projects} />
     </section>
   );
 }

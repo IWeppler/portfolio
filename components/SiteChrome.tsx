@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import Cursor from "@/components/ui/skiper-ui/skiper61";
 
 type SiteChromeProps = {
   lang: string;
@@ -11,6 +10,9 @@ type SiteChromeProps = {
     home: string;
     projects: string;
     contact: string;
+    about: string;
+    start: string;
+    location: string;
   };
   children: React.ReactNode;
 };
@@ -26,7 +28,6 @@ export function SiteChrome({ lang, labels, children }: SiteChromeProps) {
   return (
     <>
       <Navbar lang={lang} labels={labels} />
-      <Cursor />
       {children}
       <Footer lang={lang} />
     </>
