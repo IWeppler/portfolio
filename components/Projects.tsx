@@ -20,6 +20,8 @@ export default async function Projects({ lang }: { lang: string }) {
       name: project.name,
       excerpt: project.excerpt,
       cover: project.cover as string,
+      // Portada primero; el resto rota en la vista previa.
+      images: [project.cover as string, ...project.images.filter((url) => url !== project.cover)],
     }))
     .slice(0, LANDING_PROJECT_LIMIT);
 

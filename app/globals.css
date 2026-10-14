@@ -477,3 +477,30 @@ html.js [data-reveal][data-shown] {
     background-color: rgba(156, 163, 175, 0.55);
   }
 }
+
+@keyframes reel-fill {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes column-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes column-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

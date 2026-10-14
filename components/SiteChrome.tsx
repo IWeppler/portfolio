@@ -19,9 +19,10 @@ type SiteChromeProps = {
 
 export function SiteChrome({ lang, labels, children }: SiteChromeProps) {
   const pathname = usePathname();
-  const isAdmin = pathname?.includes("/dashboard");
+  // El dashboard y la landing de inmobiliarias van sin navbar ni footer.
+  const bare = pathname?.includes("/dashboard") || pathname?.includes("/inmobiliarias");
 
-  if (isAdmin) {
+  if (bare) {
     return <>{children}</>;
   }
 
