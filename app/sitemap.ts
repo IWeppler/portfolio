@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { getPublishedProjects } from "@/lib/projects/published";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://ignacioweppler.com";
+  const baseUrl = "https://ignacioweppler.dev";
 
   const languages = ["es", "en", "pt"];
   const staticRoutes = ["", "/proyectos", "/contacto", "/about"];

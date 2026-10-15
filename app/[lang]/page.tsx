@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props) {
 
   return {
     alternates: {
-      canonical: `https://ignacioweppler.com/${lang}`,
+      canonical: `https://ignacioweppler.dev/${lang}`,
     },
   };
 }

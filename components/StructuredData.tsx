@@ -1,7 +1,7 @@
 type JsonLd = Record<string, any>;
 
 export default function StructuredData({ schema }: { schema?: JsonLd }) {
-  const baseUrl = "https://ignacioweppler.com";
+  const baseUrl = "https://ignacioweppler.dev";
 
   const personSchema = {
     "@context": "https://schema.org",

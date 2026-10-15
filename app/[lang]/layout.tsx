@@ -45,10 +45,14 @@ export default async function LangLayout({
   const { lang } = await params;
   const t = getDictionary(lang);
 
-  const base = "https://ignacioweppler.com";
+  const base = "https://ignacioweppler.dev";
 
   return (
-    <html lang={lang} className={`${geist.variable} ${geistMono.variable} ${robotoFlex.variable}`} suppressHydrationWarning>
+    <html
+      lang={lang}
+      className={`${geist.variable} ${geistMono.variable} ${robotoFlex.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="canonical" href={`${base}/${lang}`} />
         <link rel="alternate" href={`${base}/es`} hrefLang="es" />
@@ -58,7 +62,9 @@ export default async function LangLayout({
         {/* Marca que hay JS antes del primer pintado: las entradas al scrollear
             (`[data-reveal]`) solo ocultan contenido cuando esto corrio. */}
         <script
-          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
         />
       </head>
 

@@ -35,24 +35,48 @@ const emptyStringToUndefined = (value: unknown) =>
 const submitLeadSchema = z
   .object({
     tipo_proyecto: z.enum(TIPO_PROYECTO_VALUES),
-    estado_idea: z.preprocess(emptyStringToUndefined, z.string().max(500).optional()),
-    frecuencia_proyectos: z.preprocess(emptyStringToUndefined, z.string().max(500).optional()),
-    presupuesto: z.preprocess(emptyStringToUndefined, z.enum(PRESUPUESTO_VALUES).optional()),
+    estado_idea: z.preprocess(
+      emptyStringToUndefined,
+      z.string().max(500).optional(),
+    ),
+    frecuencia_proyectos: z.preprocess(
+      emptyStringToUndefined,
+      z.string().max(500).optional(),
+    ),
+    presupuesto: z.preprocess(
+      emptyStringToUndefined,
+      z.enum(PRESUPUESTO_VALUES).optional(),
+    ),
     tipo_tercerizado: z.preprocess(
       emptyStringToUndefined,
-      z.enum(TIPO_TERCERIZADO_VALUES).optional()
+      z.enum(TIPO_TERCERIZADO_VALUES).optional(),
     ),
     nombre: z.string().trim().min(1).max(200),
     email: z.email().trim(),
-    whatsapp: z.preprocess(emptyStringToUndefined, z.string().max(50).optional()),
-    mensaje: z.preprocess(emptyStringToUndefined, z.string().max(5000).optional()),
-    link_referencia: z.preprocess(emptyStringToUndefined, z.url().max(500).optional()),
+    whatsapp: z.preprocess(
+      emptyStringToUndefined,
+      z.string().max(50).optional(),
+    ),
+    mensaje: z.preprocess(
+      emptyStringToUndefined,
+      z.string().max(5000).optional(),
+    ),
+    link_referencia: z.preprocess(
+      emptyStringToUndefined,
+      z.url().max(500).optional(),
+    ),
     prefiere_whatsapp: z.boolean(),
     idioma: z.enum(IDIOMA_VALUES),
     honeypot: z.string().optional(),
     // Atribucion: de donde llego la visita que termino en este lead.
-    referrer: z.preprocess(emptyStringToUndefined, z.string().max(500).optional()),
-    utm_source: z.preprocess(emptyStringToUndefined, z.string().max(80).optional()),
+    referrer: z.preprocess(
+      emptyStringToUndefined,
+      z.string().max(500).optional(),
+    ),
+    utm_source: z.preprocess(
+      emptyStringToUndefined,
+      z.string().max(80).optional(),
+    ),
   })
   .superRefine((data, ctx) => {
     if (data.tipo_proyecto === "agencia") {
@@ -66,7 +90,8 @@ const submitLeadSchema = z
       if (!data.frecuencia_proyectos) {
         ctx.addIssue({
           code: "custom",
-          message: "frecuencia_proyectos is required when tipo_proyecto is agencia",
+          message:
+            "frecuencia_proyectos is required when tipo_proyecto is agencia",
           path: ["frecuencia_proyectos"],
         });
       }
@@ -95,21 +120,26 @@ const submitLeadSchema = z
       if (data.tipo_tercerizado) {
         ctx.addIssue({
           code: "custom",
-          message: "tipo_tercerizado must be empty when tipo_proyecto is not agencia",
+          message:
+            "tipo_tercerizado must be empty when tipo_proyecto is not agencia",
           path: ["tipo_tercerizado"],
         });
       }
       if (data.frecuencia_proyectos) {
         ctx.addIssue({
           code: "custom",
-          message: "frecuencia_proyectos must be empty when tipo_proyecto is not agencia",
+          message:
+            "frecuencia_proyectos must be empty when tipo_proyecto is not agencia",
           path: ["frecuencia_proyectos"],
         });
       }
     }
   });
 
-const TIPO_PROYECTO_LABELS: Record<(typeof TIPO_PROYECTO_VALUES)[number], string> = {
+const TIPO_PROYECTO_LABELS: Record<
+  (typeof TIPO_PROYECTO_VALUES)[number],
+  string
+> = {
   web_inmobiliaria: "Web Inmobiliaria",
   app_gestion: "App de Gestión",
   web_corporativa: "Web Corporativa",
@@ -117,7 +147,10 @@ const TIPO_PROYECTO_LABELS: Record<(typeof TIPO_PROYECTO_VALUES)[number], string
   otro: "Otro",
 };
 
-const BUDGET_ESTIMATES: Record<(typeof PRESUPUESTO_VALUES)[number], number | undefined> = {
+const BUDGET_ESTIMATES: Record<
+  (typeof PRESUPUESTO_VALUES)[number],
+  number | undefined
+> = {
   "200_400": 300,
   "400_1000": 700,
   "1000_3000": 2000,
@@ -161,7 +194,7 @@ function resolveLeadSource(referrer?: string, utmSource?: string) {
     return "Web Inbound";
   }
 
-  if (hostname === "ignacioweppler.com") return "Directo";
+  if (hostname === "ignacioweppler.dev") return "Directo";
 
   for (const [needle, channel] of Object.entries(REFERRER_CHANNELS)) {
     if (hostname.includes(needle)) return channel;
@@ -174,8 +207,10 @@ function buildLeadNotes(data: z.infer<typeof submitLeadSchema>) {
   const lines: string[] = [];
 
   if (data.tipo_proyecto === "agencia") {
-    if (data.tipo_tercerizado) lines.push(`Tercerizado: ${data.tipo_tercerizado}`);
-    if (data.frecuencia_proyectos) lines.push(`Frecuencia: ${data.frecuencia_proyectos}`);
+    if (data.tipo_tercerizado)
+      lines.push(`Tercerizado: ${data.tipo_tercerizado}`);
+    if (data.frecuencia_proyectos)
+      lines.push(`Frecuencia: ${data.frecuencia_proyectos}`);
   } else if (data.estado_idea) {
     lines.push(`Estado de la idea: ${data.estado_idea}`);
   }
@@ -204,7 +239,9 @@ async function insertLead(data: z.infer<typeof submitLeadSchema>) {
       idioma: data.idioma,
       // Columnas del CRM, para que el lead entre al tablero del panel.
       company: TIPO_PROYECTO_LABELS[data.tipo_proyecto],
-      budget_estimate: data.presupuesto ? BUDGET_ESTIMATES[data.presupuesto] : null,
+      budget_estimate: data.presupuesto
+        ? BUDGET_ESTIMATES[data.presupuesto]
+        : null,
       source: resolveLeadSource(data.referrer, data.utm_source),
       status: "nuevo",
       notes: buildLeadNotes(data) ?? null,
@@ -259,7 +296,9 @@ function buildEmailHtml(data: z.infer<typeof submitLeadSchema>): string {
   return `<div style="font-family: monospace, sans-serif; font-size: 14px; line-height: 1.6;">${rows}</div>`;
 }
 
-export async function submitLead(input: SubmitLeadInput): Promise<SubmitLeadResult> {
+export async function submitLead(
+  input: SubmitLeadInput,
+): Promise<SubmitLeadResult> {
   if (typeof input?.honeypot === "string" && input.honeypot.trim() !== "") {
     return { success: true };
   }
