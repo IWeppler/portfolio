@@ -34,9 +34,14 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
+const TITLE = "Páginas web para inmobiliarias | Ignacio Weppler";
+const DESCRIPTION = "Hago sitios web para inmobiliarias que generan consultas por WhatsApp. Mirá cómo quedan.";
+
 export const metadata = {
-  title: "Páginas web para inmobiliarias | Ignacio Weppler",
-  description: "Hago sitios web para inmobiliarias que generan consultas por WhatsApp. Mirá cómo quedan.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", locale: "es_AR" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 export default async function InmobiliariasPage({ params }: { params: Promise<{ lang: string }> }) {
