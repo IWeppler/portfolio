@@ -1,104 +1,65 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
+// Node (no edge): lee Geist desde /assets/fonts y lo embebe en la imagen.
+export const runtime = "nodejs";
 export const alt = "Ignacio Weppler - Desarrollador Full Stack";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function Image() {
+const font = (file: string) => readFile(path.join(process.cwd(), "assets", "fonts", file));
+
+export default async function Image() {
+  const [regular, semibold] = await Promise.all([
+    font("geist-latin-400-normal.woff"),
+    font("geist-latin-600-normal.woff"),
+  ]);
+
   return new ImageResponse(
     (
       <div
         style={{
-          background: "#0c1215",
           width: "100%",
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          padding: "80px",
-          position: "relative",
-          fontFamily: "general-sans",
+          justifyContent: "space-between",
+          background: "#111213",
+          color: "#ecebe8",
+          padding: "64px",
+          fontFamily: "Geist",
         }}
       >
-        {/* Glow */}
-        <div
-          style={{
-            position: "absolute",
-            width: 1200,
-            height: 1200,
-            background:
-              "radial-gradient(circle, rgba(255, 73, 66, 0.22) 0%, rgba(12, 18, 21, 0) 75%)",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
+        <div style={{ fontSize: 26, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a2a3a8" }}>
+          Full-stack Developer
+        </div>
 
-        <div
-          style={{
-            zIndex: 10,
-            color: "#fff",
-            display: "flex",
-            flexDirection: "column",
-            maxWidth: "950px",
-          }}
-        >
-          {/* Rol */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              fontSize: 36,
-              color: "#ff4942",
-              textTransform: "uppercase",
-              letterSpacing: "0.18em",
-              marginBottom: 28,
-              fontWeight: 700,
-            }}
-          >
-            Full-stack Developer
-          </div>
-
-          {/* Nombre */}
-          <div
-            style={{
-              fontSize: 72,
-              fontWeight: 800,
-              marginBottom: 32,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-              color: "#fefefe",
+              fontSize: 132,
+              fontWeight: 600,
+              lineHeight: 0.98,
+              letterSpacing: "-0.045em",
             }}
           >
             Ignacio Weppler
           </div>
-
-          {/* Descripción */}
-          <div
-            style={{
-              fontSize: 32,
-              color: "#cfcfcf",
-              lineHeight: 1.35,
-              maxWidth: 900,
-              marginBottom: 48,
-            }}
-          >
-            Desarrollo webs modernas y optimizadas para negocios que quieren
-            crecer en serio.
-          </div>
-
-          {/* Dominio */}
-          <div
-            style={{
-              fontSize: 26,
-              color: "#8a8a8a",
-              fontWeight: 400,
-            }}
-          >
-            www.ignacioweppler.com
+          <div style={{ fontSize: 36, lineHeight: 1.3, color: "#a2a3a8", maxWidth: 860, marginTop: 32 }}>
+            Desarrollo webs modernas y optimizadas para negocios que quieren crecer en serio.
           </div>
         </div>
+
+        <div style={{ fontSize: 26, color: "#a2a3a8" }}>www.ignacioweppler.com</div>
       </div>
     ),
-    size
+    {
+      ...size,
+      fonts: [
+        { name: "Geist", data: regular, weight: 400, style: "normal" },
+        { name: "Geist", data: semibold, weight: 600, style: "normal" },
+      ],
+    },
   );
 }
