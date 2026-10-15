@@ -71,6 +71,11 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
   ).flat();
   mixed.unshift(verde);
 
+  const demos = REAL_ESTATE_SLUGS.flatMap((slug) => {
+    const project = published.find((item) => item.slug === slug);
+    return project?.deployUrl ? [{ name: project.name, url: project.deployUrl }] : [];
+  });
+
   return (
     <main className="w-full bg-background text-foreground">
       {/* Hero: titulo corto a un lado, mosaico en movimiento al otro. */}
@@ -121,6 +126,30 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
           ))}
         </ol>
       </section>
+
+      {demos.length > 0 && (
+        <section className="px-4 pt-24 md:px-8 md:pt-40">
+          <p className="label text-paragraph">Probalas vos mismo</p>
+          <ul className="mt-6 border-t border-foreground/20">
+            {demos.map((demo, i) => (
+              <li key={demo.url} className="border-b border-foreground/20">
+                <a
+                  href={demo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-baseline justify-between gap-4 py-6 md:py-8"
+                >
+                  <span className="label text-paragraph">({String(i + 1).padStart(2, "0")})</span>
+                  <span className="text-statement flex-1 font-medium text-balance">{demo.name}</span>
+                  <span className="label text-foreground transition-transform group-hover:translate-x-1">
+                    Ver demo ↗
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="px-4 pb-24 pt-24 md:px-8 md:pb-32 md:pt-40">
         <ul className="grid gap-10 md:grid-cols-3 md:gap-8">
