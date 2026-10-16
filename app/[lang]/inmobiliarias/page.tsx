@@ -5,7 +5,7 @@ import { ButtonPrimary } from "@/components/ui/Buttons";
 import { getPublishedProjects } from "@/lib/projects/published";
 
 // Proyectos del rubro inmobiliario: TerraNova, Arcos y Lumen.
-const REAL_ESTATE_SLUGS = ["proyecto2", "arcos-propiedades", "lumen-propiedades"];
+const REAL_ESTATE_SLUGS = ["inmobiliaria-terranova", "arcos-propiedades", "lumen-propiedades"];
 const IMAGES_PER_PROJECT = 6;
 
 const WHATSAPP_URL =
@@ -38,8 +38,10 @@ const TITLE = "Páginas web para inmobiliarias | Ignacio Weppler";
 const DESCRIPTION = "Hago sitios web para inmobiliarias que generan consultas por WhatsApp. Mirá cómo quedan.";
 
 export const metadata = {
-  title: TITLE,
+  title: { absolute: TITLE },
   description: DESCRIPTION,
+  // Solo existe en espanol: sin alternates de idioma.
+  alternates: { canonical: "/es/inmobiliarias" },
   openGraph: { title: TITLE, description: DESCRIPTION, type: "website", locale: "es_AR" },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };

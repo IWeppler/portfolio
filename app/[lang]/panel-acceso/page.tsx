@@ -1,5 +1,10 @@
 import { LoginForm } from "@/components/auth/LoginForm";
 
+export const metadata = {
+  title: "Acceso",
+  robots: { index: false, follow: false },
+};
+
 type LoginPageProps = {
   params: Promise<{ lang: string }>;
 };

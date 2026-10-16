@@ -1,32 +1,29 @@
 import { MetadataRoute } from "next";
 import { getPublishedProjects } from "@/lib/projects/published";
+import { LANGS, SITE_URL } from "@/lib/seo";
+
+// Cada pagina va una vez por idioma, con sus versiones en los otros idiomas
+// (hreflang), igual que en los alternates de la metadata.
+function localized(path: string, priority: number): MetadataRoute.Sitemap {
+  const languages = Object.fromEntries(LANGS.map((lang) => [lang, `${SITE_URL}/${lang}${path}`]));
+
+  return LANGS.map((lang) => ({
+    url: `${SITE_URL}/${lang}${path}`,
+    priority,
+    alternates: { languages },
+  }));
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://ignacioweppler.dev";
-
-  const languages = ["es", "en", "pt"];
-  const staticRoutes = ["", "/proyectos", "/contacto", "/about"];
-
-  const routes = languages.flatMap((lang) =>
-    staticRoutes.map((route) => ({
-      url: `${baseUrl}/${lang}${route}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: route === "" ? 1 : 0.8,
-    }))
-  );
-
   // Los slugs salen de los proyectos publicados en Supabase.
   const projectSlugs = (await getPublishedProjects("es")).map((project) => project.slug);
 
-  const projectRoutes = languages.flatMap((lang) =>
-    projectSlugs.map((slug) => ({
-      url: `${baseUrl}/${lang}/projects/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-    }))
-  );
-
-  return [...routes, ...projectRoutes];
+  return [
+    ...localized("", 1),
+    ...localized("/projects", 0.8),
+    ...localized("/contacto", 0.6),
+    // Landing solo en espanol.
+    { url: `${SITE_URL}/es/inmobiliarias`, priority: 0.9 },
+    ...projectSlugs.flatMap((slug) => localized(`/projects/${slug}`, 0.7)),
+  ];
 }

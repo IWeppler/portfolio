@@ -2,6 +2,11 @@ import { redirect } from "next/navigation";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { getSessionUser } from "@/lib/supabase/server";
 
+export const metadata = {
+  title: "Panel",
+  robots: { index: false, follow: false },
+};
+
 type DashboardRouteLayoutProps = {
   children: React.ReactNode;
   params: Promise<{ lang: string }>;

@@ -1,6 +1,7 @@
 import { ProjectsGrid, type ProjectItem } from "@/components/projects/ProjectsGrid";
 import { getPublishedProjects } from "@/lib/projects/published";
 import { getDictionary } from "@/lib/get-dictionary";
+import { alternatesFor, seoCopy } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return [{ lang: "es" }, { lang: "en" }, { lang: "pt" }];
@@ -13,7 +14,9 @@ interface Props {
 export async function generateMetadata({ params }: Props) {
   const { lang } = await params;
   return {
-    title: `Ignacio Weppler | ${lang === "es" ? "Proyectos" : "Projects"}`,
+    title: getDictionary(lang).navbar.projects,
+    description: seoCopy(lang).projects,
+    alternates: alternatesFor(lang, "/projects"),
   };
 }
 

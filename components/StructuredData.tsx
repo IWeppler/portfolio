@@ -1,14 +1,18 @@
-type JsonLd = Record<string, any>;
+import { SITE_URL } from "@/lib/seo";
+
+type JsonLd = Record<string, unknown>;
 
 export default function StructuredData({ schema }: { schema?: JsonLd }) {
-  const baseUrl = "https://ignacioweppler.dev";
+  const baseUrl = SITE_URL;
 
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
+    // Los otros schemas apuntan a este @id (provider, author).
+    "@id": `${baseUrl}/#person`,
     name: "Ignacio Weppler",
     url: baseUrl,
-    image: `${baseUrl}/seoignacio.jpg`,
+    image: `${baseUrl}/ignacio-weppler.jpg`,
     jobTitle: "Desarrollador Web Full Stack",
     description:
       "Desarrollador Full Stack especializado en crear experiencias digitales modernas con Next.js, React y Astro.",
@@ -17,7 +21,7 @@ export default function StructuredData({ schema }: { schema?: JsonLd }) {
     address: {
       "@type": "PostalAddress",
       addressCountry: "AR",
-      addressRegion: "Santa Fé",
+      addressRegion: "Santa Fe",
     },
     sameAs: [
       "https://www.linkedin.com/in/ignacioweppler",

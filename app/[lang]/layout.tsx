@@ -1,4 +1,6 @@
 import "../globals.css";
+import type { Metadata } from "next";
+import { OG_LOCALES, SITE_URL, isLang, seoCopy } from "@/lib/seo";
 import { SiteChrome } from "@/components/SiteChrome";
 import SmoothScroll from "@/components/SmoothScroll";
 import { getDictionary } from "@/lib/get-dictionary";
@@ -30,10 +32,25 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
-export const metadata = {
-  title: "Ignacio Weppler",
-  descriptPion: "Ignacio Weppler, desarrollador Web Full Stack.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: { default: "Ignacio Weppler", template: "%s | Ignacio Weppler" },
+    description: seoCopy(lang).home,
+    openGraph: {
+      siteName: "Ignacio Weppler",
+      type: "website",
+      locale: OG_LOCALES[isLang(lang) ? lang : "es"],
+    },
+    twitter: { card: "summary_large_image" },
+  };
+}
 
 export default async function LangLayout({
   children,
@@ -45,8 +62,6 @@ export default async function LangLayout({
   const { lang } = await params;
   const t = getDictionary(lang);
 
-  const base = "https://ignacioweppler.dev";
-
   return (
     <html
       lang={lang}
@@ -54,11 +69,6 @@ export default async function LangLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="canonical" href={`${base}/${lang}`} />
-        <link rel="alternate" href={`${base}/es`} hrefLang="es" />
-        <link rel="alternate" href={`${base}/en`} hrefLang="en" />
-        <link rel="alternate" href={`${base}/pt`} hrefLang="pt" />
-        <link rel="alternate" href={base} hrefLang="x-default" />
         {/* Marca que hay JS antes del primer pintado: las entradas al scrollear
             (`[data-reveal]`) solo ocultan contenido cuando esto corrio. */}
         <script

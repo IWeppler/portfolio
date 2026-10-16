@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -8,6 +9,7 @@ import { categoryLabel } from "@/lib/projects/categories";
 import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 import { ConversionLink } from "@/components/analytics/ConversionLink";
 import SuggestedProjects from "@/components/projects/SuggestedProjects";
+import { OG_LOCALES, alternatesFor, isLang } from "@/lib/seo";
 
 const LANGS = ["es", "en", "pt"];
 
@@ -20,6 +22,28 @@ export async function generateStaticParams() {
 
 interface Props {
   params: Promise<{ lang: string; slug: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const project = await getPublishedProject(slug, lang);
+
+  if (!project) return {};
+
+  return {
+    title: project.name,
+    description: project.excerpt || undefined,
+    alternates: alternatesFor(lang, `/projects/${slug}`),
+    // El openGraph de la pagina reemplaza entero al del layout.
+    openGraph: {
+      siteName: "Ignacio Weppler",
+      type: "website",
+      locale: OG_LOCALES[isLang(lang) ? lang : "es"],
+      title: project.name,
+      description: project.excerpt || undefined,
+      ...(project.cover && { images: [{ url: project.cover, alt: project.name }] }),
+    },
+  };
 }
 
 const colors = {
