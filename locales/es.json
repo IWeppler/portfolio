@@ -39,7 +39,7 @@
   "aboutme": {
     "label": "Hola",
     "title": "Sobre mí",
-    "statement": "Soy Ignacio. Diseño y programo sitios y sistemas para negocios que quieren vender más y ordenarse mejor, hoy sobre todo inmobiliarias. Hecho a medida, desde",
+    "statement": "Soy Ignacio. Diseño y programo sitios y sistemas para negocios que quieren vender más y ordenarse mejor. Hecho a medida, desde",
     "accent": "Argentina.",
     "metrics": [
       {
@@ -55,7 +55,7 @@
         "label": "negocios como clientes"
       },
       {
-        "value": "3",
+        "value": "5",
         "label": "países con clientes"
       }
     ]
@@ -157,7 +157,9 @@
     "visitProject": "Visitar Proyecto",
     "back": "Volver a proyectos",
     "viewCode": "Ver código",
-    "suggestedTitle": "Seguí viendo"
+    "suggestedTitle": "Seguí viendo",
+    "caseStudy": "Caso de estudio",
+    "gallery": "Galería"
   },
   "project_categories": {
     "all": "Todos",

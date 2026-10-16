@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { coverTransition } from "@/lib/transitions";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getPublishedProjects } from "@/lib/projects/published";
 import { categoryLabel } from "@/lib/projects/categories";
@@ -42,46 +42,46 @@ export default async function SuggestedProjects({ lang, currentSlug }: Props) {
   if (suggestions.length === 0) return null;
 
   return (
-    <section className="pt-16 border-t border-assets">
-      <h2 className="mb-10 text-sm uppercase tracking-widest text-paragraph">
-        {t.projects.suggestedTitle}
-      </h2>
+    <section className="mt-24 border-t border-foreground/20 pt-10 md:mt-40">
+      <h2 className="label text-paragraph">({t.projects.suggestedTitle})</h2>
 
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <ul className="mt-8 grid grid-cols-1 gap-x-3 gap-y-12 md:grid-cols-2">
         {suggestions.map((project) => (
-          <Link
-            key={project.slug}
-            href={`/${lang}/projects/${project.slug}`}
-            className="group block w-full"
-          >
-            <div className="relative mb-4 aspect-4/3 w-full overflow-hidden rounded-xl bg-zinc-900 md:aspect-[1.2/1]">
-              {project.cover && (
-                <Image
-                  src={project.cover}
-                  alt={project.alts[project.cover] ?? project.name}
-                  fill
-                  className="object-cover transition-transform duration-900 ease-out group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
-            </div>
-
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex flex-col items-start">
-                <h3 className="text-xl font-light uppercase tracking-tight">
-                  {project.name}
-                </h3>
-                <p className="mt-1 text-xs tracking-widest text-paragraph md:text-sm">
-                  {categoryLabel(project.category, lang)}
-                </p>
+          <li key={project.slug}>
+            <Link
+              href={`/${lang}/projects/${project.slug}`}
+              className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
+            >
+              {/* Mismo nombre que el hero de su ficha: la portada viaja al abrirla. */}
+              <div
+                style={coverTransition(project.slug)}
+                className="relative aspect-[4/3] w-full overflow-hidden bg-surface"
+              >
+                {project.cover && (
+                  <Image
+                    src={project.cover}
+                    alt={project.alts[project.cover] ?? project.name}
+                    fill
+                    className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                )}
               </div>
 
-              <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-paragraph transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-foreground" />
-            </div>
-          </Link>
+              <div className="mt-4 flex items-baseline justify-between gap-4">
+                <h3 className="text-statement font-medium text-balance">{project.name}</h3>
+                <span
+                  aria-hidden="true"
+                  className="label shrink-0 text-paragraph transition-transform duration-200 group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </div>
+              <p className="label mt-2 text-paragraph">{categoryLabel(project.category, lang)}</p>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

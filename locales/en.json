@@ -55,7 +55,7 @@
         "label": "businesses as clients"
       },
       {
-        "value": "3",
+        "value": "5",
         "label": "countries with clients"
       }
     ]
@@ -157,7 +157,9 @@
     "visitProject": "Visit Project",
     "back": "Back to projects",
     "viewCode": "View code",
-    "suggestedTitle": "Keep exploring"
+    "suggestedTitle": "Keep exploring",
+    "caseStudy": "Case study",
+    "gallery": "Gallery"
   },
   "project_categories": {
     "all": "All",

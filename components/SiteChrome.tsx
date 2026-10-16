@@ -1,6 +1,8 @@
 "use client";
 
+import { ViewTransition } from "react";
 import { usePathname } from "next/navigation";
+import { BackForwardTransition } from "@/components/BackForwardTransition";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
@@ -26,10 +28,14 @@ export function SiteChrome({ lang, labels, children }: SiteChromeProps) {
     return <>{children}</>;
   }
 
+  // Navbar y footer quedan quietos; solo el contenido hace la transicion.
   return (
     <>
       <Navbar lang={lang} labels={labels} />
-      {children}
+      <BackForwardTransition />
+      <ViewTransition default="page">
+        <div>{children}</div>
+      </ViewTransition>
       <Footer lang={lang} />
     </>
   );

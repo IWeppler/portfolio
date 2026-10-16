@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { coverTransition } from "@/lib/transitions";
 
 export interface ProjectItem {
   slug: string;
@@ -41,16 +42,18 @@ export const ProjectsGrid = ({ projects = [], lang, categoryLabels }: Props) => 
 
   return (
     <div>
-      {/* BARRA DE FILTROS (Estilo Píldora) */}
-      <div className="flex flex-wrap gap-4 mb-12">
+      {/* Filtros: mismas etiquetas en mono que el resto del sitio. */}
+      <div className="mb-10 flex flex-wrap gap-2 md:mb-14">
         {categories.map((category) => (
           <button
             key={category}
+            type="button"
+            aria-pressed={filter === category}
             onClick={() => setFilter(category)}
-            className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+            className={`label rounded-full px-4 py-2.5 transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.97] ${
               filter === category
-                ? "bg-foreground text-background border-foreground"
-                : "bg-transparent text-paragraph border-assets hover:border-foreground/30 hover:text-foreground"
+                ? "bg-foreground text-background"
+                : "bg-foreground/[0.06] text-paragraph hover:bg-foreground/[0.12] hover:text-foreground"
             }`}
           >
             {categoryLabels[category]}
@@ -58,61 +61,54 @@ export const ProjectsGrid = ({ projects = [], lang, categoryLabels }: Props) => 
         ))}
       </div>
 
-      {/* GRID ANIMADA */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <motion.ul layout className="grid grid-cols-1 gap-x-3 gap-y-12 md:grid-cols-2 md:gap-y-20">
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project) => {
+            const index = projects.indexOf(project);
             return (
-              <motion.div
+              <motion.li
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
                 key={project.slug}
-                className={"md:col-span-1"}
               >
                 <Link
                   href={`/${lang}/projects/${project.slug}`}
-                  className="group block w-full h-full"
+                  className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
                 >
-                  {/* Imagen */}
                   <div
-                    className={`relative w-full overflow-hidden rounded-xl mb-4 aspect-4/3 md:aspect-[1.2/1]`}
+                    style={coverTransition(project.slug)}
+                    className="relative aspect-[4/3] w-full overflow-hidden bg-surface"
                   >
                     <Image
                       src={project.cover}
                       alt={project.coverAlt ?? project.name}
                       fill
-                      className="object-cover transition-transform duration-900 ease-out group-hover:scale-105"
+                      className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.03]"
                       sizes="(max-width: 768px) 100vw, 50vw"
                       // El blur solo existe para las imagenes importadas de /public.
                       placeholder={typeof project.cover === "string" ? "empty" : "blur"}
                     />
-                    <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
                   </div>
 
-                  {/* Textos */}
-                  <div className="flex flex-col items-start">
-                    <h3 className="text-xl font-light uppercase tracking-tight">
-                      {project.name}
-                    </h3>
-
-                    <p className="text-xs md:text-sm text-paragraph tracking-widest mt-1">
-                      {categoryLabels[project.category]}
-                    </p>
+                  <div className="mt-4 flex items-baseline justify-between gap-4">
+                    <h2 className="text-statement font-medium text-balance">{project.name}</h2>
+                    <span className="label shrink-0 text-paragraph">
+                      ({String(index + 1).padStart(2, "0")})
+                    </span>
                   </div>
+                  <p className="label mt-2 text-paragraph">{categoryLabels[project.category]}</p>
                 </Link>
-              </motion.div>
+              </motion.li>
             );
           })}
         </AnimatePresence>
-      </motion.div>
+      </motion.ul>
 
       {filteredProjects.length === 0 && (
-        <div className="py-20 text-center text-white/40">
-          No hay proyectos en esta categoría por ahora.
-        </div>
+        <p className="label py-20 text-center text-paragraph">No hay proyectos en esta categoría por ahora.</p>
       )}
     </div>
   );

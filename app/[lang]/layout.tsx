@@ -7,7 +7,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import StructuredData from "@/components/StructuredData";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalyticsLazy } from "@/components/analytics/GoogleAnalyticsLazy";
 import { Geist, Geist_Mono, Roboto_Flex } from "next/font/google";
 
 const geist = Geist({
@@ -79,9 +79,7 @@ export default async function LangLayout({
         <StructuredData />
         <Analytics />
         <SpeedInsights />
-        <GoogleAnalytics
-          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
-        />
+        <GoogleAnalyticsLazy gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
         <SiteChrome lang={lang} labels={t.navbar}>
           {children}
         </SiteChrome>

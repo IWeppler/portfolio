@@ -55,7 +55,7 @@
         "label": "negócios como clientes"
       },
       {
-        "value": "3",
+        "value": "5",
         "label": "países com clientes"
       }
     ]
@@ -157,7 +157,9 @@
     "visitProject": "Visitar Projeto",
     "back": "Voltar aos projetos",
     "viewCode": "Ver código",
-    "suggestedTitle": "Continue vendo"
+    "suggestedTitle": "Continue vendo",
+    "caseStudy": "Estudo de caso",
+    "gallery": "Galeria"
   },
   "project_categories": {
     "all": "Todos",

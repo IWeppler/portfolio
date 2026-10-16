@@ -504,3 +504,50 @@ html.js [data-reveal][data-shown] {
     transform: translateY(0);
   }
 }
+
+/* --- Transiciones entre paginas (View Transitions, ver lib/transitions.ts) ---
+   El contenido de la pagina (class "page", del <ViewTransition> en SiteChrome)
+   sale rapido y entra subiendo apenas; la portada del proyecto viaja entre la
+   lista y la ficha. */
+::view-transition-group(*) {
+  animation-duration: 550ms;
+  animation-timing-function: var(--ease-out-strong);
+}
+
+::view-transition-old(.page) {
+  animation: vt-page-out 180ms ease-out both;
+}
+
+::view-transition-new(.page) {
+  animation: vt-page-in 520ms var(--ease-out-strong) 120ms both;
+}
+
+/* Las portadas cambian de proporcion (4/3 en la lista, 16/9 en la ficha):
+   sin esto la captura se estira en vez de recortarse. */
+::view-transition-old(.project-cover),
+::view-transition-new(.project-cover) {
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+}
+
+@keyframes vt-page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

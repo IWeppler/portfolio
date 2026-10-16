@@ -21,6 +21,11 @@ const RENAMED_PROJECT_SLUGS: Record<string, string> = {
 };
 
 const nextConfig: NextConfig = {
+  // Navegaciones dentro de document.startViewTransition: la portada de un
+  // proyecto viaja de la lista a la ficha (ver lib/transitions.ts).
+  // inlineCss: el CSS (~20 KB) va dentro del HTML en vez de en <link>, asi no
+  // bloquea el primer pintado esperando otra descarga (PageSpeed mobile).
+  experimental: { viewTransition: true, inlineCss: true },
   async redirects() {
     return Object.entries(RENAMED_PROJECT_SLUGS).map(([from, to]) => ({
       source: `/:lang(es|en|pt)/projects/${from}`,

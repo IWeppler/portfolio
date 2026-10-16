@@ -1,8 +1,8 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { getDictionary } from "@/lib/get-dictionary";
 import {
   getPublishedProject,
@@ -12,8 +12,14 @@ import {
 import { categoryLabel } from "@/lib/projects/categories";
 import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 import { ConversionLink } from "@/components/analytics/ConversionLink";
+import { CaseStudy } from "@/components/projects/CaseStudy";
 import SuggestedProjects from "@/components/projects/SuggestedProjects";
 import { SITE_URL, alternatesFor, ogBase } from "@/lib/seo";
+import { coverTransition } from "@/lib/transitions";
+import { getImageSize } from "@/lib/image-size";
+
+// Si no se pudo medir una imagen: proporcion de captura de escritorio.
+const FALLBACK_SIZE = { width: 1600, height: 1000 };
 
 const LANGS = ["es", "en", "pt"];
 
@@ -76,19 +82,13 @@ function projectJsonLd(project: PublishedProject, lang: string, projectsLabel: s
   ];
 }
 
-const colors = {
-  swissOrange: "#FF3B30",
-  surface: "#141A1F",
-  assets: "#2D3339",
-  paragraph: "#9CA3AF",
-  foreground: "#EDEDE9",
-};
+const pad = (n: number) => String(n).padStart(2, "0");
 
 export default async function ProjectPage({ params }: Props) {
   const { lang, slug } = await params;
   const t = getDictionary(lang);
 
-  const project = await getPublishedProject(slug, lang);
+  const [project, projects] = await Promise.all([getPublishedProject(slug, lang), getPublishedProjects(lang)]);
 
   if (!project) {
     notFound();
@@ -102,100 +102,137 @@ export default async function ProjectPage({ params }: Props) {
     ? [project.cover, ...project.images.filter((url) => url !== project.cover)]
     : project.images;
 
+  // Posicion en el listado, con el mismo formato que la grilla: "(03/14)".
+  const position = projects.findIndex((item) => item.slug === slug) + 1;
+
+  // Tamano real de cada imagen: se muestran con su proporcion y nunca mas
+  // grandes que el original (agrandar una captura chica la pixela).
+  const sizes = new Map(
+    await Promise.all([hero, ...rest].filter((url): url is string => Boolean(url)).map(async (url) => [url, await getImageSize(url)] as const)),
+  );
+  const frame = (url: string, maxHeight?: string): CSSProperties => {
+    const size = sizes.get(url) ?? FALLBACK_SIZE;
+    const ratio = size.width / size.height;
+    const caps = [`${size.width}px`, maxHeight && `calc(${maxHeight} * ${ratio.toFixed(4)})`].filter(Boolean);
+    return { aspectRatio: `${size.width} / ${size.height}`, width: `min(100%, ${caps.join(", ")})` };
+  };
+
   return (
-    <section className="w-full min-h-screen bg-background text-foreground pt-16 md:pt-32 pb-20 px-4 md:px-20">
+    <main className="w-full bg-background px-4 pb-24 pt-24 text-foreground md:px-8 md:pt-28">
       <PageViewTracker projectId={project.id} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(project, lang, t.navbar.projects)) }}
       />
-      <div className="max-w-5xl mx-auto">
+
+      {/* Fila de datos, igual que en el hero del home. */}
+      <div className="hero-rise grid grid-cols-2 gap-y-2 text-paragraph md:grid-cols-3">
         <Link
           href={`/${lang}/projects`}
-          className="group mb-10 inline-flex items-center gap-2 text-sm uppercase tracking-widest text-paragraph transition-colors hover:text-foreground"
+          className="label group inline-flex items-center gap-2 justify-self-start transition-colors hover:text-foreground"
         >
-          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+          <span aria-hidden="true" className="transition-transform duration-200 group-hover:-translate-x-1">
+            ←
+          </span>
           {backLabel}
         </Link>
-
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
-          <small
-            className="uppercase tracking-widest text-sm"
-            style={{ color: colors.swissOrange }}
-          >
-            {categoryLabel(project.category, lang)}
-          </small>
-
-          {project.githubUrl && (
-            <ConversionLink
-              href={project.githubUrl}
-              projectId={project.id}
-              className="inline-flex items-center gap-2 rounded-full border border-assets px-4 py-1.5 text-sm text-paragraph transition-colors hover:border-foreground/40 hover:text-foreground"
-              title={codeLabel}
-            >
-              <Github className="h-4 w-4" />
-              {codeLabel}
-            </ConversionLink>
-          )}
-        </div>
-
-        {/* El titulo es el link a la web del proyecto; sin deploy queda plano. */}
-        <h1 className="text-4xl md:text-7xl font-medium uppercase tracking-tight mb-6 text-balance">
-          {project.deployUrl ? (
-            <ConversionLink
-              href={project.deployUrl}
-              projectId={project.id}
-              className="group inline-flex items-start gap-3 transition-colors hover:text-orange"
-              title={visitLabel}
-            >
-              {project.name}
-              <ArrowUpRight className="h-6 w-6 shrink-0 md:h-10 md:w-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </ConversionLink>
-          ) : (
-            project.name
-          )}
-        </h1>
-
-        {project.excerpt && (
-          <p
-            className="text-xl max-w-3xl leading-relaxed mb-12"
-            style={{ color: colors.paragraph }}
-          >
-            {project.excerpt}
+        <p className="label text-right md:text-center">{categoryLabel(project.category, lang)}</p>
+        {position > 0 && (
+          <p className="label hidden text-right md:block">
+            ({pad(position)}/{pad(projects.length)})
           </p>
         )}
-
-        {hero && (
-          <div
-            className="relative w-full h-[380px] md:h-[620px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
-            style={{ borderColor: colors.assets }}
-          >
-            <Image src={hero} alt={project.alts[hero] ?? project.name} fill className="object-cover" priority />
-          </div>
-        )}
-
-        {project.content && (
-          <div
-            className="text-lg leading-relaxed whitespace-pre-line mb-20 max-w-3xl"
-            style={{ color: colors.paragraph }}
-          >
-            {project.content}
-          </div>
-        )}
-
-        {rest.map((url) => (
-          <div
-            key={url}
-            className="relative w-full h-[380px] md:h-[620px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
-            style={{ borderColor: colors.assets }}
-          >
-            <Image src={url} alt={project.alts[url] ?? project.name} fill className="object-cover" />
-          </div>
-        ))}
-
-        {/* Cierre: en vez de mandar al listado, se ofrecen dos proyectos mas. */}
-        <SuggestedProjects lang={lang} currentSlug={slug} />
       </div>
-    </section>
+
+      {/* Titulo y extracto en la misma grilla que las filas de la lista. */}
+      <header className="mt-16 grid grid-cols-1 gap-8 md:mt-24 md:grid-cols-12 md:items-end">
+        <h1 className="hero-rise text-title font-medium text-balance [animation-delay:100ms] md:col-span-7">
+          {project.name}
+        </h1>
+        <div className="hero-rise [animation-delay:200ms] md:col-span-4 md:col-start-9">
+          {project.excerpt && <p className="text-body text-paragraph">{project.excerpt}</p>}
+          {(project.deployUrl || project.githubUrl) && (
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              {project.deployUrl && (
+                <ConversionLink
+                  href={project.deployUrl}
+                  projectId={project.id}
+                  className="inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3.5 text-base font-medium text-dark transition-[transform,background-color] duration-150 ease-out hover:bg-[color-mix(in_srgb,var(--swiss-orange)_88%,white)] active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
+                >
+                  {visitLabel} <span aria-hidden="true">↗</span>
+                </ConversionLink>
+              )}
+              {project.githubUrl && (
+                <ConversionLink
+                  href={project.githubUrl}
+                  projectId={project.id}
+                  className="label inline-flex items-center gap-2 rounded-full bg-foreground/[0.06] px-5 py-4 text-foreground transition-[transform,background-color] duration-150 ease-out hover:bg-foreground/[0.12] active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
+                >
+                  {codeLabel} <span aria-hidden="true">↗</span>
+                </ConversionLink>
+              )}
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Destino de la View Transition: la portada llega desde la lista. Sin
+          animacion de entrada propia para que el viaje termine en su lugar. */}
+      {hero && (
+        <div
+          style={{ ...frame(hero, "85svh"), ...coverTransition(project.slug) }}
+          className="relative mx-auto mt-12 overflow-hidden bg-surface md:mt-16"
+        >
+          <Image
+            src={hero}
+            alt={project.alts[hero] ?? project.name}
+            fill
+            sizes={`min(100vw, ${(sizes.get(hero) ?? FALLBACK_SIZE).width}px)`}
+            className="object-cover"
+            priority
+          />
+        </div>
+      )}
+
+      {project.content && (
+        <section className="mt-24 grid grid-cols-1 gap-8 md:mt-40 md:grid-cols-12">
+          <p className="label text-paragraph md:sticky md:top-28 md:col-span-3 md:self-start">
+            ({t.projects.caseStudy})
+          </p>
+          <div className="md:col-span-8 md:col-start-5">
+            <CaseStudy content={project.content} />
+          </div>
+        </section>
+      )}
+
+      {rest.length > 0 && (
+        <section className="mt-24 md:mt-40">
+          <p className="label text-paragraph">({t.projects.gallery})</p>
+          {/* Mosaico en dos columnas: cada imagen con su proporcion, sin recortes.
+              Con una sola imagen no hay columnas: va centrada a su tamano. */}
+          <ul className={`mt-6 gap-2 md:gap-3 ${rest.length > 1 ? "md:columns-2" : ""}`}>
+            {rest.map((url) => (
+              <li key={url} className="mb-2 break-inside-avoid md:mb-3">
+                <div
+                  style={frame(url, rest.length > 1 ? undefined : "85svh")}
+                  className="relative mx-auto overflow-hidden bg-surface"
+                >
+                  <Image
+                    src={url}
+                    alt={project.alts[url] ?? project.name}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Cierre: en vez de mandar al listado, se ofrecen dos proyectos mas. */}
+      <SuggestedProjects lang={lang} currentSlug={slug} />
+    </main>
   );
 }

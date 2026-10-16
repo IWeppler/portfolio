@@ -41,23 +41,27 @@ export default async function ProjectsPage({ params }: Props) {
   const categoryLabels = getDictionary(lang).project_categories as Record<string, string>;
 
   const titles = {
-    es: { main: "Últimos Proyectos", sub: "& Casos de Estudio" },
-    en: { main: "Latest Projects", sub: "& Case Studies" },
-    pt: { main: "Últimos Projetos", sub: "& Estudos de Caso" },
+    es: { main: "Proyectos", sub: "Casos de estudio" },
+    en: { main: "Projects", sub: "Case studies" },
+    pt: { main: "Projetos", sub: "Estudos de caso" },
   };
   const currentTitle = titles[lang] || titles.es;
+  const t = getDictionary(lang);
 
   return (
-    <main className="min-h-screen w-full bg-background text-foreground pt-32 pb-20">
-      <div className="w-full mx-auto px-4 md:px-20">
-        <h1 className="text-4xl md:text-6xl font-medium text-foreground uppercase tracking-tight mb-12">
-          {currentTitle.main}
-          <br />
-          <span className="text-paragraph">{currentTitle.sub}</span>
-        </h1>
+    <main className="min-h-screen w-full bg-background px-4 pb-24 pt-24 text-foreground md:px-8 md:pt-28">
+      {/* Misma fila de datos que el hero y la ficha de proyecto. */}
+      <div className="hero-rise grid grid-cols-2 gap-y-2 text-paragraph md:grid-cols-3">
+        <p className="label">({currentTitle.sub})</p>
+        <p className="label text-right md:text-center">{t.hero.role}</p>
+        <p className="label hidden text-right md:block">({String(projectsData.length).padStart(2, "0")})</p>
+      </div>
 
-        <hr className="border-t border-white/10 mb-12" />
+      <h1 className="hero-rise text-title mt-16 font-medium [animation-delay:100ms] md:mt-24">{currentTitle.main}</h1>
 
+      {/* Sin animacion de entrada propia: las portadas son destino de la View
+          Transition y tienen que estar quietas en su lugar. */}
+      <div className="mt-10 md:mt-14">
         <ProjectsGrid projects={projectsData} lang={lang} categoryLabels={categoryLabels} />
       </div>
     </main>

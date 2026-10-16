@@ -1,7 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, type ReactNode } from "react";
 
 /**
  * Deja el hero pegado arriba mientras la seccion siguiente sube y lo tapa. El
@@ -14,47 +13,49 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
  *
  * La seccion que viene despues tiene que ser opaca y quedar por encima
  * (`relative z-10` + fondo), si no el hero se ve a traves.
+ *
+ * Sin framer-motion: un listener de scroll y un cuadro por cambio alcanzan, y
+ * el home se ahorra ~110 KB de JS que en celular frenaban la carga.
  */
 export function ParallaxHero({ children }: { children: ReactNode }) {
   const hero = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollY } = useScroll();
-  const [height, setHeight] = useState(0);
 
-  // El recorrido del efecto es el alto del hero: cuando la siguiente seccion
-  // lo tapo del todo, ya termino. `offsetHeight` ignora el transform, asi que
-  // no se realimenta con la animacion.
-  useLayoutEffect(() => {
+  useEffect(() => {
     const element = hero.current;
+    if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    if (!element) return;
+    // El recorrido del efecto es el alto del hero: cuando la siguiente seccion
+    // lo tapo del todo, ya termino. `offsetHeight` ignora el transform, asi que
+    // no se realimenta con la animacion.
+    let range = element.offsetHeight || 1;
+    const resize = new ResizeObserver(() => {
+      range = element.offsetHeight || 1;
+    });
+    resize.observe(element);
 
-    const measure = () => setHeight(element.offsetHeight);
+    let frame = 0;
+    const apply = () => {
+      frame = 0;
+      const p = Math.min(1, Math.max(0, window.scrollY / range));
+      element.style.transform = `translate3d(0, ${(p * range * 0.18).toFixed(1)}px, 0) scale(${(1 - p * 0.06).toFixed(4)})`;
+      element.style.opacity = String(Math.max(0, 1 - p / 0.75));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
 
-    measure();
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(element);
-
-    return () => observer.disconnect();
+    apply();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
-  const range = height || 1;
-  const y = useTransform(scrollY, [0, range], [0, range * 0.18]);
-  const scale = useTransform(scrollY, [0, range], [1, 0.94]);
-  const opacity = useTransform(scrollY, [0, range * 0.75], [1, 0]);
-
-  if (reduceMotion) {
-    return <>{children}</>;
-  }
-
   return (
-    <motion.div
-      ref={hero}
-      style={{ y, scale, opacity }}
-      className="sticky top-0 w-full"
-    >
+    <div ref={hero} className="sticky top-0 w-full will-change-transform">
       {children}
-    </motion.div>
+    </div>
   );
 }

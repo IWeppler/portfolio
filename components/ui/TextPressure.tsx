@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState, type ElementType } from "react";
+import { Fragment, useEffect, useRef, type ElementType } from "react";
 
 /**
  * Adaptacion de TextPressure (React Bits, basado en el CodePen de Juan
@@ -56,23 +56,14 @@ export function TextPressure({
   lineClassName?: string;
 }) {
   const root = useRef<HTMLElement>(null);
-  const firstLine = useRef<HTMLDivElement>(null);
   const spans = useRef<(HTMLSpanElement | null)[]>([]);
-  const [fontSize, setFontSize] = useState<number | null>(null);
 
   const longest = Math.max(...lines.map((line) => line.text.length));
-
-  // Tamano de fuente: que la linea mas larga llene su caja con los ejes en
-  // reposo. Se recalcula al cambiar el ancho.
-  useEffect(() => {
-    const line = firstLine.current;
-    if (!line) return;
-    const measure = () => setFontSize(line.clientWidth / (longest * EM_PER_CHAR));
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(line);
-    return () => observer.disconnect();
-  }, [longest]);
+  // Tamano de fuente en CSS: que la linea mas larga llene su caja con los ejes
+  // en reposo. Con `cqw` (ancho de la linea, que es container) el nombre sale
+  // pintado del HTML del servidor. Antes se medía con JS y quedaba oculto
+  // hasta hidratar: era el LCP del sitio y en celular tardaba ~9 s.
+  const fontSize = `calc(100cqw / ${(longest * EM_PER_CHAR).toFixed(3)})`;
 
   useEffect(() => {
     const element = root.current;
@@ -99,19 +90,42 @@ export function TextPressure({
     window.addEventListener("mousemove", onMove);
     window.addEventListener("touchmove", onTouch, { passive: true });
 
-    // El loop solo corre mientras el titulo esta en pantalla.
-    let visible = true;
+    // El loop solo corre mientras el titulo esta en pantalla y despues de que
+    // la pagina termino de cargar: arrancarlo durante la hidratacion le quita
+    // hilo principal a la carga (en celular corre solo, sin mouse).
+    let visible = false;
+    let ready = false;
+    let frame = 0;
+    const run = () => {
+      cancelAnimationFrame(frame);
+      if (visible && ready) frame = requestAnimationFrame(tick);
+    };
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
-      if (visible) frame = requestAnimationFrame(tick);
+      run();
     });
     observer.observe(element);
 
-    let frame = 0;
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1200));
+    const cancelIdle = window.cancelIdleCallback ?? window.clearTimeout;
+    const idleId = idle(() => {
+      ready = true;
+      run();
+    });
+
     const start = performance.now();
     const tick = (now: number) => {
       if (!visible) return;
+
+      // Primero se lee todo y despues se escribe todo: intercalar lecturas de
+      // posicion con cambios de estilo forzaba un layout por letra en cada
+      // cuadro ("Redistribucion forzada" en PageSpeed).
       const box = element.getBoundingClientRect();
+      const centers = spans.current.map((span) => {
+        if (!span) return null;
+        const r = span.getBoundingClientRect();
+        return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+      });
 
       // Sin mouse, un cursor invisible recorre el nombre de lado a lado.
       if (!canHover.matches) {
@@ -124,22 +138,22 @@ export function TextPressure({
       mouse.y += (cursor.y - mouse.y) / EASE;
 
       const maxDist = box.width / 2;
-      for (const span of spans.current) {
-        if (!span) continue;
-        const r = span.getBoundingClientRect();
-        const d = distance(mouse, { x: r.left + r.width / 2, y: r.top + r.height / 2 });
+      spans.current.forEach((span, i) => {
+        const center = centers[i];
+        if (!span || !center) return;
+        const d = distance(mouse, center);
         const wdth = Math.floor(axis(d, maxDist, WDTH));
         const wght = Math.floor(axis(d, maxDist, WGHT));
         const slnt = -axis(d, maxDist, SLNT);
         span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'slnt' ${slnt.toFixed(1)}`;
-      }
+      });
 
       frame = requestAnimationFrame(tick);
     };
-    frame = requestAnimationFrame(tick);
 
     return () => {
       cancelAnimationFrame(frame);
+      cancelIdle(idleId);
       observer.disconnect();
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("touchmove", onTouch);
@@ -152,8 +166,9 @@ export function TextPressure({
     <Tag
       ref={root}
       aria-label={label}
-      className={`font-pressure uppercase ${className}`}
-      style={{ fontSize: fontSize ?? undefined, visibility: fontSize ? undefined : "hidden" }}
+      // contain: los cambios de ancho de las letras en cada cuadro no obligan a
+      // recalcular el layout del resto de la pagina.
+      className={`font-pressure uppercase [contain:layout] ${className}`}
     >
       {lines.map((line, lineIndex) => (
         <Fragment key={line.text}>
@@ -162,12 +177,12 @@ export function TextPressure({
         {lineIndex > 0 && " "}
         <div
           aria-hidden="true"
-          className={`overflow-hidden ${lineClassName} ${line.align === "end" ? "ml-auto" : ""}`}
+          // Cada linea es un container: el `cqw` del tamano de fuente es su ancho.
+          className={`overflow-hidden [container-type:inline-size] ${lineClassName} ${line.align === "end" ? "ml-auto" : ""}`}
         >
           <div
-            ref={lineIndex === 0 ? firstLine : undefined}
             className={`flex justify-between ${entrance ? "hero-name" : ""}`}
-            style={entrance ? { animationDelay: `${lineIndex * 90}ms` } : undefined}
+            style={{ fontSize, ...(entrance ? { animationDelay: `${lineIndex * 90}ms` } : {}) }}
           >
             {line.text.split("").map((char) => {
               const i = index++;
