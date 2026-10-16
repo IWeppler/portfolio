@@ -46,6 +46,9 @@ export async function uploadProjectImage(file: File) {
         Authorization: `Bearer ${serviceRoleKey}`,
         "Content-Type": file.type || "application/octet-stream",
         "x-upsert": "true",
+        // El nombre es un uuid nuevo por subida, asi que el archivo es
+        // inmutable y se puede cachear un ano (Supabase pone 1h por defecto).
+        "cache-control": "max-age=31536000",
       },
       body: file,
     }
