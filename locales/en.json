@@ -30,9 +30,7 @@
     "title": "Projects",
     "view_project": "View project",
     "view_all": "View all projects",
-    "default_tag": "Development • Design",
-    "products_title": "products",
-    "clients_title": "client work"
+    "default_tag": "Development • Design"
   },
   "slider": {
     "label": "Up close",

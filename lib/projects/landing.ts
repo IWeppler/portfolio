@@ -1,11 +1,5 @@
 export const LANDING_PROJECT_LIMIT = 5;
 
-/**
- * Productos propios: en la home van primero, separados de los trabajos para
- * clientes. Slugs de `projects`.
- */
-export const OWN_PRODUCT_SLUGS = new Set(["comerz-pos", "inmobiliaria-terranova"]);
-
 type LandingCandidate = {
   id: string;
   slug: string;

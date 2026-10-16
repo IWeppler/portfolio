@@ -30,9 +30,7 @@
     "title": "Proyectos",
     "view_project": "Ver proyecto",
     "view_all": "Ver todos los proyectos",
-    "default_tag": "Desarrollo • Diseño",
-    "products_title": "productos",
-    "clients_title": "para clientes"
+    "default_tag": "Desarrollo • Diseño"
   },
   "slider": {
     "label": "De cerca",
