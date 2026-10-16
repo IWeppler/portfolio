@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/supabase/server";
 import { supabaseRest } from "@/lib/supabase/rest";
-import { getPublishedProjects } from "@/lib/projects/published";
 
 type PageViewRow = {
   path: string;
@@ -21,7 +20,13 @@ type LeadRow = {
   created_at: string;
 };
 
-type Range = "7d" | "30d" | "year";
+type ProjectNameRow = {
+  id: string;
+  slug: string | null;
+  project_translations: { idioma: string; titulo: string | null }[] | null;
+};
+
+type Range ="7d" | "30d" | "year";
 
 function startDateFor(range: Range) {
   const now = new Date();
@@ -96,10 +101,26 @@ export async function GET(request: NextRequest) {
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([date, bucket]) => ({ date, ...bucket }));
 
-    // Proyectos: visitas + clicks de conversion por slug. Los nombres salen de
-    // los proyectos publicados; si el slug ya no existe, se muestra el slug.
-    const published = await getPublishedProjects("es");
-    const publishedNames = new Map(published.map((project) => [project.slug, project.name]));
+    // Proyectos: visitas + clicks de conversion por id (page_views.project_id
+    // es FK a projects.id), asi un cambio de slug no parte las estadisticas.
+    // Se traen todos los proyectos, no solo los publicados, para nombrar
+    // tambien a los que se despublicaron despues de recibir visitas.
+    const projectsRes = await supabaseRest(
+      "projects?select=id,slug,project_translations(idioma,titulo)"
+    );
+    const projectRows = (await projectsRes.json()) as ProjectNameRow[];
+    const projectsById = new Map(
+      projectRows.map((project) => [
+        project.id,
+        {
+          slug: project.slug ?? project.id,
+          name:
+            project.project_translations?.find((t) => t.idioma === "es")?.titulo ||
+            project.slug ||
+            project.id,
+        },
+      ])
+    );
 
     const projectBuckets = new Map<string, { views: number; clicks: number }>();
     for (const row of views) {
@@ -116,9 +137,9 @@ export async function GET(request: NextRequest) {
     }
 
     const projectStats = Array.from(projectBuckets.entries())
-      .map(([slug, bucket]) => ({
-        slug,
-        name: publishedNames.get(slug) ?? slug,
+      .map(([id, bucket]) => ({
+        slug: projectsById.get(id)?.slug ?? id,
+        name: projectsById.get(id)?.name ?? id,
         views: bucket.views,
         clicks: bucket.clicks,
       }))

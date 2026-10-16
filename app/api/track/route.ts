@@ -6,7 +6,8 @@ import { z } from "zod";
 const trackPayloadSchema = z.object({
   path: z.string().trim().min(1).max(2048),
   referrer: z.string().trim().max(2048).optional().default(""),
-  projectId: z.string().trim().min(1).max(200).optional(),
+  // page_views.project_id es una FK a projects.id (uuid), no el slug.
+  projectId: z.string().uuid().optional(),
   kind: z.enum(["view", "click"]).optional().default("view"),
 });
 

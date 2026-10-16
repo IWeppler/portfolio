@@ -7,6 +7,7 @@ import {
 } from "./categories";
 
 export type PublishedProject = {
+  id: string;
   slug: string;
   name: string;
   category: ProjectCategory;
@@ -34,6 +35,7 @@ type ImageRow = {
 };
 
 type PublishedRow = {
+  id: string;
   slug: string | null;
   client: string | null;
   url_deploy: string | null;
@@ -48,7 +50,7 @@ type PublishedRow = {
 const DEFAULT_LANG = "es";
 
 const SELECT =
-  "slug,client,url_deploy,url_github,category,orden,created_at," +
+  "id,slug,client,url_deploy,url_github,category,orden,created_at," +
   "project_translations(idioma,titulo,descripcion,contenido)," +
   "project_images(url,es_portada,orden)";
 
@@ -86,6 +88,7 @@ function toPublishedProject(
   const cover = images.find((image) => image.es_portada) ?? images[0];
 
   return {
+    id: row.id,
     slug: row.slug,
     name: translation.titulo,
     category: isProjectCategory(row.category) ? row.category : DEFAULT_CATEGORY,

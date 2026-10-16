@@ -74,7 +74,7 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <section className="w-full min-h-screen bg-background text-foreground pt-16 md:pt-32 pb-20 px-4 md:px-20">
-      <PageViewTracker projectId={slug} />
+      <PageViewTracker projectId={project.id} />
       <div className="max-w-5xl mx-auto">
         <Link
           href={`/${lang}/projects`}
@@ -95,7 +95,7 @@ export default async function ProjectPage({ params }: Props) {
           {project.githubUrl && (
             <ConversionLink
               href={project.githubUrl}
-              projectId={slug}
+              projectId={project.id}
               className="inline-flex items-center gap-2 rounded-full border border-assets px-4 py-1.5 text-sm text-paragraph transition-colors hover:border-foreground/40 hover:text-foreground"
               title={codeLabel}
             >
@@ -110,7 +110,7 @@ export default async function ProjectPage({ params }: Props) {
           {project.deployUrl ? (
             <ConversionLink
               href={project.deployUrl}
-              projectId={slug}
+              projectId={project.id}
               className="group inline-flex items-start gap-3 transition-colors hover:text-orange"
               title={visitLabel}
             >
