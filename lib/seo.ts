@@ -48,7 +48,7 @@ export const SEO_COPY: Record<
   es: {
     homeTitle: "Ignacio Weppler — Webs y CRM para inmobiliarias",
     home: "Diseño y desarrollo webs y sistemas a medida para inmobiliarias: buscador con mapa, tasación online, reserva de visitas y CRM de leads y alquileres.",
-    projects: "Proyectos y casos de estudio: portales inmobiliarios, sistemas de gestión y sitios web a medida.",
+    projects: "Proyectos y casos de estudio: portales inmobiliarios, sistemas de gestión y webs a medida.",
     contact: "Contame qué querés construir y te respondo con una propuesta concreta.",
   },
   en: {

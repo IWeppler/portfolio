@@ -26,7 +26,7 @@ const STEPS = [
   },
   {
     title: "Desarrollo",
-    text: "Armo el sitio con tu marca y tus propiedades. Entre 5 y 20 días, según cuánto haya que adaptar.",
+    text: "Armo la web con tu marca y tus propiedades. Entre 5 y 20 días, según cuánto haya que adaptar.",
   },
   {
     title: "Publicación",

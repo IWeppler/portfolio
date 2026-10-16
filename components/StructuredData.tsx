@@ -62,7 +62,7 @@ export default function StructuredData({ schema }: { schema?: JsonLd }) {
     url: baseUrl,
     image: `${baseUrl}/ignacio-weppler.jpg`,
     description:
-      "Webs y sistemas a medida para inmobiliarias: sitio con buscador y mapa, fichas de propiedades, consultas por WhatsApp, tasación online, reserva de visitas y CRM de leads y alquileres.",
+      "Webs y sistemas a medida para inmobiliarias: web con buscador y mapa, fichas de propiedades, consultas por WhatsApp, tasación online, reserva de visitas y CRM de leads y alquileres.",
     areaServed: ["AR", "BR", "LATAM", "ES", "US"],
     serviceType: [
       "Páginas web para inmobiliarias",

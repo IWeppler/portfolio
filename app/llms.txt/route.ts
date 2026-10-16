@@ -16,7 +16,7 @@ export async function GET() {
 
   const body = `# Ignacio Weppler
 
-> Desarrollador full-stack de Tostado, Santa Fe, Argentina. Diseña y desarrolla webs y sistemas a medida para inmobiliarias: sitio con buscador y mapa, fichas de propiedades, consultas por WhatsApp, tasación online, reserva de visitas y CRM de leads y alquileres.
+> Desarrollador full-stack de Tostado, Santa Fe, Argentina. Diseña y desarrolla webs y sistemas a medida para inmobiliarias: web con buscador y mapa, fichas de propiedades, consultas por WhatsApp, tasación online, reserva de visitas y CRM de leads y alquileres.
 
 - 2 años en el oficio, casi 20 proyectos, clientes en 5 países.
 - Stack: Next.js, React, TypeScript, Supabase (PostgreSQL), Tailwind CSS.
