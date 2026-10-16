@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ImageColumns, type ColumnImage } from "@/components/projects/ImageColumns";
 import { ButtonPrimary } from "@/components/ui/Buttons";
 import { getPublishedProjects } from "@/lib/projects/published";
+import { ogBase } from "@/lib/seo";
 
 // Proyectos del rubro inmobiliario: TerraNova, Arcos y Lumen.
 const REAL_ESTATE_SLUGS = ["inmobiliaria-terranova", "arcos-propiedades", "lumen-propiedades"];
@@ -42,7 +43,7 @@ export const metadata = {
   description: DESCRIPTION,
   // Solo existe en espanol: sin alternates de idioma.
   alternates: { canonical: "/es/inmobiliarias" },
-  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", locale: "es_AR" },
+  openGraph: { ...ogBase("es"), url: "/es/inmobiliarias", title: TITLE, description: DESCRIPTION },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 

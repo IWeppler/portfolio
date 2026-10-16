@@ -1,6 +1,6 @@
 import { ContactFlow } from "@/components/contact-modal/ContactFlow";
 import { getDictionary } from "@/lib/get-dictionary";
-import { alternatesFor, seoCopy } from "@/lib/seo";
+import { alternatesFor, ogBase, seoCopy } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return [{ lang: "es" }, { lang: "en" }, { lang: "pt" }];
@@ -12,10 +12,13 @@ interface Props {
 
 export async function generateMetadata({ params }: Props) {
   const { lang } = await params;
+  const title = getDictionary(lang).navbar.start;
+  const description = seoCopy(lang).contact;
   return {
-    title: getDictionary(lang).navbar.start,
-    description: seoCopy(lang).contact,
+    title,
+    description,
     alternates: alternatesFor(lang, "/contacto"),
+    openGraph: { ...ogBase(lang), url: `/${lang}/contacto`, title, description },
   };
 }
 

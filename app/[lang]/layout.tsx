@@ -1,6 +1,6 @@
 import "../globals.css";
 import type { Metadata } from "next";
-import { OG_LOCALES, SITE_URL, isLang, seoCopy } from "@/lib/seo";
+import { SITE_URL, ogBase, seoCopy } from "@/lib/seo";
 import { SiteChrome } from "@/components/SiteChrome";
 import SmoothScroll from "@/components/SmoothScroll";
 import { getDictionary } from "@/lib/get-dictionary";
@@ -41,13 +41,9 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: "Ignacio Weppler", template: "%s | Ignacio Weppler" },
+    title: { default: seoCopy(lang).homeTitle, template: "%s | Ignacio Weppler" },
     description: seoCopy(lang).home,
-    openGraph: {
-      siteName: "Ignacio Weppler",
-      type: "website",
-      locale: OG_LOCALES[isLang(lang) ? lang : "es"],
-    },
+    openGraph: ogBase(lang),
     twitter: { card: "summary_large_image" },
   };
 }

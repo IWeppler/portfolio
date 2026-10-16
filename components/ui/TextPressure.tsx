@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType } from "react";
+import { Fragment, useEffect, useRef, useState, type ElementType } from "react";
 
 /**
  * Adaptacion de TextPressure (React Bits, basado en el CodePen de Juan
@@ -156,8 +156,11 @@ export function TextPressure({
       style={{ fontSize: fontSize ?? undefined, visibility: fontSize ? undefined : "hidden" }}
     >
       {lines.map((line, lineIndex) => (
+        <Fragment key={line.text}>
+        {/* Espacio entre lineas: sin el, el texto del h1 queda pegado
+            ("IgnacioWeppler") para buscadores. Entre bloques no se ve. */}
+        {lineIndex > 0 && " "}
         <div
-          key={line.text}
           aria-hidden="true"
           className={`overflow-hidden ${lineClassName} ${line.align === "end" ? "ml-auto" : ""}`}
         >
@@ -186,6 +189,7 @@ export function TextPressure({
             })}
           </div>
         </div>
+        </Fragment>
       ))}
     </Tag>
   );

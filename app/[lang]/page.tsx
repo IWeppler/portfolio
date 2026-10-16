@@ -6,8 +6,7 @@ import { Ticker } from "@/components/Ticker";
 import { UpClose } from "@/components/UpClose";
 import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 import { notFound } from "next/navigation";
-import { getDictionary } from "@/lib/get-dictionary";
-import { alternatesFor } from "@/lib/seo";
+import { alternatesFor, ogBase, seoCopy } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return [{ lang: "es" }, { lang: "en" }, { lang: "pt" }];
@@ -21,8 +20,9 @@ export async function generateMetadata({ params }: Props) {
   const { lang } = await params;
 
   return {
-    title: { absolute: `Ignacio Weppler | ${getDictionary(lang).hero.role}` },
+    title: { absolute: seoCopy(lang).homeTitle },
     alternates: alternatesFor(lang, ""),
+    openGraph: { ...ogBase(lang), url: `/${lang}`, title: seoCopy(lang).homeTitle, description: seoCopy(lang).home },
   };
 }
 

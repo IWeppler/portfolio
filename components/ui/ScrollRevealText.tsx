@@ -58,25 +58,20 @@ export function ScrollRevealText({
   }
 
   return (
+    // Las palabras van separadas por espacios reales, asi que el texto se lee
+    // igual de corrido (lectores de pantalla y buscadores) sin una copia aparte.
     <p ref={ref} className={className}>
-      {/* El texto completo para lectores de pantalla; las palabras sueltas son
-          solo visuales. */}
-      <span className="sr-only">
-        {text} {accent}
-      </span>
-      <span aria-hidden="true">
-        {words.map(({ word, accent: isAccent }, i) => (
-          <span key={i}>
-            <Word
-              progress={scrollYProgress}
-              range={[i / words.length, (i + 1) / words.length]}
-              className={isAccent ? "text-orange" : undefined}
-            >
-              {word}
-            </Word>{" "}
-          </span>
-        ))}
-      </span>
+      {words.map(({ word, accent: isAccent }, i) => (
+        <span key={i}>
+          <Word
+            progress={scrollYProgress}
+            range={[i / words.length, (i + 1) / words.length]}
+            className={isAccent ? "text-orange" : undefined}
+          >
+            {word}
+          </Word>{" "}
+        </span>
+      ))}
     </p>
   );
 }

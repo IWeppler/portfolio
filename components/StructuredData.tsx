@@ -13,9 +13,11 @@ export default function StructuredData({ schema }: { schema?: JsonLd }) {
     name: "Ignacio Weppler",
     url: baseUrl,
     image: `${baseUrl}/ignacio-weppler.jpg`,
-    jobTitle: "Desarrollador Web Full Stack",
+    // Mismo nombre, rol y ubicacion que en LinkedIn, GitHub e Instagram: los
+    // buscadores y las IA reconocen la entidad por esa consistencia.
+    jobTitle: "Desarrollador full-stack — webs y CRM para inmobiliarias",
     description:
-      "Desarrollador Full Stack especializado en crear experiencias digitales modernas con Next.js, React y Astro.",
+      "Ignacio Weppler diseña y desarrolla webs y sistemas a medida para inmobiliarias: buscador con mapa, tasación online, reserva de visitas y CRM de leads y alquileres. Santa Fe, Argentina.",
     email: "ignacionweppler@gmail.com",
     telephone: "+54 11 5470 2118",
     address: {
@@ -55,18 +57,19 @@ export default function StructuredData({ schema }: { schema?: JsonLd }) {
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: "Ignacio Weppler - Full-stack Web Development",
+    name: "Ignacio Weppler — Webs y CRM para inmobiliarias",
     url: baseUrl,
+    image: `${baseUrl}/ignacio-weppler.jpg`,
     description:
-      "Desarrollo web full-stack para negocios: landing pages, sistemas internos, dashboards, SEO técnico y automatización.",
-    areaServed: ["AR", "LATAM", "ES", "US"],
+      "Webs y sistemas a medida para inmobiliarias: sitio con buscador y mapa, fichas de propiedades, consultas por WhatsApp, tasación online, reserva de visitas y CRM de leads y alquileres.",
+    areaServed: ["AR", "BR", "LATAM", "ES", "US"],
     serviceType: [
-      "Desarrollo Web",
-      "Landing Pages",
+      "Páginas web para inmobiliarias",
+      "CRM para inmobiliarias",
+      "Sistema de gestión inmobiliaria",
+      "Administración de alquileres",
+      "Desarrollo web a medida",
       "Sistemas a medida",
-      "Dashboards internos",
-      "SEO Técnico",
-      "Consultoría Web",
     ],
     provider: {
       "@id": `${baseUrl}/#person`,

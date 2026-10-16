@@ -4,12 +4,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getPublishedProject, getPublishedProjects } from "@/lib/projects/published";
+import {
+  getPublishedProject,
+  getPublishedProjects,
+  type PublishedProject,
+} from "@/lib/projects/published";
 import { categoryLabel } from "@/lib/projects/categories";
 import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 import { ConversionLink } from "@/components/analytics/ConversionLink";
 import SuggestedProjects from "@/components/projects/SuggestedProjects";
-import { OG_LOCALES, alternatesFor, isLang } from "@/lib/seo";
+import { SITE_URL, alternatesFor, ogBase } from "@/lib/seo";
 
 const LANGS = ["es", "en", "pt"];
 
@@ -34,16 +38,42 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: project.name,
     description: project.excerpt || undefined,
     alternates: alternatesFor(lang, `/projects/${slug}`),
-    // El openGraph de la pagina reemplaza entero al del layout.
     openGraph: {
-      siteName: "Ignacio Weppler",
-      type: "website",
-      locale: OG_LOCALES[isLang(lang) ? lang : "es"],
+      ...ogBase(lang),
+      url: `/${lang}/projects/${slug}`,
       title: project.name,
       description: project.excerpt || undefined,
       ...(project.cover && { images: [{ url: project.cover, alt: project.name }] }),
     },
   };
+}
+
+/** CreativeWork del proyecto + migas Inicio > Proyectos > Proyecto. */
+function projectJsonLd(project: PublishedProject, lang: string, projectsLabel: string) {
+  const url = `${SITE_URL}/${lang}/projects/${project.slug}`;
+
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: project.name,
+      description: project.excerpt || undefined,
+      url,
+      inLanguage: lang,
+      ...(project.cover && { image: project.cover }),
+      ...(project.deployUrl && { sameAs: project.deployUrl }),
+      creator: { "@id": `${SITE_URL}/#person` },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Ignacio Weppler", item: `${SITE_URL}/${lang}` },
+        { "@type": "ListItem", position: 2, name: projectsLabel, item: `${SITE_URL}/${lang}/projects` },
+        { "@type": "ListItem", position: 3, name: project.name, item: url },
+      ],
+    },
+  ];
 }
 
 const colors = {
@@ -75,6 +105,10 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <section className="w-full min-h-screen bg-background text-foreground pt-16 md:pt-32 pb-20 px-4 md:px-20">
       <PageViewTracker projectId={project.id} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(project, lang, t.navbar.projects)) }}
+      />
       <div className="max-w-5xl mx-auto">
         <Link
           href={`/${lang}/projects`}
@@ -106,7 +140,7 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* El titulo es el link a la web del proyecto; sin deploy queda plano. */}
-        <h2 className="text-4xl md:text-7xl font-medium uppercase tracking-tight mb-6 text-balance">
+        <h1 className="text-4xl md:text-7xl font-medium uppercase tracking-tight mb-6 text-balance">
           {project.deployUrl ? (
             <ConversionLink
               href={project.deployUrl}
@@ -120,7 +154,7 @@ export default async function ProjectPage({ params }: Props) {
           ) : (
             project.name
           )}
-        </h2>
+        </h1>
 
         {project.excerpt && (
           <p

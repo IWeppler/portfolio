@@ -1,12 +1,18 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
+import { seoCopy } from "@/lib/seo";
 
 // Node (no edge): lee Geist desde /assets/fonts y lo embebe en la imagen.
 export const runtime = "nodejs";
-export const alt = "Ignacio Weppler - Desarrollador Full Stack";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+const size = { width: 1200, height: 630 };
+
+// Una sola imagen por idioma, pero con el alt traducido (un `alt` exportado
+// fijo quedaba en espanol tambien en /en y /pt).
+export async function generateImageMetadata({ params }: { params: Promise<{ lang: string }> | { lang: string } }) {
+  const { lang } = await params;
+  return [{ id: "default", alt: seoCopy(lang).homeTitle, size, contentType: "image/png" }];
+}
 
 const font = (file: string) =>
   readFile(path.join(process.cwd(), "assets", "fonts", file));
