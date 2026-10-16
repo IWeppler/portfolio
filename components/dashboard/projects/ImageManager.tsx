@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 export type ProjectImage = {
   url: string;
   isCover: boolean;
+  /** Que muestra la imagen, por idioma. Se edita en cada pestana de idioma. */
+  alt?: { es?: string; en?: string; pt?: string };
 };
 
 type ImageManagerProps = {

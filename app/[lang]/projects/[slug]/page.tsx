@@ -170,7 +170,7 @@ export default async function ProjectPage({ params }: Props) {
             className="relative w-full h-[380px] md:h-[620px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
             style={{ borderColor: colors.assets }}
           >
-            <Image src={hero} alt={project.name} fill className="object-cover" priority />
+            <Image src={hero} alt={project.alts[hero] ?? project.name} fill className="object-cover" priority />
           </div>
         )}
 
@@ -189,7 +189,7 @@ export default async function ProjectPage({ params }: Props) {
             className="relative w-full h-[380px] md:h-[620px] rounded-xl overflow-hidden mb-20 bg-zinc-900 border"
             style={{ borderColor: colors.assets }}
           >
-            <Image src={url} alt={project.name} fill className="object-cover" />
+            <Image src={url} alt={project.alts[url] ?? project.name} fill className="object-cover" />
           </div>
         ))}
 

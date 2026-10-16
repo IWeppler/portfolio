@@ -26,9 +26,13 @@ const translationsSchema = z.object({
   pt: translationSchema.optional(),
 });
 
+const altText = z.string().trim().max(250).optional();
+
 const imageSchema = z.object({
   url: z.string().trim().url(),
   isCover: z.boolean().default(false),
+  // Texto alternativo por idioma (project_images.alt).
+  alt: z.object({ es: altText, en: altText, pt: altText }).default({}),
 });
 
 const projectFields = {
@@ -86,10 +90,13 @@ type TranslationRow = {
   contenido: string | null;
 };
 
+type ImageAlt = { es?: string; en?: string; pt?: string };
+
 type ImageRow = {
   url: string;
   es_portada: boolean | null;
   orden: number | null;
+  alt: ImageAlt | null;
 };
 
 type ProjectRow = {
@@ -109,7 +116,7 @@ type ProjectRow = {
 const PROJECT_SELECT =
   "id,slug,client,url_deploy,url_github,category,is_published,orden,created_at," +
   "project_translations(idioma,titulo,descripcion,contenido)," +
-  "project_images(url,es_portada,orden)";
+  "project_images(url,es_portada,orden,alt)";
 
 function emptyStringToUndefined(value: unknown) {
   if (value === null) return undefined;
@@ -159,6 +166,8 @@ function toImageRows(projectId: string, images: ProjectPatch["images"]) {
     url: image.url,
     es_portada: image.isCover,
     orden: index,
+    // Solo los idiomas con texto: un alt vacio no se guarda.
+    alt: Object.fromEntries(Object.entries(image.alt ?? {}).filter(([, text]) => Boolean(text))),
   }));
 }
 
@@ -178,7 +187,7 @@ function fromProjectRow(row: ProjectRow) {
 
   const images = [...(row.project_images ?? [])]
     .sort((a, b) => (a.orden ?? 0) - (b.orden ?? 0))
-    .map((image) => ({ url: image.url, isCover: Boolean(image.es_portada) }));
+    .map((image) => ({ url: image.url, isCover: Boolean(image.es_portada), alt: image.alt ?? {} }));
 
   return {
     id: row.id,

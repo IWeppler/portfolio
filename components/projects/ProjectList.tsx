@@ -13,6 +13,8 @@ export type ProjectRow = {
   cover: string;
   /** Portada primero, luego el resto de la galeria. */
   images: string[];
+  /** Que muestra la portada; sin el, se usa el nombre. */
+  coverAlt?: string;
 };
 
 // Cada cuanto cambia la imagen mientras la vista previa esta a la vista.
@@ -110,7 +112,7 @@ export function ProjectList({ lang, projects }: { lang: string; projects: Projec
               className="grid grid-cols-1 gap-3 py-6 transition-opacity duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange md:grid-cols-12 md:items-baseline md:gap-8 md:py-7"
             >
               <div className="relative mb-2 aspect-[4/5] w-full overflow-hidden bg-surface [@media(hover:hover)_and_(pointer:fine)]:hidden">
-                <CyclingImages images={project.images} run={false} cycle={false} sizes="100vw" alt={project.name} />
+                <CyclingImages images={project.images} run={false} cycle={false} sizes="100vw" alt={project.coverAlt ?? project.name} />
               </div>
 
               <h3 className="text-title font-medium text-balance relative z-40 text-foreground mix-blend-difference md:col-span-7">

@@ -58,7 +58,7 @@ export default async function SuggestedProjects({ lang, currentSlug }: Props) {
               {project.cover && (
                 <Image
                   src={project.cover}
-                  alt={project.name}
+                  alt={project.alts[project.cover] ?? project.name}
                   fill
                   className="object-cover transition-transform duration-900 ease-out group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"

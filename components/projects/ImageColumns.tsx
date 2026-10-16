@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export type ColumnImage = { src: string; name: string };
+export type ColumnImage = { src: string; name: string; alt?: string };
 
 /** Reparte las imagenes en columnas, una tras otra, para que cada columna mezcle proyectos. */
 function split(images: ColumnImage[], columns: number) {

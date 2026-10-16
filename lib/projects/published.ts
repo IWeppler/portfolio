@@ -15,6 +15,8 @@ export type PublishedProject = {
   content: string;
   cover: string | null;
   images: string[];
+  /** Texto alternativo de cada imagen (por url), ya resuelto para el idioma. */
+  alts: Record<string, string>;
   deployUrl: string | null;
   githubUrl: string | null;
   client: string | null;
@@ -32,6 +34,7 @@ type ImageRow = {
   url: string;
   es_portada: boolean | null;
   orden: number | null;
+  alt: Record<string, string | undefined> | null;
 };
 
 type PublishedRow = {
@@ -52,7 +55,7 @@ const DEFAULT_LANG = "es";
 const SELECT =
   "id,slug,client,url_deploy,url_github,category,orden,created_at," +
   "project_translations(idioma,titulo,descripcion,contenido)," +
-  "project_images(url,es_portada,orden)";
+  "project_images(url,es_portada,orden,alt)";
 
 function pickTranslation(rows: TranslationRow[] | null, lang: string) {
   const byLang = rows?.find((row) => row.idioma === lang);
@@ -96,6 +99,13 @@ function toPublishedProject(
     content: translation.contenido,
     cover: cover?.url ?? null,
     images: images.map((image) => image.url),
+    // Alt en el idioma pedido, si no en espanol, si no el nombre del proyecto.
+    alts: Object.fromEntries(
+      images.map((image) => [
+        image.url,
+        image.alt?.[lang]?.trim() || image.alt?.[DEFAULT_LANG]?.trim() || translation.titulo,
+      ]),
+    ),
     deployUrl: row.url_deploy,
     githubUrl: row.url_github,
     client: row.client,

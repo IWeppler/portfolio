@@ -11,6 +11,8 @@ export interface ProjectItem {
   category: string;
   /** Estatica desde /public, o URL de Supabase Storage si viene del panel. */
   cover: StaticImageData | string;
+  /** Que muestra la portada; sin el, se usa el nombre. */
+  coverAlt?: string;
 }
 
 interface Props {
@@ -80,7 +82,7 @@ export const ProjectsGrid = ({ projects = [], lang, categoryLabels }: Props) => 
                   >
                     <Image
                       src={project.cover}
-                      alt={project.name}
+                      alt={project.coverAlt ?? project.name}
                       fill
                       className="object-cover transition-transform duration-900 ease-out group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 50vw"

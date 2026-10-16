@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
+import Image from "next/image";
 import { Loader2, Save } from "lucide-react";
 import {
   Dialog,
@@ -112,6 +113,15 @@ export function ProjectFormDialog({ open, onOpenChange, project, onSaved }: Proj
           [field]: value,
         },
       },
+    }));
+  }
+
+  function updateImageAlt(url: string, lang: LangCode, value: string) {
+    setForm((current) => ({
+      ...current,
+      images: current.images.map((image) =>
+        image.url === url ? { ...image, alt: { ...image.alt, [lang]: value } } : image,
+      ),
     }));
   }
 
@@ -321,6 +331,33 @@ export function ProjectFormDialog({ open, onOpenChange, project, onSaved }: Proj
                         className="h-full min-h-32 flex-1 resize-none border-white/10 bg-background"
                       />
                     </div>
+
+                    {form.images.length > 0 && (
+                      <div className="grid gap-2">
+                        <Label>Texto alternativo de las imágenes</Label>
+                        <p className="text-xs text-paragraph">
+                          Qué muestra cada imagen, por ejemplo “Buscador de propiedades con filtros por zona”. Ayuda a
+                          aparecer en Google Imágenes. Vacío usa el español o el título.
+                        </p>
+                        <ul className="grid max-h-56 gap-2 overflow-y-auto pr-1">
+                          {form.images.map((image) => (
+                            <li key={image.url} className="flex items-center gap-3">
+                              <div className="relative h-10 w-16 shrink-0 overflow-hidden rounded border border-white/10">
+                                <Image src={image.url} alt="" fill unoptimized className="object-cover" />
+                              </div>
+                              <Input
+                                aria-label="Texto alternativo"
+                                value={image.alt?.[lang.code] ?? ""}
+                                maxLength={250}
+                                onChange={(event) => updateImageAlt(image.url, lang.code, event.target.value)}
+                                placeholder={form.translations.es?.title || "Describí la imagen"}
+                                className="border-white/10 bg-background"
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </TabsContent>
                 ))}
               </Tabs>

@@ -35,6 +35,7 @@ export default async function ProjectsPage({ params }: Props) {
       name: project.name,
       category: project.category,
       cover: project.cover as string,
+      coverAlt: project.alts[project.cover as string],
     }));
 
   const categoryLabels = getDictionary(lang).project_categories as Record<string, string>;
