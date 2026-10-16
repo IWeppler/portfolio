@@ -79,8 +79,11 @@ function reducer(state: ContactFormState, action: Action): ContactFormState {
   }
 }
 
-export function useContactForm() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+// Con un tipo inicial (p. ej. desde /collabs) el formulario arranca en el paso 2.
+export function useContactForm(initialTipo?: TipoProyecto) {
+  const [state, dispatch] = useReducer(reducer, initialState, (base) =>
+    initialTipo ? { ...base, tipo_proyecto: initialTipo, step: 2 as const } : base,
+  );
 
   return {
     state,

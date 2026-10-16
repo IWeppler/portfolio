@@ -13,7 +13,7 @@ const IMAGES_PER_PROJECT = 6;
 const WHATSAPP_URL =
   "https://wa.me/5491154702118?text=Hola%20Ignacio,%20tengo%20una%20inmobiliaria%20y%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20mi%20web.";
 
-const PROOF = "2 años haciendo webs · casi 20 proyectos · clientes en 5 países";
+const PROOF = "20 proyectos · clientes en 5 países";
 
 const STEPS = [
   {

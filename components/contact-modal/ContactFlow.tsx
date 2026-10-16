@@ -3,15 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { getDictionary } from "@/lib/get-dictionary";
-import { useContactForm } from "./useContactForm";
+import { useContactForm, type TipoProyecto } from "./useContactForm";
 import { ProgressIndicator } from "./ProgressIndicator";
 import { StepProjectType } from "./steps/StepProjectType";
 import { StepDetails } from "./steps/StepDetails";
 import { StepContact } from "./steps/StepContact";
 
-export function ContactFlow({ lang }: { lang: string }) {
+export function ContactFlow({ lang, initialTipo }: { lang: string; initialTipo?: TipoProyecto }) {
   const copy = getDictionary(lang).contact_modal;
-  const form = useContactForm();
+  const form = useContactForm(initialTipo);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const progressLabel = copy.progress

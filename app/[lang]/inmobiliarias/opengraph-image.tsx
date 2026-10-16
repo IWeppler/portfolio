@@ -62,7 +62,7 @@ export default async function Image() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <div style={{ fontSize: 26, color: "#ecebe8" }}>
-            Casi 20 proyectos · clientes en 5 países
+            20 proyectos · clientes en 5 países
           </div>
           <div style={{ fontSize: 22, color: "#a2a3a8" }}>
             ignacioweppler.dev/es/inmobiliarias

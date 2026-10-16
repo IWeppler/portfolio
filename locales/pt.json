@@ -11,25 +11,28 @@
     "name_first": "Ignacio",
     "name_last": "Weppler",
     "portfolio": "Portfólio",
-    "role": "Desenvolvedor full-stack",
+    "role": "product builder",
     "location": "Argentina",
-    "statement": "Uma presença digital à altura do que você constrói. Experiências que conectam sua marca a novas oportunidades e tornam cada processo mais simples.",
+    "statement": "construo produtos.",
+    "statement_sub": "alguns são meus, outros para clientes.",
     "scroll": "Role devagar",
-    "cta_works": "Ver projetos",
+    "cta_works": "ver trabalhos",
     "ticker": [
-      "Sites para imobiliárias",
-      "CRM",
-      "Landing pages",
-      "Apps e SaaS",
-      "Next.js",
-      "Supabase"
+      "next.js",
+      "supabase",
+      "typescript",
+      "postgres",
+      "design de produto",
+      "figma"
     ]
   },
   "works": {
     "title": "Projetos",
     "view_project": "Ver projeto",
     "view_all": "Ver todos os projetos",
-    "default_tag": "Desenvolvimento • Design"
+    "default_tag": "Desenvolvimento • Design",
+    "products_title": "produtos",
+    "clients_title": "para clientes"
   },
   "slider": {
     "label": "De perto",
@@ -39,26 +42,8 @@
   "aboutme": {
     "label": "Olá",
     "title": "Sobre mim",
-    "statement": "Sou o Ignacio. Crio e programo sites e sistemas para negócios que querem vender mais e se organizar melhor, hoje principalmente imobiliárias. Sob medida, direto da",
-    "accent": "Argentina.",
-    "metrics": [
-      {
-        "value": "2",
-        "label": "anos no ofício"
-      },
-      {
-        "value": "+15",
-        "label": "projetos entregues"
-      },
-      {
-        "value": "+10",
-        "label": "negócios como clientes"
-      },
-      {
-        "value": "5",
-        "label": "países com clientes"
-      }
-    ]
+    "statement": "Sou o Ignacio. Desenho, programo e mantenho o que construo, da primeira tela ao banco de dados. Direto da",
+    "accent": "Argentina."
   },
   "contact_modal": {
     "close": "Fechar",
@@ -145,7 +130,7 @@
       "about": "Sobre Mim",
       "contact": "Contato"
     },
-    "cta_label": "Tem algo em mente?",
+    "cta_label": "me escreva",
     "cta": "Vamos falar",
     "back_to_top": "Voltar ao topo"
   },

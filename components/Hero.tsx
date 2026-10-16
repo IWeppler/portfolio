@@ -34,6 +34,7 @@ export default function HeroSection({ lang }: { lang: string }) {
       <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-[1fr_auto_1fr]">
         <p className="hero-rise max-w-[40ch] text-[clamp(1.125rem,1.5vw,1.375rem)] leading-[1.35] tracking-[-0.01em] text-foreground [animation-delay:200ms]">
           {t.hero.statement}
+          <span className="block text-paragraph">{t.hero.statement_sub}</span>
         </p>
 
         <p className="label hero-rise hidden text-center text-paragraph md:block [animation-delay:260ms]">

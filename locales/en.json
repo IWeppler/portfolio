@@ -11,25 +11,28 @@
     "name_first": "Ignacio",
     "name_last": "Weppler",
     "portfolio": "Portfolio",
-    "role": "Full-stack developer",
+    "role": "product builder",
     "location": "Argentina",
-    "statement": "A digital presence that matches what you build. Experiences that connect your brand with new opportunities and make every process simpler.",
+    "statement": "building products.",
+    "statement_sub": "some are mine, some are for clients.",
     "scroll": "Scroll, gently",
-    "cta_works": "See the work",
+    "cta_works": "see the work",
     "ticker": [
-      "Real estate websites",
-      "CRM",
-      "Landing pages",
-      "Apps & SaaS",
-      "Next.js",
-      "Supabase"
+      "next.js",
+      "building in public",
+      "typescript",
+      "postgres",
+      "product design",
+      "interface design"
     ]
   },
   "works": {
     "title": "Projects",
     "view_project": "View project",
     "view_all": "View all projects",
-    "default_tag": "Development • Design"
+    "default_tag": "Development • Design",
+    "products_title": "products",
+    "clients_title": "client work"
   },
   "slider": {
     "label": "Up close",
@@ -39,26 +42,8 @@
   "aboutme": {
     "label": "Hello",
     "title": "About me",
-    "statement": "I'm Ignacio. I design and build websites and systems for businesses that want to sell more and run better, these days mostly real estate agencies. Made to measure, from",
-    "accent": "Argentina.",
-    "metrics": [
-      {
-        "value": "2",
-        "label": "years in the craft"
-      },
-      {
-        "value": "15+",
-        "label": "projects delivered"
-      },
-      {
-        "value": "10+",
-        "label": "businesses as clients"
-      },
-      {
-        "value": "5",
-        "label": "countries with clients"
-      }
-    ]
+    "statement": "I'm Ignacio. I design, code and maintain what I build, from the first screen to the database. From",
+    "accent": "Argentina."
   },
   "contact_modal": {
     "close": "Close",
@@ -145,7 +130,7 @@
       "about": "About Me",
       "contact": "Contact"
     },
-    "cta_label": "Got something in mind?",
+    "cta_label": "say hi",
     "cta": "Let's talk",
     "back_to_top": "Back to top"
   },

@@ -11,25 +11,28 @@
     "name_first": "Ignacio",
     "name_last": "Weppler",
     "portfolio": "Portfolio",
-    "role": "Desarrollador full-stack",
+    "role": "product builder",
     "location": "Argentina",
-    "statement": "Una presencia digital a la altura de lo que construís. Experiencias que conectan tu marca con nuevas oportunidades y hacen más simple cada proceso.",
+    "statement": "construyo productos.",
+    "statement_sub": "algunos son míos, otros para clientes.",
     "scroll": "Scroll down",
-    "cta_works": "Ver proyectos",
+    "cta_works": "ver trabajos",
     "ticker": [
-      "Webs a medida",
-      "Portales inmobiliarios",
-      "CRM personalizados",
-      "Landing Pages",
-      "Productos SaaS",
-      "Interfaces interactivas"
+      "next.js",
+      "supabase",
+      "typescript",
+      "postgres",
+      "diseño de producto",
+      "figma"
     ]
   },
   "works": {
     "title": "Proyectos",
     "view_project": "Ver proyecto",
     "view_all": "Ver todos los proyectos",
-    "default_tag": "Desarrollo • Diseño"
+    "default_tag": "Desarrollo • Diseño",
+    "products_title": "productos",
+    "clients_title": "para clientes"
   },
   "slider": {
     "label": "De cerca",
@@ -39,26 +42,8 @@
   "aboutme": {
     "label": "Hola",
     "title": "Sobre mí",
-    "statement": "Soy Ignacio. Diseño y programo webs y sistemas para negocios que quieren vender más y ordenarse mejor. Hecho a medida, desde",
-    "accent": "Argentina.",
-    "metrics": [
-      {
-        "value": "2",
-        "label": "años en el oficio"
-      },
-      {
-        "value": "+15",
-        "label": "proyectos entregados"
-      },
-      {
-        "value": "+10",
-        "label": "negocios como clientes"
-      },
-      {
-        "value": "5",
-        "label": "países con clientes"
-      }
-    ]
+    "statement": "Soy Ignacio. Diseño, programo y mantengo lo que construyo, de la primera pantalla a la base de datos. Desde",
+    "accent": "Argentina."
   },
   "contact_modal": {
     "close": "Cerrar",
@@ -145,7 +130,7 @@
       "about": "Sobre mí",
       "contact": "Contacto"
     },
-    "cta_label": "¿Tenés algo en mente?",
+    "cta_label": "escribime",
     "cta": "Hablemos",
     "back_to_top": "Volver arriba"
   },

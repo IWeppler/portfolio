@@ -16,16 +16,18 @@ export async function GET() {
 
   const body = `# Ignacio Weppler
 
-> Desarrollador full-stack de Tostado, Santa Fe, Argentina. Diseña y desarrolla webs y sistemas a medida para inmobiliarias: web con buscador y mapa, fichas de propiedades, consultas por WhatsApp, tasación online, reserva de visitas y CRM de leads y alquileres.
+> Product builder de Tostado, Santa Fe, Argentina. Construye productos propios y para clientes.
 
-- 2 años en el oficio, casi 20 proyectos, clientes en 5 países.
+- Productos propios: Comerz POS (sistema de gestión para comercios) y TerraNova (web y CRM inmobiliario).
+- 20 proyectos, clientes en 5 países.
 - Stack: Next.js, React, TypeScript, Supabase (PostgreSQL), Tailwind CSS.
 - Idiomas: español, inglés y portugués.
-- Producto propio: Comerz POS, sistema de gestión para comercios que usan más de 7 negocios a diario.
+- Para inmobiliarias: web con buscador y mapa, tasación online, reserva de visitas y CRM de leads y alquileres (ver /es/inmobiliarias).
 
 ## Páginas principales
 
 - [Webs para inmobiliarias](${SITE_URL}/es/inmobiliarias): qué incluye una web inmobiliaria y ejemplos.
+- [Desarrollo para agencias](${SITE_URL}/es/collabs): desarrollo en marca blanca, colaboración y sistemas a medida para agencias.
 - [Proyectos](${SITE_URL}/es/projects): todos los casos.
 - [Contacto](${SITE_URL}/es/contacto): pedir una propuesta.
 - [English](${SITE_URL}/en) · [Português](${SITE_URL}/pt)

@@ -15,9 +15,9 @@ export default function StructuredData({ schema }: { schema?: JsonLd }) {
     image: `${baseUrl}/ignacio-weppler.jpg`,
     // Mismo nombre, rol y ubicacion que en LinkedIn, GitHub e Instagram: los
     // buscadores y las IA reconocen la entidad por esa consistencia.
-    jobTitle: "Desarrollador full-stack — webs y CRM para inmobiliarias",
+    jobTitle: "Product builder",
     description:
-      "Ignacio Weppler diseña y desarrolla webs y sistemas a medida para inmobiliarias: buscador con mapa, tasación online, reserva de visitas y CRM de leads y alquileres. Tostado, Santa Fe, Argentina.",
+      "Ignacio Weppler builds products, some his own and some for clients. Next.js and Supabase. Tostado, Santa Fe, Argentina.",
     email: "ignacionweppler@gmail.com",
     telephone: "+54 11 5470 2118",
     address: {

@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import { ContactFlow } from "@/components/contact-modal/ContactFlow";
+import { ContactFlowFromUrl } from "@/components/contact-modal/ContactFlowFromUrl";
 import { getDictionary } from "@/lib/get-dictionary";
 import { alternatesFor, ogBase, seoCopy } from "@/lib/seo";
 
@@ -44,7 +46,10 @@ export default async function ContactPage({ params }: Props) {
         </h1>
 
         <div className="hero-rise [animation-delay:200ms]">
-          <ContactFlow lang={lang} />
+          {/* La pagina sigue estatica: el ?tipo= se lee recien en el cliente. */}
+          <Suspense fallback={<ContactFlow lang={lang} />}>
+            <ContactFlowFromUrl lang={lang} />
+          </Suspense>
         </div>
       </div>
     </main>

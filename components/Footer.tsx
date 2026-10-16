@@ -9,12 +9,15 @@ const SOCIALS = [
   { label: "Instagram", href: "https://www.instagram.com/ignacioweppler/" },
 ];
 
+const EMAIL = "ignacionweppler@gmail.com";
+
+// Queda disponible, pero chico: el contacto principal es el email.
 const WHATSAPP_URL =
   "https://wa.me/5491154702118?text=Hola%20Ignacio,%20vengo%20de%20tu%20portfolio%20y%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto.";
 
 /**
- * Cierre de todas las paginas: la invitacion a hablar en grande (va directo a
- * WhatsApp) y una sola fila con los datos de contacto.
+ * Cierre de todas las paginas: la invitacion a hablar en grande (abre el
+ * email) y una sola fila con los datos de contacto.
  */
 export default function Footer({ lang }: { lang: string }) {
   const t = getDictionary(lang);
@@ -26,9 +29,7 @@ export default function Footer({ lang }: { lang: string }) {
       {/* Mismo efecto que el nombre del hero: las letras reaccionan al cursor.
           El link lleva el nombre accesible; las letras son solo visuales. */}
       <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noreferrer"
+        href={`mailto:${EMAIL}`}
         aria-label={t.footer.cta}
         className="mt-6 block w-full transition-colors duration-200 select-none hover:text-orange focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-orange"
       >
@@ -36,8 +37,8 @@ export default function Footer({ lang }: { lang: string }) {
       </a>
 
       <div className="label mt-20 grid grid-cols-2 gap-x-6 gap-y-6 text-paragraph md:mt-28 lg:grid-cols-[auto_1fr_auto_auto] lg:items-center lg:gap-x-16">
-        <a href="mailto:ignacionweppler@gmail.com" className="col-span-2 w-fit max-w-full break-all text-foreground transition-colors hover:text-orange lg:col-span-1">
-          ignacionweppler@gmail.com
+        <a href={`mailto:${EMAIL}`} className="col-span-2 w-fit max-w-full break-all text-foreground transition-colors hover:text-orange lg:col-span-1">
+          {EMAIL}
         </a>
 
         <div className="col-span-2 flex flex-wrap gap-x-6 gap-y-2 lg:col-span-1 lg:justify-center">
@@ -46,6 +47,9 @@ export default function Footer({ lang }: { lang: string }) {
               {social.label}
             </a>
           ))}
+          <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="transition-colors hover:text-foreground">
+            WhatsApp
+          </a>
         </div>
 
         <p className="col-span-2 lg:col-span-1">

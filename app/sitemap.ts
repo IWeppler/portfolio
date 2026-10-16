@@ -22,8 +22,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...localized("", 1),
     ...localized("/projects", 0.8),
     ...localized("/contacto", 0.6),
-    // Landing solo en espanol.
+    // Landings solo en espanol.
     { url: `${SITE_URL}/es/inmobiliarias`, priority: 0.9 },
+    { url: `${SITE_URL}/es/collabs`, priority: 0.7 },
     ...projectSlugs.flatMap((slug) => localized(`/projects/${slug}`, 0.7)),
   ];
 }
