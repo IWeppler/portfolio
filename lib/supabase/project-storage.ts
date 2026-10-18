@@ -33,9 +33,18 @@ function extensionFromFile(file: File) {
 }
 
 export async function uploadProjectImage(file: File) {
+  const objectPath = `projects/${crypto.randomUUID()}.${extensionFromFile(file)}`;
+
+  return uploadStorageObject(objectPath, file, file.type || "application/octet-stream");
+}
+
+/** Sube un archivo al bucket publico y devuelve su URL publica. */
+export async function uploadStorageObject(
+  objectPath: string,
+  body: Blob | Uint8Array,
+  contentType: string,
+) {
   const { supabaseUrl, serviceRoleKey, bucket } = getSupabaseConfig();
-  const extension = extensionFromFile(file);
-  const objectPath = `projects/${crypto.randomUUID()}.${extension}`;
 
   const response = await fetch(
     `${supabaseUrl}/storage/v1/object/${bucket}/${objectPath}`,
@@ -44,13 +53,13 @@ export async function uploadProjectImage(file: File) {
       headers: {
         apikey: serviceRoleKey,
         Authorization: `Bearer ${serviceRoleKey}`,
-        "Content-Type": file.type || "application/octet-stream",
+        "Content-Type": contentType,
         "x-upsert": "true",
         // El nombre es un uuid nuevo por subida, asi que el archivo es
         // inmutable y se puede cachear un ano (Supabase pone 1h por defecto).
         "cache-control": "max-age=31536000",
       },
-      body: file,
+      body: body as BodyInit,
     }
   );
 
@@ -60,4 +69,18 @@ export async function uploadProjectImage(file: File) {
   }
 
   return storagePublicUrl(supabaseUrl, bucket, objectPath);
+}
+
+export async function deleteStorageObject(objectPath: string) {
+  const { supabaseUrl, serviceRoleKey, bucket } = getSupabaseConfig();
+
+  const response = await fetch(`${supabaseUrl}/storage/v1/object/${bucket}/${objectPath}`, {
+    method: "DELETE",
+    headers: { apikey: serviceRoleKey, Authorization: `Bearer ${serviceRoleKey}` },
+  });
+
+  if (!response.ok && response.status !== 404) {
+    const message = await response.text();
+    throw new Error(`Supabase Storage delete failed: ${response.status} ${message}`);
+  }
 }

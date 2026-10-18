@@ -16,7 +16,11 @@ const LABELS: Record<string, string> = {
   projects: "Proyectos",
   leads: "Leads",
   analytics: "Analíticas",
+  content: "Content",
+  library: "Biblioteca",
 };
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export function AdminHeader({ lang, userEmail }: AdminHeaderProps) {
   const pathname = usePathname();
@@ -30,7 +34,7 @@ export function AdminHeader({ lang, userEmail }: AdminHeaderProps) {
     .split("/")
     .filter(Boolean);
 
-  const crumbs = ["Dashboard", ...segments.map((s) => LABELS[s] ?? s)];
+  const crumbs = ["Dashboard", ...segments.map((s) => LABELS[s] ?? (UUID.test(s) ? "Pieza" : s))];
   const initial = (userEmail ?? "A").charAt(0).toUpperCase();
 
   async function handleLogout() {

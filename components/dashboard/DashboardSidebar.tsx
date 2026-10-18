@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   BarChart3,
   FolderKanban,
+  ImageIcon,
   LayoutDashboard,
   Mail,
   PanelLeft,
@@ -30,6 +31,11 @@ const navigationItems = [
     label: "Leads",
     href: "/leads",
     icon: Mail,
+  },
+  {
+    label: "Content",
+    href: "/content",
+    icon: ImageIcon,
   },
   {
     label: "Analíticas",

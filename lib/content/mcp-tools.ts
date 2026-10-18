@@ -1,0 +1,263 @@
+import { z } from "zod";
+import { EXPORT_SCALE, POST_FORMATS } from "./formats";
+import { BRAND_IDS, getKit } from "./kits";
+import { listContentAssets } from "./assets";
+import {
+  addLibraryItem,
+  fetchImage,
+  libraryFieldsSchema,
+  libraryKindSchema,
+  listLibrary,
+  previewForModel,
+} from "./library";
+import { designedFormats, missingFormats, postLabel } from "./post-utils";
+import { createPost, getPost, listPosts, listReviewedExamples, updatePost, type ContentPost } from "./posts";
+import { renderSlidePng } from "./render";
+import {
+  brandSchema,
+  createPostSchema,
+  postFormatSchema,
+  postStatusSchema,
+  updatePostSchema,
+} from "./schema";
+
+// Herramientas del MCP de Content (/api/mcp). Claude Code las usa para tomar
+// las ideas cargadas en el panel y convertirlas en piezas.
+
+type ToolContent =
+  | { type: "text"; text: string }
+  | { type: "image"; data: string; mimeType: string };
+
+type Tool<S extends z.ZodType> = {
+  name: string;
+  description: string;
+  input: S;
+  run: (args: z.infer<S>) => Promise<ToolContent[]>;
+};
+
+const json = (value: unknown): ToolContent[] => [
+  { type: "text", text: JSON.stringify(value, null, 2) },
+];
+
+// Validar los argumentos contra el schema de la herramienta, asi el route no
+// necesita conocer cada tipo.
+function defineTool<S extends z.ZodType>(tool: Tool<S>) {
+  return {
+    name: tool.name,
+    description: tool.description,
+    inputSchema: z.toJSONSchema(tool.input, { io: "input" }),
+    call: (args: unknown) => tool.run(tool.input.parse(args ?? {})),
+  };
+}
+
+const idInput = z.object({ id: z.string().uuid() });
+
+/** Lo que vuelve despues de guardar: la pieza resumida y los avisos del lint. */
+function saved(post: ContentPost) {
+  return json({
+    id: post.id,
+    brand: post.brand,
+    status: post.status,
+    formats: designedFormats(post),
+    issues: post.issues,
+    next:
+      post.issues.length > 0
+        ? "Corregir los avisos de issues y despues revisar con render_preview."
+        : "Revisar cada slide con render_preview.",
+  });
+}
+
+const EXAMPLE_SLIDE = {
+  layers: [
+    { type: "text", role: "label", x: 72, y: 72, w: 600, text: "(01) Inmobiliarias" },
+    { type: "text", role: "title", x: 72, y: 150, w: 936, field: "title" },
+    { type: "rect", x: 72, y: 470, w: 936, h: 640, color: "$surface", radius: 16 },
+    { type: "image", x: 112, y: 510, w: 856, h: 560, src: "<url de list_assets>", position: "top", radius: 8 },
+    { type: "text", role: "note", x: 72, y: 1200, w: 700, field: "subtitle" },
+    { type: "image", x: 912, y: 1182, w: 96, h: 96, src: "/brand/isotipo-fondo.png", radius: 16 },
+  ],
+};
+
+export const CONTENT_TOOLS = [
+  defineTool({
+    name: "get_brand_kit",
+    description:
+      "Kit completo de una marca: colores, roles tipograficos con rango, margenes, composiciones, decoracion, voz, reglas y ejemplos revisados por Ignacio. Leer antes de diseñar para esa marca.",
+    input: z.object({ brand: brandSchema }),
+    run: async ({ brand }) => {
+      const kit = getKit(brand);
+      return json({
+        ...kit,
+        formats: POST_FORMATS,
+        export: `Se diseña en el lienzo de 1080 de ancho; el panel descarga a ${EXPORT_SCALE}x (2160 de ancho).`,
+        layers: {
+          text: "x, y, w + role (obligatorio, del kit) + field (title|subtitle|body|cta|points.N) o text. size/weight/font/color/align/lineHeight/tracking/uppercase pisan el rol; size debe quedar en el rango del rol. Lo marcado con [[...]] sale en el color highlight del kit (o el de la capa).",
+          image: "x, y, w, h, src, fit (cover|contain), position (center|top|bottom|left|right), radius (de layout.radii), bleed si sale por el borde a proposito.",
+          rect: "x, y, w, h, color, radius, stroke + strokeWidth opcionales.",
+          all: "opacity, rotate. Se apilan en orden: la primera queda abajo. Slide.background por defecto es el del kit.",
+        },
+        content:
+          "Lo que dice la pieza va en content (objective, audience, title, subtitle, body, cta, points, caption) y las capas lo toman con field: asi Ignacio corrige un titulo sin tocar el diseño.",
+        example: EXAMPLE_SLIDE,
+        reviewedExamples: await listReviewedExamples(brand).catch((error) => {
+          // Sin ejemplos el kit sigue sirviendo.
+          console.error("mcp: failed to load reviewed examples", error);
+          return [];
+        }),
+        workflow: [
+          "1. list_posts con pending true para ver los pedidos del panel.",
+          "2. get_brand_kit de la marca de la pieza; list_assets y list_library (recursos) para elegir capturas reales.",
+          "3. list_library kind referencia y view_library de las que tengan que ver con la idea: seguir lo que dice cada nota, sin copiar la pieza entera.",
+          "4. Mirar reviewedExamples: los 'listo' son el estilo a seguir, los 'rechazado' dicen que evitar (reviewNote). Se pueden ver con render_preview.",
+          "5. update_post con content y designs del formato pedido, status 'borrador'.",
+          "6. Corregir los issues que devuelve y revisar cada slide con render_preview.",
+        ],
+      });
+    },
+  }),
+  defineTool({
+    name: "list_assets",
+    description: "Logos y capturas de una marca (para el portfolio, tambien los mockups de los proyectos publicados).",
+    input: z.object({ brand: brandSchema }),
+    run: async ({ brand }) => json(await listContentAssets(brand)),
+  }),
+  defineTool({
+    name: "list_library",
+    description:
+      "Biblioteca de una marca. referencia = inspiracion cargada por Ignacio, con note de que tomar (nunca va dentro de la pieza). recurso = imagen para usar en las piezas (su url va en capas image).",
+    input: z.object({ brand: brandSchema, kind: libraryKindSchema.optional() }),
+    run: async ({ brand, kind }) =>
+      json(
+        (await listLibrary({ brand, kind })).map((item) => ({
+          id: item.id,
+          kind: item.kind,
+          title: item.title,
+          note: item.note,
+          tags: item.tags,
+          url: item.url,
+          ratio: Math.round((item.width / item.height) * 100) / 100,
+          sourceUrl: item.sourceUrl || undefined,
+        })),
+      ),
+  }),
+  defineTool({
+    name: "view_library",
+    description:
+      "Muestra como imagen hasta 6 items de la biblioteca, cada uno con su nota. Mirar las referencias antes de diseñar: la nota dice que tomar de cada una.",
+    input: z.object({ ids: z.array(z.string().uuid()).min(1).max(6) }),
+    run: async ({ ids }) => {
+      const items = await listLibrary({ ids });
+      if (items.length === 0) throw new Error("No hay items con esos ids.");
+
+      const blocks = await Promise.all(
+        items.map(async (item): Promise<ToolContent[]> => [
+          {
+            type: "text",
+            text: `${item.kind} ${item.id}${item.title ? ` · ${item.title}` : ""}\n${item.note || "(sin nota)"}`,
+          },
+          { type: "image", data: await previewForModel(item), mimeType: "image/jpeg" },
+        ]),
+      );
+      return blocks.flat();
+    },
+  }),
+  defineTool({
+    name: "add_library_item",
+    description:
+      "Agrega a la biblioteca una imagen publica por URL. Para un archivo local (una captura que pego Ignacio en el chat), subirlo con curl: " +
+      'curl -F file=@<ruta> -F brand=<marca> -F kind=referencia -F "note=<que tomar>" -H "Authorization: Bearer $CONTENT_MCP_TOKEN" <origen>/api/content/library ' +
+      "(el token esta en .env.local del portfolio). Preguntarle a Ignacio que tomar de una referencia si no lo dijo.",
+    input: libraryFieldsSchema.extend({ imageUrl: z.string().url() }),
+    run: async ({ imageUrl, ...fields }) => {
+      const item = await addLibraryItem(await fetchImage(imageUrl), fields);
+      return json({ id: item.id, kind: item.kind, url: item.url, width: item.width, height: item.height });
+    },
+  }),
+  defineTool({
+    name: "list_posts",
+    description:
+      "Piezas del modulo Content. pending true = pedidos esperando diseño (ideas, o formatos agregados en el panel que todavia no tienen slides).",
+    input: z.object({
+      brand: brandSchema.optional(),
+      status: postStatusSchema.optional(),
+      pending: z.boolean().optional(),
+    }),
+    run: async ({ brand, status, pending }) => {
+      const posts = await listPosts({ brand, status });
+      return json(
+        posts
+          .map((post) => ({
+            id: post.id,
+            brand: post.brand,
+            title: postLabel(post),
+            idea: post.idea,
+            status: post.status,
+            format: post.format,
+            designed: designedFormats(post),
+            missing: missingFormats(post),
+            reviewNote: post.reviewNote || undefined,
+            issues: post.issues.length,
+            updatedAt: post.updatedAt,
+          }))
+          .filter((post) => !pending || post.missing.length > 0),
+      );
+    },
+  }),
+  defineTool({
+    name: "get_post",
+    description: "Pieza completa: content, designs por formato, avisos del lint.",
+    input: idInput,
+    run: async ({ id }) => {
+      const post = await getPost(id);
+      if (!post) throw new Error("No existe esa pieza.");
+      return json(post);
+    },
+  }),
+  defineTool({
+    name: "create_post",
+    description: "Crea una pieza nueva para una marca. Con slides queda como 'borrador'; sin slides, como 'idea'.",
+    input: createPostSchema,
+    run: async (input) => saved(await createPost(input, "claude")),
+  }),
+  defineTool({
+    name: "update_post",
+    description:
+      "Actualiza una pieza. content se mezcla campo por campo; designs reemplaza solo los formatos que se manden (null borra uno). Al terminar de diseñar, status 'borrador'; 'listo' y 'rechazado' los marca Ignacio.",
+    input: updatePostSchema.extend({ id: z.string().uuid() }),
+    run: async ({ id, ...patch }) => {
+      const post = await updatePost(id, patch, "claude");
+      if (!post) throw new Error("No existe esa pieza.");
+      return saved(post);
+    },
+  }),
+  defineTool({
+    name: "render_preview",
+    description: "Render PNG de un slide (a 540 de ancho) para revisar el diseño.",
+    input: idInput.extend({
+      format: postFormatSchema.optional().describe("Por defecto, el formato principal."),
+      slide: z.number().int().min(0).max(9).default(0),
+    }),
+    run: async ({ id, format, slide }) => {
+      const post = await getPost(id);
+      if (!post) throw new Error("No existe esa pieza.");
+      const target = format ?? post.format;
+      const slides = post.designs[target]?.slides ?? [];
+      if (!slides[slide]) throw new Error(`El formato ${target} tiene ${slides.length} slides.`);
+
+      const png = await renderSlidePng({
+        kit: getKit(post.brand),
+        content: post.content,
+        slide: slides[slide],
+        format: target,
+        scale: 0.5,
+      });
+      return [{ type: "image", data: png.toString("base64"), mimeType: "image/png" }];
+    },
+  }),
+];
+
+export const CONTENT_INSTRUCTIONS =
+  `MCP del modulo Content: diseña posteos de Instagram para las marcas ${BRAND_IDS.join(", ")}. ` +
+  "Cada marca tiene identidad propia: llamar get_brand_kit con la marca de la pieza antes de diseñar y mirar sus referencias (list_library + view_library). " +
+  "Los pedidos del panel salen en list_posts con pending true. Guardar con update_post, corregir los issues que devuelve " +
+  "y revisar cada slide con render_preview. Nunca inventar cifras, precios ni clientes.";
