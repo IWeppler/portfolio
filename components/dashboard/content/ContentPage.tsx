@@ -8,6 +8,7 @@ import { POST_FORMATS, POST_FORMAT_NAMES, type PostFormat } from "@/lib/content/
 import { BRAND_KITS, type BrandId } from "@/lib/content/kits";
 import { designedFormats, missingFormats, postLabel } from "@/lib/content/post-utils";
 import { ContentNav } from "./ContentNav";
+import { CopyRequest } from "./CopyRequest";
 import { STATUS_LABELS, STATUS_STYLES, renderUrl, type ContentPost } from "./types";
 
 type ContentPageProps = {
@@ -66,7 +67,7 @@ export function ContentPage({ lang, brand }: ContentPageProps) {
             Content
           </h1>
           <p className="mt-4 max-w-xl text-sm text-paragraph">
-            Cargá una idea, pedile a Claude Code que la diseñe con el kit de la marca y bajá cada slide en 2K.
+            Cargá una idea, copiá su pedido y pegalo en Claude Code: arma el brief, te lo muestra y diseña cuando lo aprobás. Después bajás cada slide en 2K.
           </p>
         </div>
         <ContentNav lang={lang} brand={brand} section="posts" />
@@ -108,6 +109,7 @@ function IdeaForm({ brand, onCreated }: { brand: BrandId; onCreated: (post: Cont
   const [format, setFormat] = useState<PostFormat>("portrait");
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [created, setCreated] = useState<ContentPost | null>(null);
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -125,6 +127,7 @@ function IdeaForm({ brand, onCreated }: { brand: BrandId; onCreated: (post: Cont
       if (!response.ok) throw new Error();
       const data = (await response.json()) as { post: ContentPost };
       onCreated(data.post);
+      setCreated(data.post);
       setIdea("");
     } catch {
       setError("No se pudo guardar la idea.");
@@ -174,17 +177,21 @@ function IdeaForm({ brand, onCreated }: { brand: BrandId; onCreated: (post: Cont
           className="inline-flex h-10 w-fit shrink-0 items-center gap-2 rounded-md bg-orange px-4 text-sm font-medium text-dark transition-opacity hover:opacity-90 disabled:opacity-50"
         >
           {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
-          Guardar idea
+          Generar pedido
         </button>
       </div>
+      {created && !idea && (
+        <div className="flex flex-col gap-2">
+          <CopyRequest postId={created.id} />
+          <p className="text-xs text-paragraph">Pegalo en Claude Code. Antes de diseñar te muestra el brief para que lo apruebes.</p>
+        </div>
+      )}
       {error && <p className="text-sm text-red-300">{error}</p>}
     </form>
   );
 }
 
 const noopSubscribe = () => () => {};
-
-const PROMPT = "Diseñá los pedidos pendientes del módulo Content del portfolio.";
 
 function ConnectCard() {
   const origin = useSyncExternalStore(
@@ -209,10 +216,10 @@ function ConnectCard() {
         Claude Code
       </div>
       <p className="text-sm text-paragraph">
-        Conectá el MCP una vez (con <code className="font-mono text-xs">CONTENT_MCP_TOKEN</code> en tu entorno) y después pedile:
+        Conectá el MCP una vez (con <code className="font-mono text-xs">CONTENT_MCP_TOKEN</code> en tu entorno). Cada idea tiene su pedido; este toma todas las que no tienen diseño:
       </p>
       <CopyRow label="Conexión" text={command} copied={copied === "command"} onCopy={() => void copy("command", command)} />
-      <CopyRow label="Pedido" text={PROMPT} copied={copied === "prompt"} onCopy={() => void copy("prompt", PROMPT)} />
+      <CopyRow label="Todas las pendientes" text="/content-post" copied={copied === "all"} onCopy={() => void copy("all", "/content-post")} />
     </div>
   );
 }
@@ -264,9 +271,9 @@ function PostCard({ post, href }: { post: ContentPost; href: string }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={renderUrl(post, format, 0, 0.5)} alt={label} className="h-full w-full object-cover" loading="lazy" />
         ) : (
-          <div className="flex flex-col items-center gap-2 px-6 text-center text-xs text-paragraph">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            Esperando a Claude Code
+          <div className="flex flex-col items-center gap-3 px-6 text-center text-xs text-paragraph">
+            Sin diseñar
+            <CopyRequest postId={post.id} compact />
           </div>
         )}
         {slides > 1 && (

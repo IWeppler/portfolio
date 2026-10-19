@@ -18,6 +18,7 @@ import { BRAND_KITS } from "@/lib/content/kits";
 import { missingFormats, postLabel } from "@/lib/content/post-utils";
 import type { Content, PostStatus, UpdatePostInput } from "@/lib/content/schema";
 import { ContentForm } from "./ContentForm";
+import { CopyRequest } from "./CopyRequest";
 import { VersionsPanel } from "./VersionsPanel";
 import { STATUS_LABELS, renderUrl, type ContentPost } from "./types";
 
@@ -221,9 +222,11 @@ export function PostDetailPage({ lang, initialPost }: PostDetailPageProps) {
               style={{ aspectRatio: `${width} / ${height}`, maxWidth: `min(100%, calc(72vh * ${width / height}))` }}
             >
               {slideCount === 0 ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-8 text-center text-sm text-paragraph">
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Esperando a que Claude Code diseñe este formato.
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-8 text-center text-sm text-paragraph">
+                  Este formato todavía no tiene diseño. Copiá el pedido y pegalo en Claude Code.
+                  <div className="w-full max-w-sm text-left">
+                    <CopyRequest postId={post.id} format={format === post.format ? undefined : format} />
+                  </div>
                 </div>
               ) : (
                 <>
