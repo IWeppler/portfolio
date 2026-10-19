@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ImageColumns, type ColumnImage } from "@/components/projects/ImageColumns";
+import {
+  ImageColumns,
+  type ColumnImage,
+} from "@/components/projects/ImageColumns";
 import { ButtonPrimary, ButtonSecondary } from "@/components/ui/Buttons";
 import { FaqList, type FaqItem } from "@/components/ui/FaqList";
 import { getPublishedProjects } from "@/lib/projects/published";
@@ -93,8 +96,14 @@ const STACK = [
 
 // Trabajos de WordPress, sin imagenes en el panel.
 const WORDPRESS_CASES = [
-  { name: "Tac Tech", text: "Mantenimiento y optimización de e-commerce en WordPress." },
-  { name: "Infinito Remeras", text: "Mantenimiento y optimización de e-commerce en WordPress." },
+  {
+    name: "Tac Tech",
+    text: "Mantenimiento y optimización de e-commerce en WordPress.",
+  },
+  {
+    name: "Infinito Remeras",
+    text: "Mantenimiento y optimización de e-commerce en WordPress.",
+  },
 ];
 
 // Solo testimonios reales, con permiso de la agencia. Vacio, la seccion no se muestra.
@@ -152,11 +161,24 @@ export const metadata = {
   description: DESCRIPTION,
   // Solo existe en espanol: sin alternates de idioma.
   alternates: { canonical: "/es/collabs" },
-  openGraph: { ...ogBase("es"), url: "/es/collabs", title: TITLE, description: DESCRIPTION },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  openGraph: {
+    ...ogBase("es"),
+    url: "/es/collabs",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
-export default async function CollabsPage({ params }: { params: Promise<{ lang: string }> }) {
+export default async function CollabsPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
   if (lang !== "es") notFound();
 
@@ -165,13 +187,17 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
     const project = published.find((item) => item.slug === slug);
     if (!project) return [];
     return [project.cover, ...project.images]
-      .filter((url, i, all): url is string => Boolean(url) && all.indexOf(url) === i)
+      .filter(
+        (url, i, all): url is string => Boolean(url) && all.indexOf(url) === i,
+      )
       .slice(0, limit)
       .map((src) => ({ src, name: project.name, alt: project.alts[src] }));
   };
 
   // Intercaladas para que cada columna del mosaico mezcle proyectos.
-  const byProject = MOSAIC_SLUGS.map((slug) => imagesOf(slug, IMAGES_PER_PROJECT));
+  const byProject = MOSAIC_SLUGS.map((slug) =>
+    imagesOf(slug, IMAGES_PER_PROJECT),
+  );
   const mosaic = Array.from({ length: IMAGES_PER_PROJECT }, (_, i) =>
     byProject.map((list) => list[i]).filter(Boolean),
   ).flat();
@@ -179,7 +205,9 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
   const agencyCases = AGENCY_SLUGS.flatMap((slug) => {
     const project = published.find((item) => item.slug === slug);
     const [image] = imagesOf(slug, 1);
-    return project && image ? [{ slug, name: project.name, excerpt: project.excerpt, image }] : [];
+    return project && image
+      ? [{ slug, name: project.name, excerpt: project.excerpt, image }]
+      : [];
   });
 
   return (
@@ -187,33 +215,45 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
       {/* Hero: titulo corto a un lado, mosaico en movimiento al otro. */}
       <section className="grid min-h-svh grid-cols-1 lg:grid-cols-12">
         <div className="flex flex-col justify-center px-4 py-16 md:px-8 lg:col-span-5 lg:py-0">
-          <p className="label text-paragraph">Ignacio Weppler · Desarrollo para agencias</p>
-          <h1 className="mt-6 text-[clamp(3rem,8vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.045em] text-balance">
-            Vos diseñás y vendés. Yo lo programo.
+          <p className="label text-paragraph">
+            Ignacio Weppler · Desarrollo para agencias
+          </p>
+          <h1 className="mt-6 text-[clamp(3rem,8vw,4.5rem)] font-medium leading-[0.95] tracking-[-0.045em] text-balance">
+            Tu agencia puede ofrecer más. Sin agrandar el equipo.
           </h1>
           <p className="text-body mt-6 max-w-md text-paragraph">
-            Desarrollo en marca blanca para agencias: tu diseño llevado a código, con los plazos que le prometiste a
-            tu cliente y una tarifa que te deja margen.
+            Colaboro con agencias que necesitan un desarrollador de confianza
+            para llevar sus diseños a producción, resolver proyectos complejos y
+            entregar un buen trabajo sin ampliar su equipo.
           </p>
           <div className="mt-8 flex flex-col items-start gap-3">
             <ButtonPrimary href={WHATSAPP_URL} target="_blank">
-              Pedime un presupuesto
+              Hablemos de tu proyecto
             </ButtonPrimary>
             <p className="label text-paragraph">{PROOF}</p>
           </div>
         </div>
 
-        <ImageColumns images={mosaic} className="h-[80svh] lg:col-span-7 lg:h-svh" />
+        <ImageColumns
+          images={mosaic}
+          className="h-[80svh] lg:col-span-7 lg:h-svh"
+        />
       </section>
 
       {/* Los cuatro miedos de subcontratar, desactivados uno por uno. */}
       <section className="px-4 pt-24 md:px-8 md:pt-40">
-        <p className="label text-paragraph">Lo que te preocupa cuando subcontratás</p>
+        <p className="label text-paragraph">
+          Lo que te preocupa cuando subcontratás
+        </p>
         <ul className="mt-6 grid gap-10 border-t border-foreground/20 pt-10 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           {PROMISES.map((item, index) => (
             <li key={item.title}>
-              <p className="label text-paragraph">({String(index + 1).padStart(2, "0")})</p>
-              <h2 className="text-statement mt-4 font-medium text-balance">{item.title}</h2>
+              <p className="label text-paragraph">
+                ({String(index + 1).padStart(2, "0")})
+              </p>
+              <h2 className="text-statement mt-4 font-medium text-balance">
+                {item.title}
+              </h2>
               <p className="text-body mt-3 text-paragraph">{item.text}</p>
             </li>
           ))}
@@ -229,9 +269,15 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
               key={mode.title}
               className="grid gap-4 border-b border-foreground/20 py-8 md:grid-cols-12 md:gap-8 md:py-12"
             >
-              <p className="label text-paragraph md:col-span-1">({String(index + 1).padStart(2, "0")})</p>
-              <h2 className="text-statement font-medium text-balance md:col-span-4">{mode.title}</h2>
-              <p className="text-body text-paragraph md:col-span-7">{mode.text}</p>
+              <p className="label text-paragraph md:col-span-1">
+                ({String(index + 1).padStart(2, "0")})
+              </p>
+              <h2 className="text-statement font-medium text-balance md:col-span-4">
+                {mode.title}
+              </h2>
+              <p className="text-body text-paragraph md:col-span-7">
+                {mode.text}
+              </p>
             </li>
           ))}
         </ul>
@@ -243,7 +289,9 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
         <ol className="mt-6 grid gap-10 border-t border-foreground/20 pt-10 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           {STEPS.map((step, index) => (
             <li key={step.title}>
-              <p className="label text-paragraph">({String(index + 1).padStart(2, "0")})</p>
+              <p className="label text-paragraph">
+                ({String(index + 1).padStart(2, "0")})
+              </p>
               <h3 className="text-statement mt-4 font-medium">{step.title}</h3>
               <p className="text-body mt-3 text-paragraph">{step.text}</p>
             </li>
@@ -256,8 +304,12 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
         <div className="mt-6 grid gap-10 border-t border-foreground/20 pt-10 md:grid-cols-2 md:gap-8">
           {STACK.map((item) => (
             <div key={item.title}>
-              <h2 className="text-statement font-medium text-balance">{item.title}</h2>
-              <p className="text-body mt-3 max-w-xl text-paragraph">{item.text}</p>
+              <h2 className="text-statement font-medium text-balance">
+                {item.title}
+              </h2>
+              <p className="text-body mt-3 max-w-xl text-paragraph">
+                {item.text}
+              </p>
             </div>
           ))}
         </div>
@@ -270,7 +322,10 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
           <ul className="mt-6 grid gap-8 md:grid-cols-2">
             {agencyCases.map((item) => (
               <li key={item.slug}>
-                <Link href={`/es/projects/${item.slug}`} className="group block">
+                <Link
+                  href={`/es/projects/${item.slug}`}
+                  className="group block"
+                >
                   <div className="relative aspect-[4/3] overflow-hidden bg-surface">
                     <Image
                       src={item.image.src}
@@ -287,7 +342,8 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
                     </span>
                   </div>
                   <p className="text-body mt-2 text-paragraph">
-                    Desarrollado para una agencia{item.excerpt ? `. ${item.excerpt}` : "."}
+                    Desarrollado para una agencia
+                    {item.excerpt ? `. ${item.excerpt}` : "."}
                   </p>
                 </Link>
               </li>
@@ -310,7 +366,9 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
           <ul className="mt-16 grid gap-10 md:grid-cols-2 md:gap-8">
             {TESTIMONIALS.map((item) => (
               <li key={item.author}>
-                <blockquote className="text-statement font-medium text-balance">“{item.quote}”</blockquote>
+                <blockquote className="text-statement font-medium text-balance">
+                  “{item.quote}”
+                </blockquote>
                 <p className="label mt-4 text-paragraph">
                   {item.author} · {item.role}
                 </p>
@@ -339,7 +397,9 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <p className="label text-paragraph">Preguntas frecuentes</p>
-            <h2 className="text-statement mt-6 font-medium text-balance">Lo que suelen preguntarme las agencias.</h2>
+            <h2 className="text-statement mt-6 font-medium text-balance">
+              Lo que suelen preguntarme las agencias.
+            </h2>
           </div>
           <div className="lg:col-span-8">
             <FaqList items={FAQ} />
@@ -354,7 +414,8 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
             ¿Tenés un proyecto para cotizar?
           </h2>
           <p className="text-body mt-8 max-w-xl text-paragraph md:mt-10">
-            Mandame el diseño o la idea y en menos de 24 horas tenés el presupuesto, con margen para tu agencia.
+            Mandame el diseño o la idea y en menos de 24 horas tenés el
+            presupuesto, con margen para tu agencia.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 md:mt-12">
             <ButtonPrimary
@@ -364,7 +425,9 @@ export default async function CollabsPage({ params }: { params: Promise<{ lang: 
             >
               Escribime por WhatsApp
             </ButtonPrimary>
-            <ButtonSecondary href={FORM_URL}>Prefiero el formulario</ButtonSecondary>
+            <ButtonSecondary href={FORM_URL}>
+              Prefiero el formulario
+            </ButtonSecondary>
           </div>
           <p className="label mt-10 text-paragraph">{PROOF}</p>
         </div>

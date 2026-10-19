@@ -1,13 +1,20 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ImageColumns, type ColumnImage } from "@/components/projects/ImageColumns";
+import {
+  ImageColumns,
+  type ColumnImage,
+} from "@/components/projects/ImageColumns";
 import { ButtonPrimary } from "@/components/ui/Buttons";
 import { FaqList, type FaqItem } from "@/components/ui/FaqList";
 import { getPublishedProjects } from "@/lib/projects/published";
 import { ogBase } from "@/lib/seo";
 
 // Proyectos del rubro inmobiliario: TerraNova, Arcos y Lumen.
-const REAL_ESTATE_SLUGS = ["inmobiliaria-terranova", "arcos-propiedades", "lumen-propiedades"];
+const REAL_ESTATE_SLUGS = [
+  "inmobiliaria-terranova",
+  "arcos-propiedades",
+  "lumen-propiedades",
+];
 const IMAGES_PER_PROJECT = 6;
 
 const WHATSAPP_URL =
@@ -89,11 +96,24 @@ export const metadata = {
   description: DESCRIPTION,
   // Solo existe en espanol: sin alternates de idioma.
   alternates: { canonical: "/es/inmobiliarias" },
-  openGraph: { ...ogBase("es"), url: "/es/inmobiliarias", title: TITLE, description: DESCRIPTION },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  openGraph: {
+    ...ogBase("es"),
+    url: "/es/inmobiliarias",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
-export default async function InmobiliariasPage({ params }: { params: Promise<{ lang: string }> }) {
+export default async function InmobiliariasPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
   if (lang !== "es") notFound();
 
@@ -113,7 +133,9 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
   // abre el mosaico del hero.
   const verde: ColumnImage = {
     src: "/inmobiliarias/verde.png",
-    name: published.find((item) => item.slug === "arcos-propiedades")?.name ?? "Arcos Propiedades",
+    name:
+      published.find((item) => item.slug === "arcos-propiedades")?.name ??
+      "Arcos Propiedades",
   };
   const images = [...fromPanel, verde];
 
@@ -122,14 +144,17 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
     const name = published.find((item) => item.slug === slug)?.name;
     return fromPanel.filter((image) => image.name === name);
   });
-  const mixed = Array.from({ length: Math.max(0, ...byProject.map((list) => list.length)) }, (_, i) =>
-    byProject.map((list) => list[i]).filter(Boolean),
+  const mixed = Array.from(
+    { length: Math.max(0, ...byProject.map((list) => list.length)) },
+    (_, i) => byProject.map((list) => list[i]).filter(Boolean),
   ).flat();
   mixed.unshift(verde);
 
   const demos = REAL_ESTATE_SLUGS.flatMap((slug) => {
     const project = published.find((item) => item.slug === slug);
-    return project?.deployUrl ? [{ name: project.name, url: project.deployUrl }] : [];
+    return project?.deployUrl
+      ? [{ name: project.name, url: project.deployUrl }]
+      : [];
   });
 
   return (
@@ -137,13 +162,16 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
       {/* Hero: titulo corto a un lado, mosaico en movimiento al otro. */}
       <section className="grid min-h-svh grid-cols-1 lg:grid-cols-12">
         <div className="flex flex-col justify-center px-4 py-16 md:px-8 lg:col-span-5 lg:py-0">
-          <p className="label text-paragraph">Ignacio Weppler · Webs para inmobiliarias</p>
-          <h1 className="mt-6 text-[clamp(3rem,8vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.045em] text-balance">
-            Webs que llenan tu WhatsApp.
+          <p className="label text-paragraph">
+            Ignacio Weppler · Webs para inmobiliarias
+          </p>
+          <h1 className="mt-6 text-[clamp(3rem,8vw,4.5rem)] font-medium leading-[0.95] tracking-[-0.045em] text-balance">
+            Tu inmobiliaria, mejor presentada. Mejor organizada.
           </h1>
           <p className="text-body mt-6 max-w-md text-paragraph">
-            Páginas web y CRM para inmobiliarias: tus propiedades bien presentadas, las consultas directo a tu
-            WhatsApp y el seguimiento en un solo lugar.
+            Una web profesional para mostrar tus propiedades y un CRM para
+            gestionar consultas, clientes y oportunidades. Todo conectado, para
+            que puedas concentrarte en cerrar más operaciones.
           </p>
           <div className="mt-8 flex flex-col items-start gap-3">
             <ButtonPrimary href={WHATSAPP_URL} target="_blank">
@@ -153,7 +181,10 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
           </div>
         </div>
 
-        <ImageColumns images={mixed} className="h-[80svh] lg:col-span-7 lg:h-svh" />
+        <ImageColumns
+          images={mixed}
+          className="h-[80svh] lg:col-span-7 lg:h-svh"
+        />
       </section>
 
       {/* Todas las imagenes a pantalla casi completa, apilandose al scrollear. */}
@@ -175,7 +206,8 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
                 <div className="absolute inset-x-0 bottom-0 flex justify-between gap-4 bg-gradient-to-t from-black/60 to-transparent px-4 pb-4 pt-20 md:px-6 md:pb-5">
                   <span className="label text-foreground">{image.name}</span>
                   <span className="label text-foreground">
-                    ({String(i + 1).padStart(2, "0")}/{String(images.length).padStart(2, "0")})
+                    ({String(i + 1).padStart(2, "0")}/
+                    {String(images.length).padStart(2, "0")})
                   </span>
                 </div>
               </div>
@@ -196,8 +228,12 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
                   rel="noopener noreferrer"
                   className="group flex items-baseline justify-between gap-4 py-6 md:py-8"
                 >
-                  <span className="label text-paragraph">({String(i + 1).padStart(2, "0")})</span>
-                  <span className="text-statement flex-1 font-medium text-balance">{demo.name}</span>
+                  <span className="label text-paragraph">
+                    ({String(i + 1).padStart(2, "0")})
+                  </span>
+                  <span className="text-statement flex-1 font-medium text-balance">
+                    {demo.name}
+                  </span>
                   <span className="label text-foreground transition-transform group-hover:translate-x-1">
                     Ver demo ↗
                   </span>
@@ -212,8 +248,12 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
         <ul className="grid gap-10 md:grid-cols-3 md:gap-8">
           {POINTS.map((point, index) => (
             <li key={point.title}>
-              <p className="label text-paragraph">({String(index + 1).padStart(2, "0")})</p>
-              <h2 className="text-statement mt-4 font-medium text-balance">{point.title}</h2>
+              <p className="label text-paragraph">
+                ({String(index + 1).padStart(2, "0")})
+              </p>
+              <h2 className="text-statement mt-4 font-medium text-balance">
+                {point.title}
+              </h2>
               <p className="text-body mt-3 text-paragraph">{point.text}</p>
             </li>
           ))}
@@ -224,19 +264,22 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
       <section className="px-4 pt-24 md:px-8 md:pt-40">
         <p className="label text-paragraph">El problema</p>
         <h2 className="text-statement mt-6 max-w-4xl font-medium text-balance">
-          La web por un lado, las consultas en WhatsApp y planillas por otro, y los alquileres en una tercera
-          herramienta.
+          La web por un lado, las consultas en WhatsApp y planillas por otro, y
+          los alquileres en una tercera herramienta.
         </h2>
         <div className="text-body mt-8 grid max-w-4xl gap-6 text-paragraph md:grid-cols-2 md:gap-10">
           <p>
-            Así trabajan la mayoría de las inmobiliarias. Se pierden consultas, nadie sabe qué propiedad funciona y
-            administrar un contrato lleva horas. Una web que solo muestra fotos no alcanza: tiene que convertir visitas
-            en consultas y que cada una llegue al asesor correcto.
+            Así trabajan la mayoría de las inmobiliarias. Se pierden consultas,
+            nadie sabe qué propiedad funciona y administrar un contrato lleva
+            horas. Una web que solo muestra fotos no alcanza: tiene que
+            convertir visitas en consultas y que cada una llegue al asesor
+            correcto.
           </p>
           <p>
-            Por eso hago dos cosas que funcionan juntas o por separado: una web pensada para generar consultas y un CRM
-            donde tu equipo trabaja cada día, en ventas y en alquileres. Es el mismo sistema que hay detrás de
-            TerraNova, Arcos y Lumen.
+            Por eso hago dos cosas que funcionan juntas o por separado: una web
+            pensada para generar consultas y un CRM donde tu equipo trabaja cada
+            día, en ventas y en alquileres. Es el mismo sistema que hay detrás
+            de TerraNova, Arcos y Lumen.
           </p>
         </div>
       </section>
@@ -247,7 +290,9 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
         <ol className="mt-6 grid gap-10 border-t border-foreground/20 pt-10 md:grid-cols-4 md:gap-8">
           {STEPS.map((step, index) => (
             <li key={step.title}>
-              <p className="label text-paragraph">({String(index + 1).padStart(2, "0")})</p>
+              <p className="label text-paragraph">
+                ({String(index + 1).padStart(2, "0")})
+              </p>
               <h3 className="text-statement mt-4 font-medium">{step.title}</h3>
               <p className="text-body mt-3 text-paragraph">{step.text}</p>
             </li>
@@ -274,7 +319,9 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <p className="label text-paragraph">Preguntas frecuentes</p>
-            <h2 className="text-statement mt-6 font-medium text-balance">Lo que suelen preguntarme.</h2>
+            <h2 className="text-statement mt-6 font-medium text-balance">
+              Lo que suelen preguntarme.
+            </h2>
           </div>
           <div className="lg:col-span-8">
             <FaqList items={FAQ} />
@@ -289,7 +336,8 @@ export default async function InmobiliariasPage({ params }: { params: Promise<{ 
             ¿Te imaginás algo así para tu inmobiliaria?
           </h2>
           <p className="text-body mt-8 max-w-xl text-paragraph md:mt-10">
-            Conversemos por WhatsApp, sin compromiso. Podemos ver qué solución encaja con tu negocio.
+            Conversemos por WhatsApp, sin compromiso. Podemos ver qué solución
+            encaja con tu negocio.
           </p>
           <ButtonPrimary
             href={WHATSAPP_URL}
