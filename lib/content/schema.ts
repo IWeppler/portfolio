@@ -48,14 +48,51 @@ const color = z
   .string()
   .trim()
   .max(40)
-  .describe('Token del kit ("$foreground", "$accent", ...) o hex.');
+  .describe('Token del kit ("$foreground", "$accent", ...), con alfa en % ("$accent/20") o hex.');
 
 const box = {
   x: z.number().min(-2000).max(4000).describe("Izquierda en px del lienzo de 1080."),
   y: z.number().min(-2000).max(4000).describe("Arriba en px."),
   opacity: z.number().min(0).max(1).optional(),
   rotate: z.number().min(-180).max(180).optional().describe("Grados."),
+  id: z.string().max(40).optional().describe("Nombre estable de la capa, para referirse a ella."),
+  purpose: z
+    .string()
+    .max(160)
+    .optional()
+    .describe("Para que esta la capa (sostiene el titular, separa, da profundidad). Lo decorativo sin funcion sobra."),
 };
+
+// Efectos. Los caros para el render (sombras, desenfoques) se preparan con
+// sharp antes de dibujar, asi un slide con varias sombras no tarda minutos.
+
+const shadow = z
+  .union([
+    z.enum(["soft", "float", "deep"]),
+    z.object({
+      distance: z.number().min(0).max(200).default(24),
+      blur: z.number().min(0).max(200).default(48),
+      opacity: z.number().min(0).max(1).default(0.5),
+    }),
+  ])
+  .describe("Sombra proyectada; cae del lado contrario a slide.light.");
+
+const gradient = z.object({
+  type: z.enum(["linear", "radial"]).default("linear"),
+  angle: z.number().min(0).max(360).default(180).describe("Linear: direccion en grados (180 = de arriba hacia abajo)."),
+  center: z
+    .object({ x: z.number().min(0).max(1), y: z.number().min(0).max(1) })
+    .optional()
+    .describe("Radial: centro en fraccion de la caja."),
+  stops: z
+    .array(z.object({ color, at: z.number().min(0).max(1) }))
+    .min(2)
+    .max(6),
+});
+
+const fade = z
+  .enum(["top", "bottom", "left", "right", "radial"])
+  .describe("Funde la capa a transparente hacia ese borde (radial: hacia afuera).");
 
 const textLayer = z
   .object({
@@ -64,7 +101,11 @@ const textLayer = z
     w: z.number().min(1).max(4000).describe("Ancho de la caja; el texto corta linea ahi."),
     role: z.string().max(40).optional().describe("Rol tipografico del kit; completa los valores que no se pasen."),
     field: z.string().regex(FIELD).optional().describe("Toma el texto de content: title, subtitle, body, cta o points.N."),
-    text: text(2000).optional().describe("Texto fijo si no hay field. Saltos de linea con \\n; [[asi]] va en el color de resaltado."),
+    text: text(2000)
+      .optional()
+      .describe(
+        "Texto fijo si no hay field. Saltos de linea con \\n; [[asi]] va en el color de resaltado. Marcas: [[asi|outline]] calado, [[asi|box]] caja de seleccion con su medida, [[asi|blur]] lupa desenfocada.",
+      ),
     size: z.number().min(8).max(600).optional(),
     weight: z.union([z.literal(300), z.literal(400), z.literal(500), z.literal(600)]).optional(),
     font: z.enum(FONT_KEYS).optional(),
@@ -96,6 +137,25 @@ const imageLayer = z.object({
     .describe("Que parte de la imagen se conserva al recortar con cover."),
   radius: z.number().min(0).max(2000).default(0),
   bleed: z.boolean().optional().describe("Sale a proposito por el borde; el lint no le exige margen."),
+  crop: z
+    .object({
+      x: z.number().min(0).max(1),
+      y: z.number().min(0).max(1),
+      w: z.number().min(0.01).max(1),
+      h: z.number().min(0.01).max(1),
+    })
+    .optional()
+    .describe("Recorta un pedazo de la imagen original (en fraccion) antes de encajarla: un fragmento de interfaz."),
+  shadow: shadow.optional(),
+  blur: z.number().min(0).max(40).optional().describe("Desenfoque en px: profundidad de campo para lo que queda atras."),
+  motionBlur: z.number().min(0).max(120).optional().describe("Desenfoque de movimiento horizontal en px."),
+  brightness: z.number().min(0).max(2).optional().describe("1 = original. Solo luz y color: nunca cambia el contenido."),
+  saturation: z.number().min(0).max(2).optional(),
+  fade: fade.optional(),
+  device: z
+    .enum(["browser", "phone"])
+    .optional()
+    .describe("Monta una captura cruda en un navegador o un telefono dibujados; w/h son los del marco y la captura llena la pantalla."),
 });
 
 const rectLayer = z.object({
@@ -104,15 +164,85 @@ const rectLayer = z.object({
   w: z.number().min(1).max(4000),
   h: z.number().min(1).max(4000),
   color: color.default("$surface"),
+  gradient: gradient.optional().describe("Relleno degradado; reemplaza a color."),
   radius: z.number().min(0).max(2000).default(0),
   stroke: color.optional(),
   strokeWidth: z.number().min(0).max(40).optional(),
+  shadow: shadow.optional(),
+  glass: z
+    .boolean()
+    .optional()
+    .describe("Vidrio: desenfoca lo que tiene atras (fondo e imagenes) y lo tiñe con color o gradient. Sin rotacion."),
 });
 
-export const layerSchema = z.union([textLayer, imageLayer, rectLayer]);
+const GRAPHIC_KINDS = ["rings", "sparkles", "cells", "bars", "dots", "lines", "grid", "glow"] as const;
+
+const graphicLayer = z
+  .object({
+    type: z.literal("graphic"),
+    ...box,
+    w: z.number().min(1).max(4000),
+    h: z.number().min(1).max(4000),
+    kind: z
+      .enum(GRAPHIC_KINDS)
+      .describe(
+        "rings: circulos concentricos. sparkles: destellos. cells: grilla de celdas (lit las enciende). bars: barras (values 0-1). dots: nube de puntos por columnas. lines: lineas verticales. grid: grilla de puntos. glow: halo de luz.",
+      ),
+    color: color.default("$foreground").describe("Color base (las celdas y barras apagadas usan $assets si no hay muted)."),
+    accent: color.optional().describe("Color de lo encendido (celdas lit, barras altas, puntos destacados)."),
+    muted: color.optional(),
+    count: z.number().int().min(1).max(400).optional().describe("rings, sparkles, lines: cuantos. dots: columnas."),
+    cols: z.number().int().min(1).max(40).optional(),
+    rows: z.number().int().min(1).max(200).optional().describe("cells: filas. dots: puntos por columna."),
+    lit: z.array(z.number().int().min(0).max(1600)).max(200).optional().describe("cells: indices encendidos (fila por fila)."),
+    values: z.array(z.number().min(0).max(1)).max(80).optional().describe("bars: alto de cada barra, sin escala ni numeros."),
+    spacing: z.number().min(4).max(400).optional(),
+    size: z.number().min(1).max(200).optional(),
+    seed: z.number().int().min(0).max(100000).optional().describe("Cambia la distribucion de dots y sparkles."),
+    strength: z.number().min(0).max(1).optional().describe("Opacidad general del grafico."),
+  })
+  .describe("Grafico generado por codigo: metaforas visuales sin datos inventados, texturas y luz.");
+
+export const layerSchema = z.union([textLayer, imageLayer, rectLayer, graphicLayer]);
+
+const backdrop = z
+  .object({
+    image: z
+      .object({
+        src: z.string().trim().max(600),
+        position: z.enum(["center", "top", "bottom", "left", "right"]).default("center"),
+        blur: z.number().min(0).max(80).optional(),
+        motionBlur: z.number().min(0).max(160).optional(),
+        brightness: z.number().min(0).max(2).optional(),
+        saturation: z.number().min(0).max(2).optional(),
+      })
+      .optional()
+      .describe("Foto de fondo a sangre."),
+    gradient: gradient.optional().describe("Velo o degradado sobre el fondo y la foto."),
+    glows: z
+      .array(
+        z.object({
+          x: z.number(),
+          y: z.number(),
+          r: z.number().min(10).max(2000),
+          color: color.default("$accent"),
+          opacity: z.number().min(0).max(1).default(0.2),
+        }),
+      )
+      .max(4)
+      .optional()
+      .describe("Focos de luz: centro y radio en px del lienzo."),
+    grain: z.number().min(0).max(1).optional().describe("Grano de pelicula; 0.2-0.4 se lee como material."),
+  })
+  .describe("Fondo compuesto: se arma en una sola imagen debajo de las capas.");
 
 export const slideSchema = z.object({
   background: color.optional().describe("Por defecto, el fondo del kit."),
+  backdrop: backdrop.optional(),
+  light: z
+    .enum(["top-left", "top", "top-right"])
+    .optional()
+    .describe("De donde viene la luz; las sombras caen al lado contrario. Por defecto, top."),
   layers: z.array(layerSchema).max(40).default([]),
 });
 
@@ -155,6 +285,12 @@ export type Content = typeof EMPTY_CONTENT;
 export type ContentField = (typeof CONTENT_FIELDS)[number];
 export type Layer = z.infer<typeof layerSchema>;
 export type TextLayer = Extract<Layer, { type: "text" }>;
+export type ImageLayer = Extract<Layer, { type: "image" }>;
+export type RectLayer = Extract<Layer, { type: "rect" }>;
+export type GraphicLayer = Extract<Layer, { type: "graphic" }>;
+export type Shadow = z.infer<typeof shadow>;
+export type Gradient = z.infer<typeof gradient>;
+export type Backdrop = z.infer<typeof backdrop>;
 export type Slide = z.infer<typeof slideSchema>;
 export type Design = z.infer<typeof designSchema>;
 export type Designs = Partial<Record<z.infer<typeof postFormatSchema>, Design>>;

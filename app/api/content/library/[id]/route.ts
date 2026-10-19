@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { getSessionUser } from "@/lib/supabase/server";
-import { deleteLibraryItem, libraryPatchSchema, updateLibraryItem } from "@/lib/content/library";
+import { LibraryRuleError, deleteLibraryItem, libraryPatchSchema, updateLibraryItem } from "@/lib/content/library";
 
 type Context = { params: Promise<{ id: string }> };
 
@@ -19,6 +19,9 @@ export async function PATCH(request: NextRequest, { params }: Context) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: "invalid_payload", issues: error.issues }, { status: 400 });
+    }
+    if (error instanceof LibraryRuleError) {
+      return NextResponse.json({ error: "invalid_payload", message: error.message }, { status: 400 });
     }
     console.error("content/library: failed to update", error);
 

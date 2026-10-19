@@ -34,7 +34,7 @@ export const portfolioKit: BrandKit = {
     notes: [
       "Grilla de 72px a los bordes; los bloques se alinean a esa linea izquierda.",
       "Mucho aire: si hay que elegir entre achicar el texto o sacar una linea, sacar la linea.",
-      "Las capturas van dentro de un marco $surface con 40px de padding y radio 16 (la imagen, radio 8).",
+      "Las capturas van dentro de un marco $surface con 40px de padding y radio 16 (la imagen, radio 8), o flotando con sombra cuando la pieza tiene profundidad.",
     ],
   },
   fontRules: [
@@ -49,9 +49,11 @@ export const portfolioKit: BrandKit = {
     { name: "Lista", description: "Indices mono (01) (02) (03) a la izquierda y frases statement; sin imagen o con una al pie." },
   ],
   decoration: [
-    "Fondo siempre $background liso. Sin degradados, sin texturas, sin sombras.",
-    "Las superficies se separan por tono ($surface, $assets), nunca con lineas ni bordes.",
-    "Unico elemento grafico permitido: el isotipo (la W en el cuadro $accent).",
+    "Punto de partida editorial: fondo $background, superficies separadas por tono ($surface, $assets), mucho aire.",
+    "Cuando la idea lo pide, hay profundidad: sombras, halos de luz con $accent o $foreground a baja opacidad, desenfoque de lo que queda atras, vidrio, grano sutil, bordes finos ($foreground/8 a /16).",
+    "Graficos generados (celdas, barras, puntos, anillos) como metafora de la idea; nunca con escalas o numeros que no sean reales.",
+    "Siempre con la paleta del kit (las variantes con alfa son de la paleta). El color fuerte lo traen las capturas.",
+    "Cada elemento tiene una funcion (purpose); lo que solo decora sobra.",
   ],
   voice: [
     "Habla Ignacio en primera persona como freelancer, no una agencia ni un producto.",

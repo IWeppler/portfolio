@@ -1,7 +1,6 @@
 ---
 name: theagentcy
 description: Reference for designing social pieces through The Agentcy MCP server (pieces, slides, layers, brand kit, templates, calendar). Use whenever working with mcp__theagentcy__* tools.
-source: https://theagentcy.app/skill
 ---
 
 # The Agentcy: designing through the MCP server

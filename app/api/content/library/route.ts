@@ -3,6 +3,7 @@ import { z } from "zod";
 import { getSessionUser } from "@/lib/supabase/server";
 import { hasMcpToken } from "@/lib/content/mcp-auth";
 import {
+  LibraryRuleError,
   MAX_UPLOAD_BYTES,
   addLibraryItem,
   libraryFieldsSchema,
@@ -42,7 +43,9 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// multipart: file + brand, kind, title, note, sourceUrl, tags (separados por coma).
+// multipart: file + scope (global o marca; brand tambien vale), kind, title,
+// note, sourceUrl, tags (separados por coma), category, origin, viewport,
+// projectSlug, demoData (true), aiPrompt.
 export async function POST(request: NextRequest) {
   if (!(await allowed(request))) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
@@ -63,8 +66,9 @@ export async function POST(request: NextRequest) {
     }
 
     const text = (key: string) => String(form.get(key) ?? "");
+    const optional = (key: string) => text(key) || undefined;
     const fields = libraryFieldsSchema.parse({
-      brand: text("brand"),
+      scope: text("scope") || text("brand"),
       kind: text("kind"),
       title: text("title"),
       note: text("note"),
@@ -73,6 +77,12 @@ export async function POST(request: NextRequest) {
         .split(",")
         .map((tag) => tag.trim())
         .filter(Boolean),
+      category: optional("category"),
+      origin: optional("origin"),
+      viewport: optional("viewport") ?? null,
+      projectSlug: text("projectSlug"),
+      demoData: text("demoData") === "true",
+      aiPrompt: text("aiPrompt"),
     });
 
     const item = await addLibraryItem(Buffer.from(await file.arrayBuffer()), fields);
@@ -80,6 +90,9 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: "invalid_payload", issues: error.issues }, { status: 400 });
+    }
+    if (error instanceof LibraryRuleError) {
+      return NextResponse.json({ error: "invalid_payload", message: error.message }, { status: 400 });
     }
     console.error("content/library: failed to upload", error);
 

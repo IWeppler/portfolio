@@ -25,6 +25,10 @@ export type BrandAsset = {
   /** Ancho / alto, para que Claude arme la caja sin deformar. */
   ratio: number;
   use: string;
+  /** capture (interfaz cruda) o mockup (en un dispositivo o escena); por defecto mockup. */
+  category?: "capture" | "mockup" | "photo";
+  /** Muestra numeros de una demo: sirve como interfaz, nunca como dato. */
+  demoData?: boolean;
 };
 
 export type BrandKit = {

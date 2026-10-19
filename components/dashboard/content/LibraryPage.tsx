@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { DragEvent } from "react";
 import { ExternalLink, ImagePlus, Loader2, Trash2, X } from "lucide-react";
 import { BRAND_KITS, type BrandId } from "@/lib/content/kits";
-import type { LibraryItem, LibraryKind } from "@/lib/content/library";
+import type { AssetCategory, AssetOrigin, LibraryItem, LibraryKind, Scope } from "@/lib/content/library";
 import { ContentNav } from "./ContentNav";
 
 type LibraryPageProps = {
@@ -22,14 +22,42 @@ type Draft = {
   note: string;
   sourceUrl: string;
   tags: string;
+  asset: AssetFields;
   status: "idle" | "saving" | "error";
 };
+
+type AssetFields = Pick<LibraryItem, "scope" | "category" | "origin" | "demoData">;
 
 const KIND_LABELS: Record<LibraryKind, string> = { referencia: "Referencia", recurso: "Recurso" };
 
 const NOTE_PLACEHOLDER: Record<LibraryKind, string> = {
   referencia: "Qué tomar de acá: la grilla, cómo recorta la captura, el título chico arriba...",
   recurso: "Qué se ve: POS en tablet, fondo naranja, vertical...",
+};
+
+const SCOPE_LABELS: Record<Scope, string> = { global: "Global", portfolio: "Ignacio Weppler", comerz: "Comerz" };
+
+// Las mismas listas que lib/content/library.ts (ese modulo usa sharp y no entra al cliente).
+const CATEGORY_LABELS: Record<AssetCategory, string> = {
+  capture: "Captura real",
+  mockup: "Mockup",
+  "device-frame": "Marco de dispositivo",
+  logo: "Logo",
+  icon: "Ícono",
+  illustration: "Ilustración",
+  object3d: "Objeto 3D",
+  texture: "Textura",
+  background: "Fondo",
+  photo: "Foto",
+  other: "Otro",
+};
+
+const ORIGIN_LABELS: Record<AssetOrigin, string> = {
+  real: "Real",
+  own: "Diseño propio",
+  procedural: "Generado por código",
+  stock: "Banco de imágenes",
+  ai: "IA",
 };
 
 const MAX_BYTES = 15 * 1024 * 1024;
@@ -97,6 +125,7 @@ export function LibraryPage({ lang, brand }: LibraryPageProps) {
           note: "",
           sourceUrl: "",
           tags: "",
+          asset: { scope: brand, category: "other" as const, origin: "own" as const, demoData: false },
           status: "idle" as const,
         })),
     ]);
@@ -115,8 +144,13 @@ export function LibraryPage({ lang, brand }: LibraryPageProps) {
     updateDraft(draft.key, { status: "saving" });
     const form = new FormData();
     form.set("file", draft.file);
-    form.set("brand", brand);
+    form.set("scope", draft.kind === "recurso" ? draft.asset.scope : brand);
     form.set("kind", draft.kind);
+    if (draft.kind === "recurso") {
+      form.set("category", draft.asset.category);
+      form.set("origin", draft.asset.origin);
+      form.set("demoData", String(draft.asset.demoData));
+    }
     form.set("note", draft.note);
     form.set("sourceUrl", draft.sourceUrl.trim());
     form.set("tags", draft.tags);
@@ -150,7 +184,7 @@ export function LibraryPage({ lang, brand }: LibraryPageProps) {
             Biblioteca
           </h1>
           <p className="mt-4 max-w-xl text-sm text-paragraph">
-            Referencias para inspirar a Claude (con una nota de qué tomar) y recursos que van dentro de las piezas de {kit.name}.
+            Referencias para inspirar a Claude (con una nota de qué tomar) y recursos que van dentro de las piezas de {kit.name}, más los globales que comparten todas las marcas.
           </p>
         </div>
         <ContentNav lang={lang} brand={brand} section="library" />
@@ -282,6 +316,67 @@ function KindToggle({ value, onChange }: { value: LibraryKind; onChange: (kind: 
   );
 }
 
+/**
+ * Alcance, tipo, origen y si muestra datos de demo. Una captura siempre es
+ * real; un logo nunca es global (el servidor tambien lo valida).
+ */
+function AssetControls({ value, onChange }: { value: AssetFields; onChange: (patch: Partial<AssetFields>) => void }) {
+  const select = "h-8 rounded-md bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-orange/50";
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <select
+        aria-label="Alcance"
+        value={value.scope}
+        onChange={(event) => onChange({ scope: event.target.value as Scope })}
+        className={select}
+      >
+        {(Object.keys(SCOPE_LABELS) as Scope[]).map((scope) => (
+          <option key={scope} value={scope} disabled={scope === "global" && value.category === "logo"}>
+            {SCOPE_LABELS[scope]}
+          </option>
+        ))}
+      </select>
+      <select
+        aria-label="Tipo"
+        value={value.category}
+        onChange={(event) => {
+          const category = event.target.value as AssetCategory;
+          onChange(category === "capture" ? { category, origin: "real" } : { category });
+        }}
+        className={select}
+      >
+        {(Object.keys(CATEGORY_LABELS) as AssetCategory[]).map((category) => (
+          <option key={category} value={category}>
+            {CATEGORY_LABELS[category]}
+          </option>
+        ))}
+      </select>
+      <select
+        aria-label="Origen"
+        value={value.origin}
+        disabled={value.category === "capture"}
+        onChange={(event) => onChange({ origin: event.target.value as AssetOrigin })}
+        className={`${select} disabled:opacity-60`}
+      >
+        {(Object.keys(ORIGIN_LABELS) as AssetOrigin[]).map((origin) => (
+          <option key={origin} value={origin}>
+            {ORIGIN_LABELS[origin]}
+          </option>
+        ))}
+      </select>
+      <label className="flex items-center gap-1.5 text-xs text-paragraph">
+        <input
+          type="checkbox"
+          checked={value.demoData}
+          onChange={(event) => onChange({ demoData: event.target.checked })}
+          className="accent-orange"
+        />
+        Datos de demo
+      </label>
+    </div>
+  );
+}
+
 const inputClass =
   "w-full rounded-md bg-background px-3 py-2 text-sm text-foreground placeholder:text-paragraph/50 focus:outline-none focus:ring-1 focus:ring-orange/50";
 
@@ -302,6 +397,9 @@ function DraftCard({
       <img src={draft.preview} alt="" className="max-h-56 w-full rounded-md bg-background object-contain sm:w-56" />
       <div className="flex min-w-0 flex-1 flex-col gap-3">
         <KindToggle value={draft.kind} onChange={(kind) => onChange({ kind })} />
+        {draft.kind === "recurso" && (
+          <AssetControls value={draft.asset} onChange={(asset) => onChange({ asset: { ...draft.asset, ...asset } })} />
+        )}
         <textarea
           value={draft.note}
           onChange={(event) => onChange({ note: event.target.value })}
@@ -364,7 +462,7 @@ function ItemCard({
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [failed, setFailed] = useState(false);
 
-  async function patch(body: Partial<Pick<LibraryItem, "note" | "kind">>) {
+  async function patch(body: Partial<Pick<LibraryItem, "note" | "kind"> & AssetFields>) {
     setIsSaving(true);
     setFailed(false);
     try {
@@ -433,6 +531,9 @@ function ItemCard({
           </button>
         </div>
       </div>
+      {item.kind === "recurso" && (
+        <AssetControls value={item} onChange={(asset) => void patch(asset)} />
+      )}
       <textarea
         value={note}
         onChange={(event) => setNote(event.target.value)}
