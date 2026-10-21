@@ -129,16 +129,14 @@ export default async function InmobiliariasPage({
       .map((src) => ({ src, name: project.name, alt: project.alts[src] }));
   });
 
-  // Imagen propia de Arcos, fuera del panel: va al final del cuerpo (la 11) y
-  // abre el mosaico del hero.
+  // Imagen propia de Arcos, fuera del panel: va al final de su seccion y abre
+  // el mosaico del hero.
   const verde: ColumnImage = {
     src: "/inmobiliarias/verde.png",
     name:
       published.find((item) => item.slug === "arcos-propiedades")?.name ??
       "Arcos Propiedades",
   };
-  const images = [...fromPanel, verde];
-
   // Intercaladas para que cada columna del mosaico mezcle proyectos.
   const byProject = REAL_ESTATE_SLUGS.map((slug) => {
     const name = published.find((item) => item.slug === slug)?.name;
@@ -150,10 +148,15 @@ export default async function InmobiliariasPage({
   ).flat();
   mixed.unshift(verde);
 
-  const demos = REAL_ESTATE_SLUGS.flatMap((slug) => {
+  // Una seccion por proyecto: nombre y demo a la izquierda, sus imagenes a la derecha.
+  const projects = REAL_ESTATE_SLUGS.flatMap((slug) => {
     const project = published.find((item) => item.slug === slug);
-    return project?.deployUrl
-      ? [{ name: project.name, url: project.deployUrl }]
+    if (!project) return [];
+    const panelImages = fromPanel.filter((image) => image.name === project.name);
+    const images =
+      slug === "arcos-propiedades" ? [...panelImages, verde] : panelImages;
+    return images.length > 0
+      ? [{ name: project.name, url: project.deployUrl, images }]
       : [];
   });
 
@@ -187,62 +190,63 @@ export default async function InmobiliariasPage({
         />
       </section>
 
-      {/* Todas las imagenes a pantalla casi completa, apilandose al scrollear. */}
-      <section className="px-2 pb-8 pt-24 md:px-3 md:pt-40">
-        <p className="label px-2 text-paragraph md:px-5">Así quedan</p>
-        <ol className="mt-6">
-          {images.map((image, i) => (
-            <li key={image.src} className="sticky top-4 pb-4 md:top-6">
-              <div className="relative mx-auto aspect-[4/5] max-h-[82svh] w-full max-w-[720px] overflow-hidden bg-surface">
-                <Image
-                  src={image.src}
-                  alt={image.alt ?? image.name}
-                  fill
-                  sizes="(min-width: 768px) 720px, 100vw"
-                  quality={90}
-                  className="object-cover"
-                  priority={i === 0}
-                />
-                <div className="absolute inset-x-0 bottom-0 flex justify-between gap-4 bg-gradient-to-t from-black/60 to-transparent px-4 pb-4 pt-20 md:px-6 md:pb-5">
-                  <span className="label text-foreground">{image.name}</span>
-                  <span className="label text-foreground">
-                    ({String(i + 1).padStart(2, "0")}/
-                    {String(images.length).padStart(2, "0")})
-                  </span>
-                </div>
+      {/* Proyecto por proyecto: texto sticky a la izquierda, imagenes a la derecha. */}
+      <section className="px-4 pb-8 pt-24 md:px-8 md:pt-40">
+        <ol className="flex flex-col gap-24 md:gap-40">
+          {projects.map((project, p) => (
+            <li
+              key={project.name}
+              className="grid gap-8 lg:grid-cols-12 lg:gap-10"
+            >
+              <div className="lg:sticky lg:top-24 lg:col-span-4 lg:self-start">
+                <p className="label text-paragraph">
+                  ({String(p + 1).padStart(2, "0")})
+                </p>
+                <h2 className="text-statement mt-4 font-medium text-balance">
+                  {project.name}
+                </h2>
+                {project.url && (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="label group mt-6 inline-flex items-center gap-2 text-foreground"
+                  >
+                    <span className="transition-transform group-hover:translate-x-1">
+                      Ver demo ↗
+                    </span>
+                  </a>
+                )}
               </div>
+
+              <ol className="flex flex-col lg:col-span-8">
+                {project.images.map((image, i) => (
+                  <li key={image.src} className="sticky top-4 pb-4 md:top-6">
+                    <div className="relative mx-auto aspect-[4/5] max-h-[82svh] w-full max-w-[720px] overflow-hidden bg-surface">
+                      <Image
+                        src={image.src}
+                        alt={image.alt ?? image.name}
+                        fill
+                        sizes="(min-width: 768px) 720px, 100vw"
+                        quality={90}
+                        className="object-cover"
+                        priority={p === 0 && i === 0}
+                      />
+                      <div className="absolute inset-x-0 bottom-0 flex justify-between gap-4 bg-gradient-to-t from-black/60 to-transparent px-4 pb-4 pt-20 md:px-6 md:pb-5">
+                        <span className="label text-foreground">{image.name}</span>
+                        <span className="label text-foreground">
+                          ({String(i + 1).padStart(2, "0")}/
+                          {String(project.images.length).padStart(2, "0")})
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </li>
           ))}
         </ol>
       </section>
-
-      {demos.length > 0 && (
-        <section className="px-4 pt-24 md:px-8 md:pt-40">
-          <p className="label text-paragraph">Probalas vos mismo</p>
-          <ul className="mt-6 border-t border-foreground/20">
-            {demos.map((demo, i) => (
-              <li key={demo.url} className="border-b border-foreground/20">
-                <a
-                  href={demo.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-baseline justify-between gap-4 py-6 md:py-8"
-                >
-                  <span className="label text-paragraph">
-                    ({String(i + 1).padStart(2, "0")})
-                  </span>
-                  <span className="text-statement flex-1 font-medium text-balance">
-                    {demo.name}
-                  </span>
-                  <span className="label text-foreground transition-transform group-hover:translate-x-1">
-                    Ver demo ↗
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
 
       <section className="px-4 pt-24 md:px-8 md:pt-40">
         <ul className="grid gap-10 md:grid-cols-3 md:gap-8">
