@@ -38,8 +38,15 @@ export async function middleware(request: NextRequest) {
   );
 
   if (matchedLocale) {
-    const { response, user } = await updateSession(request);
     const localePath = stripLocale(pathname, matchedLocale);
+
+    // La sesion solo importa en el panel: validarla le cuesta a cada visita
+    // un viaje al servidor de Auth de Supabase.
+    if (!localePath.startsWith("/dashboard") && !localePath.startsWith("/panel-acceso")) {
+      return NextResponse.next();
+    }
+
+    const { response, user } = await updateSession(request);
 
     if (localePath.startsWith("/dashboard") && !user) {
       const loginUrl = request.nextUrl.clone();
@@ -75,5 +82,6 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|favicon.ico).*)"],
+  // Fuera la API y los archivos con extension (imagenes de /public, robots, etc.).
+  matcher: ["/((?!_next|api|favicon.ico|.*\\..*).*)"],
 };

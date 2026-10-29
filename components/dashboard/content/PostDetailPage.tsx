@@ -16,6 +16,7 @@ import {
 import { EXPORT_SCALE, POST_FORMATS, POST_FORMAT_NAMES, type PostFormat } from "@/lib/content/formats";
 import { BRAND_KITS } from "@/lib/content/kits";
 import { missingFormats, postLabel } from "@/lib/content/post-utils";
+import { zipFiles } from "@/lib/content/zip";
 import type { Content, PostStatus, UpdatePostInput } from "@/lib/content/schema";
 import { ContentForm } from "./ContentForm";
 import { CopyRequest } from "./CopyRequest";
@@ -42,6 +43,7 @@ export function PostDetailPage({ lang, initialPost }: PostDetailPageProps) {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [reviewNote, setReviewNote] = useState(initialPost.reviewNote);
   const [error, setError] = useState<string | null>(null);
+  const [isZipping, setIsZipping] = useState(false);
 
   const listHref = `/${lang}/dashboard/content?brand=${post.brand}`;
   const kit = BRAND_KITS[post.brand];
@@ -131,11 +133,34 @@ export function PostDetailPage({ lang, initialPost }: PostDetailPageProps) {
   }
 
   async function downloadAll() {
-    // Un archivo por slide; con un respiro entre cada uno para que el
-    // navegador no bloquee las descargas multiples.
-    for (let index = 0; index < slideCount; index++) {
-      download(index);
-      await new Promise((resolve) => window.setTimeout(resolve, 700));
+    // Todo el carrusel en un solo .zip: una sola descarga en vez de un
+    // dialogo de guardado por slide.
+    setIsZipping(true);
+    setError(null);
+    try {
+      const files = await Promise.all(
+        Array.from({ length: slideCount }, async (_, index) => {
+          const response = await fetch(renderUrl(post, format, index, EXPORT_SCALE, true));
+          if (!response.ok) throw new Error();
+          const name =
+            response.headers.get("Content-Disposition")?.match(/filename="([^"]+)"/)?.[1] ??
+            `slide-${index + 1}.png`;
+          return { name, data: new Uint8Array(await response.arrayBuffer()) };
+        }),
+      );
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(zipFiles(files));
+      // brand-titulo-formato-1-2160x2700.png -> brand-titulo-formato.zip
+      link.download = files[0].name.replace(/-\d+-\d+x\d+\.png$/, "") + ".zip";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    } catch {
+      setError("No se pudo descargar el carrusel.");
+    } finally {
+      setIsZipping(false);
     }
   }
 
@@ -163,9 +188,10 @@ export function PostDetailPage({ lang, initialPost }: PostDetailPageProps) {
             <button
               type="button"
               onClick={() => void downloadAll()}
-              className="inline-flex h-10 items-center gap-2 rounded-md bg-surface px-4 text-sm font-medium text-foreground transition-colors hover:bg-assets"
+              disabled={isZipping}
+              className="inline-flex h-10 items-center gap-2 rounded-md bg-surface px-4 text-sm font-medium text-foreground transition-colors hover:bg-assets disabled:opacity-50"
             >
-              <Download className="h-4 w-4" />
+              {isZipping ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
               Todo el carrusel ({slideCount})
             </button>
           )}
