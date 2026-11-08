@@ -114,8 +114,10 @@ function toPublishedProject(
 }
 
 /**
- * Proyectos publicados desde el panel. Se cachea 60s: publicar o despublicar se
- * ve en la landing sin necesidad de rebuild.
+ * Proyectos publicados desde el panel. Sin vencimiento por tiempo: la etiqueta
+ * se invalida al guardar, borrar, publicar o reordenar desde /api/projects.
+ * Asi el HTML publico no se regenera con las visitas si no cambio el contenido.
+ * Los cambios directos en Supabase requieren invalidar la etiqueta o un deploy.
  */
 export async function getPublishedProjects(
   lang: string,
@@ -123,7 +125,7 @@ export async function getPublishedProjects(
   try {
     const response = await supabaseRest(
       `projects?is_published=eq.true&select=${SELECT}&order=orden.asc.nullslast,created_at.desc,id.asc`,
-      { method: "GET", next: { revalidate: 60, tags: ["projects"] } },
+      { method: "GET", next: { revalidate: false, tags: ["projects"] } },
     );
     const rows = (await response.json()) as PublishedRow[];
 

@@ -79,6 +79,7 @@ export const comerzKit: BrandKit = {
   rules: [
     "Una captura del producto por slide como minimo.",
     "Logo arriba a la izquierda o al pie, de 72 a 110px de alto.",
+    "El logo va siempre dentro de un rect $white con radio 24 (104x104, logo de 88x80 centrado), en cualquier fondo: papel, naranja, foto o noche.",
     "Caption: problema del comercio en una linea, como lo resuelve Comerz, CTA a probar 14 días gratis.",
   ],
   logos: [{ src: "/brands/comerz/logo.png", ratio: 1.1, use: "Logo (toldo con sonrisa) sobre transparente. Va bien en claro y oscuro." }],

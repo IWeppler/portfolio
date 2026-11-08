@@ -3,7 +3,8 @@ import { SITE_URL } from "@/lib/seo";
 
 // Resumen en markdown para asistentes de IA (llmstxt.org). Los proyectos
 // salen de lo publicado, asi no queda desactualizado.
-export const revalidate = 3600;
+export const dynamic = "force-static";
+export const revalidate = false;
 
 export async function GET() {
   const projects = await getPublishedProjects("es");
