@@ -4,6 +4,14 @@ export const alt = "Vos diseñás y vendés. Yo lo programo. Desarrollo para age
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Sin esto la imagen era dinamica: Satori la volvia a dibujar (~0,3-0,9 s de
+// CPU) cada vez que un crawler (WhatsApp, LinkedIn, Facebook) leia el link.
+// /collabs existe solo en espanol, como la pagina.
+export const dynamic = "force-static";
+export function generateStaticParams() {
+  return [{ lang: "es" }];
+}
+
 export default async function Image() {
   return new ImageResponse(
     <div

@@ -20,6 +20,32 @@ const RENAMED_PROJECT_SLUGS: Record<string, string> = {
   proyecto9: "el-tolar-plataforma-agropecuaria",
 };
 
+// Accept-Language cuyo primer idioma soportado (es, en o pt) es `lang`, igual
+// que hacia el middleware: "fr,en;q=0.8" -> en, "es-AR,en" -> es.
+const prefersLanguage = (lang: "en" | "pt") =>
+  String.raw`(?:\s*(?!(?:es|en|pt)\b)[^,]*,)*\s*` + lang + String.raw`\b.*`;
+
+// Rutas sin idioma ("/", "/projects"...) -> /{idioma}/... Antes lo hacia el
+// middleware, que se ejecutaba (y cobraba CPU) en cada visita; como redirect
+// lo resuelve la CDN sin correr codigo. Excluye lo que ya tiene idioma, los
+// internos de Next/Vercel, la API y los archivos con extension.
+const LOCALELESS = "/:path((?!(?:es|en|pt)(?:/|$)|_next/|_vercel/|api/)[^.]*)";
+
+function languageRedirects() {
+  return ["/", LOCALELESS].flatMap((source) => {
+    const rest = source === "/" ? "" : "/:path";
+    return [
+      ...(["en", "pt"] as const).map((lang) => ({
+        source,
+        has: [{ type: "header" as const, key: "accept-language", value: prefersLanguage(lang) }],
+        destination: `/${lang}${rest}`,
+        permanent: false,
+      })),
+      { source, destination: `/es${rest}`, permanent: false },
+    ];
+  });
+}
+
 const nextConfig: NextConfig = {
   // Navegaciones dentro de document.startViewTransition: la portada de un
   // proyecto viaja de la lista a la ficha (ver lib/transitions.ts).
@@ -27,11 +53,14 @@ const nextConfig: NextConfig = {
   // bloquea el primer pintado esperando otra descarga (PageSpeed mobile).
   experimental: { viewTransition: true, inlineCss: true },
   async redirects() {
-    return Object.entries(RENAMED_PROJECT_SLUGS).map(([from, to]) => ({
-      source: `/:lang(es|en|pt)/projects/${from}`,
-      destination: `/:lang/projects/${to}`,
-      permanent: true,
-    }));
+    return [
+      ...Object.entries(RENAMED_PROJECT_SLUGS).map(([from, to]) => ({
+        source: `/:lang(es|en|pt)/projects/${from}`,
+        destination: `/:lang/projects/${to}`,
+        permanent: true,
+      })),
+      ...languageRedirects(),
+    ];
   },
   images: {
     qualities: [75, 90],

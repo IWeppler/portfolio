@@ -2,86 +2,36 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
-const locales = ["es", "en", "pt"];
-const defaultLocale = "es";
-
-function getLocale(request: NextRequest): string {
-  const acceptLanguage = request.headers.get("accept-language");
-
-  if (!acceptLanguage) return defaultLocale;
-
-  const preferredLocales = acceptLanguage
-    .split(",")
-    .map((lang) => lang.split(";")[0].split("-")[0]);
-
-  for (const locale of preferredLocales) {
-    if (locales.includes(locale)) {
-      return locale;
-    }
-  }
-
-  return defaultLocale;
-}
-
-function stripLocale(pathname: string, locale: string) {
-  const withoutLocale = pathname.slice(`/${locale}`.length);
-
-  return withoutLocale === "" ? "/" : withoutLocale;
-}
-
+// El middleware es una funcion: cada vez que corre, Vercel cobra CPU (y en un
+// sitio con poco trafico casi siempre arranca en frio). Por eso solo corre en
+// el panel, que es lo unico que necesita la sesion. La deteccion de idioma de
+// las rutas sin locale ("/", "/projects"...) la resuelve la CDN con los
+// redirects de next.config.ts, sin ejecutar codigo.
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const [, lang, section] = request.nextUrl.pathname.split("/");
+  const { response, user } = await updateSession(request);
 
-  // 1. Verificar si la ruta ya tiene el locale
-  const matchedLocale = locales.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+  if (section === "dashboard" && !user) {
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = `/${lang}/panel-acceso`;
 
-  if (matchedLocale) {
-    const localePath = stripLocale(pathname, matchedLocale);
-
-    // La sesion solo importa en el panel: validarla le cuesta a cada visita
-    // un viaje al servidor de Auth de Supabase.
-    if (!localePath.startsWith("/dashboard") && !localePath.startsWith("/panel-acceso")) {
-      return NextResponse.next();
-    }
-
-    const { response, user } = await updateSession(request);
-
-    if (localePath.startsWith("/dashboard") && !user) {
-      const loginUrl = request.nextUrl.clone();
-      loginUrl.pathname = `/${matchedLocale}/panel-acceso`;
-
-      return NextResponse.redirect(loginUrl);
-    }
-
-    if (localePath.startsWith("/panel-acceso") && user) {
-      const dashboardUrl = request.nextUrl.clone();
-      dashboardUrl.pathname = `/${matchedLocale}/dashboard`;
-
-      return NextResponse.redirect(dashboardUrl);
-    }
-
-    return response;
+    return NextResponse.redirect(loginUrl);
   }
 
-  if (
-    pathname.includes(".") ||
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/api")
-  ) {
-    return NextResponse.next();
+  if (section === "panel-acceso" && user) {
+    const dashboardUrl = request.nextUrl.clone();
+    dashboardUrl.pathname = `/${lang}/dashboard`;
+
+    return NextResponse.redirect(dashboardUrl);
   }
 
-  // 3. Si no tiene locale, detectamos cuál usar y redirigimos
-  const locale = getLocale(request);
-  request.nextUrl.pathname = `/${locale}${pathname}`;
-
-  // Redirección 307 (Temporary) o 308 (Permanent). 307 es mejor para detección de idioma.
-  return NextResponse.redirect(request.nextUrl);
+  return response;
 }
 
 export const config = {
-  // Fuera la API y los archivos con extension (imagenes de /public, robots, etc.).
-  matcher: ["/((?!_next|api|favicon.ico|.*\\..*).*)"],
+  matcher: [
+    "/:lang(es|en|pt)/dashboard",
+    "/:lang(es|en|pt)/dashboard/:path*",
+    "/:lang(es|en|pt)/panel-acceso",
+  ],
 };
